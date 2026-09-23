@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://x1819197-web.github.io/ecosmartgrid-ems/sitemap.xml
