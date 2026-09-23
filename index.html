@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoSmart Grid — Korxona energiya dispetcherlik tizimi</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg0:#0a1120;--bg1:#0e1729;--bg2:#131f36;--bg3:#182747;
+--line:#223252;--line2:#2c3f63;
+--txt:#e9eff9;--mut:#8ea2c0;--dim:#5f7191;
+--acc:#3f9dff;--acc2:#2b7cd3;
+--ok:#3ecf7f;--warn:#f0a63c;--bad:#ef5750;
+--mono:"Consolas","SF Mono","Roboto Mono",monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:var(--bg0);color:var(--txt);font-size:14px;min-height:100vh}
+button{font-family:inherit}
+/* ===== TOP BAR ===== */
+.top{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;height:58px;padding:0 16px;background:linear-gradient(180deg,#101c33,#0d1730);border-bottom:1px solid var(--line2)}
+.brand{display:flex;align-items:center;gap:10px;min-width:250px}
+.mark{width:32px;height:32px;border-radius:8px;background:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand b{font-size:14px;display:block;line-height:1.2}
+.brand span{font-size:11px;color:var(--mut);display:block}
+.tsel{background:var(--bg2);border:1px solid var(--line2);color:var(--txt);border-radius:7px;padding:7px 10px;font-size:12.5px;max-width:230px}
+.seg{display:flex;border:1px solid var(--line2);border-radius:8px;overflow:hidden;background:var(--bg1)}
+.seg button{border:0;background:transparent;color:var(--mut);padding:8px 14px;font-size:12.5px;cursor:pointer}
+.seg button.on{background:var(--acc);color:#06121f;font-weight:700}
+.meta{font-size:12px;color:var(--mut);white-space:nowrap}
+.meta b{color:var(--txt);font-family:var(--mono);font-weight:600}
+.cmd{margin-left:auto;display:flex;gap:8px;align-items:center}
+.btn{border:1px solid var(--line2);background:var(--bg2);color:var(--txt);padding:8px 13px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600}
+.btn:hover{border-color:var(--acc)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#06121f}
+.btn.pri:hover{background:#63b1ff}
+.btn.dan{background:#4a1618;border-color:#7a2b2e;color:#ffb4ae}
+.btn.dan:hover{border-color:var(--bad)}
+.btn.okb{background:#0f3524;border-color:#1f6b47;color:#9fe8c1}
+.btn.sm{padding:6px 10px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:default}
+/* ===== ALARM STRIP ===== */
+.astrip{display:none;align-items:center;gap:12px;padding:9px 16px;background:#3d1113;border-bottom:1px solid #7a2b2e;font-size:13px}
+.astrip.on{display:flex}
+.astrip.warn{background:#3a2708;border-color:#7a5a1e}
+.astrip .n{background:var(--bad);color:#fff;font-weight:700;border-radius:12px;padding:2px 10px;font-family:var(--mono)}
+.astrip.warn .n{background:var(--warn);color:#241500}
+/* ===== LAYOUT ===== */
+.wrap{display:grid;grid-template-columns:236px 1fr;min-height:calc(100vh - 58px)}
+.side{background:#0c1526;border-right:1px solid var(--line);padding:12px 10px;position:sticky;top:58px;height:calc(100vh - 58px);overflow:auto}
+.side .cap{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--dim);padding:10px 10px 5px}
+.nbtn{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:10px 12px;border-radius:7px;border:1px solid transparent;background:transparent;color:#b9c7de;cursor:pointer;font-size:13.5px;margin-bottom:2px}
+.nbtn:hover{background:var(--bg2);color:#fff}
+.nbtn.on{background:var(--bg3);border-color:var(--line2);color:#fff}
+.nbtn .bdg{font-size:11px;background:var(--bad);color:#fff;border-radius:10px;padding:1px 8px;font-family:var(--mono)}
+.nbtn .bdg.w{background:var(--warn);color:#241500}
+.sstat{padding:8px 12px;font-size:12px;color:var(--dim);line-height:1.9}
+.sstat b{color:var(--txt);font-family:var(--mono)}
+.main{padding:18px 20px;max-width:1360px;min-width:0}
+.crumb{font-size:12.5px;color:var(--mut);margin-bottom:12px}
+.crumb b{color:var(--txt)}
+.crumb .live{float:right;color:var(--ok)}
+/* ===== CARDS / GRIDS ===== */
+.grid{display:grid;gap:12px}
+.kpi{grid-template-columns:repeat(6,1fr)}
+.cols2{grid-template-columns:1.55fr 1fr}
+.cols3{grid-template-columns:repeat(3,1fr)}
+.cols4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--bg1);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.card h3{font-size:12px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.big{font-size:25px;font-weight:700;font-family:var(--mono);letter-spacing:-.5px}
+.sub{font-size:12.5px;color:var(--mut);margin-top:6px;line-height:1.6}
+.hr{border:0;border-top:1px solid var(--line);margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:var(--bg2);position:sticky;top:0}
+tr.sel td{background:#16294a}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:#14233d}
+.num{font-family:var(--mono)}
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:700;border:1px solid;white-space:nowrap}
+.t-ok{background:rgba(62,207,127,.12);color:var(--ok);border-color:rgba(62,207,127,.45)}
+.t-warn{background:rgba(240,166,60,.12);color:var(--warn);border-color:rgba(240,166,60,.45)}
+.t-bad{background:rgba(239,87,80,.13);color:#ff8f88;border-color:rgba(239,87,80,.5)}
+.t-off{background:rgba(142,162,192,.1);color:var(--mut);border-color:var(--line2)}
+.sw{width:44px;height:23px;border-radius:20px;background:#3a4a68;position:relative;cursor:pointer;transition:.15s;flex-shrink:0;border:1px solid #4c628a;display:inline-block}
+.sw:after{content:'';position:absolute;width:17px;height:17px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.15s}
+.sw.on{background:#1c7a4c;border-color:var(--ok)}
+.sw.on:after{left:23px}
+input[type=range]{width:100%;accent-color:var(--acc)}
+select,input[type=number],input[type=text]{background:var(--bg2);border:1px solid var(--line2);color:var(--txt);padding:8px 10px;border-radius:7px;width:100%;outline:none;font-size:13px}
+select:focus,input:focus{border-color:var(--acc)}
+label.fl{display:block;font-size:12px;color:var(--mut);margin:10px 0 5px}
+.bar{height:8px;background:#1b2947;border-radius:6px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--acc);border-radius:6px;transition:width .5s}
+.bar.g>i{background:var(--ok)}.bar.y>i{background:var(--warn)}.bar.r>i{background:var(--bad)}
+.sec{display:none}.sec.on{display:block}
+.journal{max-height:320px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+.ev{padding:8px 10px;border-radius:7px;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--acc);font-size:12.5px}
+.ev.crit{border-left-color:var(--bad)}
+.ev.warn2{border-left-color:var(--warn)}
+.ev .tm{font-family:var(--mono);color:var(--mut)}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:7px 0;border-bottom:1px dashed var(--line)}
+canvas.ch{width:100%;height:230px;background:#0b1425;border-radius:8px;border:1px solid var(--line);display:block}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--mut);margin-top:8px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px;border-radius:2px}
+/* mimic + scheme */
+.flow{stroke-dasharray:7 6;animation:flow 1.1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-13}}
+.brk{cursor:pointer}
+.brk:hover .bx{stroke:#fff;stroke-width:2.5}
+.fltmark{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+/* chat */
+.chat{height:360px;overflow:auto;display:flex;flex-direction:column;gap:8px;padding:4px}
+.m{padding:10px 12px;border-radius:9px;max-width:86%;font-size:13.5px;line-height:1.65;background:var(--bg2);border:1px solid var(--line)}
+.m.me{align-self:flex-end;background:#12315a;border-color:#27508a}
+.m .cp{float:right;font-size:11px;color:var(--dim);background:none;border:0;cursor:pointer;margin-left:8px}
+.m .cp:hover{color:var(--acc)}
+.typ{display:inline-block}
+.typ i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--mut);margin-right:3px;animation:tb 1s infinite}
+.typ i:nth-child(2){animation-delay:.15s}.typ i:nth-child(3){animation-delay:.3s}
+@keyframes tb{0%,100%{opacity:.3}50%{opacity:1}}
+/* modal / toast */
+.mov{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(4,8,16,.72);padding:16px}
+.mov.on{display:flex}
+.mbox{background:var(--bg1);border:1px solid var(--line2);border-radius:12px;padding:24px 26px;max-width:580px;width:100%}
+.mbox.crit{border-top:5px solid var(--bad)}
+.mbox h2{font-size:17px;margin-bottom:8px}
+.mbox p{font-size:13.5px;color:var(--mut);line-height:1.7}
+ol.proc{margin:12px 0 4px 20px;font-size:13.5px;line-height:1.8}
+.toasts{position:fixed;right:16px;bottom:16px;z-index:400;display:flex;flex-direction:column;gap:8px;max-width:360px}
+.toast{background:var(--bg3);border:1px solid var(--line2);border-left:4px solid var(--acc);padding:11px 13px;border-radius:8px;font-size:13px}
+.toast.crit{border-left-color:var(--bad)}
+.foot{padding:12px 20px;color:var(--dim);font-size:12px;display:flex;gap:20px;border-top:1px solid var(--line);background:var(--bg1);flex-wrap:wrap}
+.gaugeBox{display:flex;gap:14px;align-items:center}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(3,1fr)}.cols2,.cols3,.cols4{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}.side{position:static;height:auto;display:flex;overflow:auto;gap:2px}.nbtn{white-space:nowrap}.side .cap,.sstat{display:none}.kpi,.cols2,.cols3,.cols4{grid-template-columns:1fr}.cmd .meta{display:none}.brand{min-width:0}.brand span{display:none}}
+@media print{.side,.top .cmd,.astrip,.toasts,.noprint{display:none!important}.wrap{display:block}body{background:#fff;color:#000}.card{background:#fff;border-color:#999;color:#000}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand">
+    <div class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" fill="#06121f"/></svg></div>
+    <div><b>EcoSmart Grid</b><span>Korxona energiya dispetcherlik tizimi</span></div>
+  </div>
+  <select class="tsel" id="objSel" title="Obyekt">
+    <option>"Namuna" zavodi — TP-2 (10/0,4 kV)</option>
+    <option>"Namuna" zavodi — TP-1 (10/0,4 kV)</option>
+  </select>
+  <div class="seg"><button id="mReal" class="on">Real vaqt</button><button id="mSim">Simulyatsiya</button></div>
+  <div class="meta cmd">Vaqt: <b id="clock">--:--:--</b> &nbsp;·&nbsp; Tezlik: <b id="spdLbl">1x</b> &nbsp;·&nbsp; Smena: <b id="shiftLbl">Kunduzgi</b> &nbsp;·&nbsp; Dispetcher: <b>dispatch-01</b></div>
+  <div class="cmd">
+    <button class="btn sm" id="sndBtn">Ovoz: yoqilgan</button>
+    <button class="btn sm" id="fsBtn">To'liq ekran</button>
+    <button class="btn sm dan" id="estopBtn">Avariya stop</button>
+  </div>
+</div>
+
+<div class="astrip" id="astrip">
+  <span class="n" id="astripN">0</span>
+  <span id="astripT">Faol avariya signallari mavjud</span>
+  <span style="margin-left:auto;display:flex;gap:8px">
+    <button class="btn sm" id="ackAllBtn">Barchasini tasdiqlash</button>
+    <button class="btn sm" id="goAlarmBtn">Jurnalga o'tish</button>
+  </span>
+</div>
+
+<div class="wrap">
+  <div class="side"><div class="cap">Bo'limlar</div><div id="nav"></div><div class="cap">Tizim holati</div><div class="sstat" id="sysStat"></div></div>
+  <div class="main">
+    <div class="crumb" id="crumb">Boshqaruv / <b>Umumiy nazorat</b><span class="live" id="liveDot">● jonli — ma'lumot har 1 s da yangilanadi</span></div>
+
+    <!-- DASHBOARD -->
+    <div class="sec on" id="s-dash">
+      <div class="grid kpi">
+        <div class="card"><h3>Jami yuk (0,4 kV)</h3><div class="big"><span id="kPow">0.0</span> <span style="font-size:13px;color:var(--mut)">kVt</span></div><div class="sub" id="kPowSub">—</div></div>
+        <div class="card"><h3>Bugungi sarf</h3><div class="big"><span id="kKwh">0.0</span> <span style="font-size:13px;color:var(--mut)">kVt·soat</span></div><div class="sub" id="kCost">—</div></div>
+        <div class="card"><h3>Quyosh generatsiyasi</h3><div class="big"><span id="kSol">0.0</span> <span style="font-size:13px;color:var(--mut)">kVt</span></div><div class="sub" id="kBat">—</div></div>
+        <div class="card"><h3>Transformatorlar yuklamasi</h3><div class="big"><span id="kTr">0</span><span style="font-size:13px;color:var(--mut)"> %</span></div><div class="sub" id="kTrSub">—</div></div>
+        <div class="card"><h3>Gaz: maksimal CH4</h3><div class="big"><span id="kGas">0</span> <span style="font-size:13px;color:var(--mut)">ppm</span></div><div class="sub" id="kGasSub">—</div></div>
+        <div class="card"><h3>Faol signallar</h3><div class="big"><span id="kAlm">0</span></div><div class="sub" id="kAlmSub">—</div></div>
+      </div>
+
+      <div class="grid cols2" style="margin-top:12px">
+        <div class="card"><h3>Quvvat oqimi sxemasi (mimik)</h3>
+          <svg id="mimic" viewBox="0 0 720 250" style="width:100%;height:auto;display:block" role="img" aria-label="Quvvat oqimi sxemasi"></svg>
+          <div class="legend"><span><i style="background:var(--acc)"></i>Iste'mol oqimi</span><span><i style="background:var(--ok)"></i>Quyosh oqimi</span><span><i style="background:var(--bad)"></i>Nosoz uchastka</span></div>
+        </div>
+        <div class="card"><h3>Hodisalar jurnali (so'nggilari)</h3><div class="journal" id="feed"></div>
+          <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" class="noprint">
+            <button class="btn sm" id="dFault">Nosozlik kiritish</button>
+            <button class="btn sm" id="dGas">Gaz sizishi</button>
+            <button class="btn sm okb" id="dFix">Normaga keltirish</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols2" style="margin-top:12px">
+        <div class="card"><h3>Yuk grafigi — so'nggi 60 o'lchov</h3>
+          <canvas class="ch" id="chLive" width="760" height="230"></canvas>
+          <div class="legend"><span><i style="background:var(--acc)"></i>Iste'mol, kVt</span><span><i style="background:#7d8aa0"></i>Quyosh, kVt</span><span><i style="background:var(--bad)"></i>Limit 320 kVt</span></div>
+        </div>
+        <div class="card"><h3>Fiderlar bo'yicha joriy taqsimot</h3><div id="distBars"></div>
+          <hr class="hr"><h3>Tahlil xulosasi</h3><div class="sub" id="aiTip" style="color:var(--txt);font-size:13px">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SINGLE LINE SCHEME -->
+    <div class="sec" id="s-scheme">
+      <div class="card"><h3>Yagona chiziqli sxema — 10/0,4 kV (o'chirgichni bosish — masofadan boshqaruv)</h3>
+        <svg id="scheme" viewBox="0 0 980 470" style="width:100%;height:auto;display:block" role="img" aria-label="Yagona chiziqli sxema"></svg>
+        <div class="sub">Q — o'chirgich (yashil: ulangan, kulrang: o'chirilgan). Qizil miltillovchi belgi — shikastlanish taxminiy joyi. Sxemadagi har bir o'chirgich bosiladi va jurnalda qayd etiladi.</div>
+      </div>
+    </div>
+
+    <!-- ELECTRO -->
+    <div class="sec" id="s-elec">
+      <div class="grid cols2">
+        <div class="card"><h3>Fiderlar — 0,4 kV taqsimlash shiti (qatorni bosing — batafsil)</h3>
+          <div style="overflow:auto"><table><thead><tr><th>Fider</th><th>U, V</th><th>I, A</th><th>P, kVt</th><th>Yuk</th><th>Holat</th><th>O'chirgich</th></tr></thead><tbody id="elecBody"></tbody></table></div>
+        </div>
+        <div class="card"><h3>Fider pasporti — <span id="fdName">—</span></h3><div id="fdBody"><div class="sub">Chap jadvaldan fiderni tanlang.</div></div></div>
+      </div>
+    </div>
+
+    <!-- GAS -->
+    <div class="sec" id="s-gas">
+      <div class="grid cols3" id="gasGrid"></div>
+      <div class="card" style="margin-top:12px"><h3>Gaz xavfsizligi reglamenti</h3>
+        <div class="sub">CH4 800 ppm dan oshsa — ogohlantirish, shamollatish avtomatik ishga tushadi. 1500 ppm dan oshsa — evakuatsiya tartibi e'lon qilinadi, zona klapani avtomatik berkitiladi, dispetcherga signal yuboriladi. Chegaralar Sozlamalar bo'limidan o'zgartiriladi.</div>
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap" class="noprint">
+          <button class="btn sm dan" id="gTest">Sizish ssenariysi</button>
+          <button class="btn sm okb" id="gFix">Ko'rsatkichni normaga keltirish</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEVICES -->
+    <div class="sec" id="s-dev">
+      <div class="grid cols3" id="devGrid"></div>
+      <div class="card" style="margin-top:12px"><h3>Diagnostika</h3><div class="sub" id="diagOut">Tizim ish rejimida. Kuchlanish me'yori: 210–235 V.</div>
+        <div style="display:flex;gap:8px;margin-top:10px" class="noprint">
+          <button class="btn sm pri" id="diagBtn">Diagnostikani ishga tushirish</button>
+          <button class="btn sm" id="fltBtn">Filtrlarni tozalash</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOLAR -->
+    <div class="sec" id="s-sol">
+      <div class="grid cols2">
+        <div class="card"><h3>Quyosh stansiyasi — stringlar holati</h3>
+          <canvas class="ch" id="chSol" width="760" height="230"></canvas>
+          <div style="overflow:auto;margin-top:10px"><table><thead><tr><th>String</th><th>Quvvat, kVt</th><th>Holat</th><th>Boshqaruv</th></tr></thead><tbody id="strBody"></tbody></table></div>
+          <hr class="hr">
+          <div class="kv"><span>Joriy generatsiya</span><b class="num" id="solKw">0 kVt</b></div>
+          <div class="kv"><span>Akkumulyator (SOC)</span><b class="num" id="solBat">0%</b></div><div class="bar g"><i id="solBar" style="width:50%"></i></div>
+          <div class="kv"><span>Bugungi ishlab chiqarish</span><b class="num" id="solDay">0 kVt·soat</b></div>
+          <div class="kv"><span>Tarmoqqa uzatish</span><span><span class="sw on" id="sellSw" style="vertical-align:middle"></span></span></div>
+        </div>
+        <div class="card"><h3>Iqtisodiy hisob</h3>
+          <label class="fl">Sotib olish tarifi (so'm/kVt·soat)</label><input type="number" id="tarifBuy" value="1200" min="100" step="50">
+          <label class="fl">Sotish tarifi (so'm/kVt·soat)</label><input type="number" id="tarifSell" value="900" min="100" step="50">
+          <label class="fl">Stansiya quvvati (kVt) — <b class="num" id="pkV">120</b></label><input type="range" id="pk" min="10" max="500" value="120">
+          <label class="fl">Sotish ulushi (%) — <b class="num" id="sellV">35</b></label><input type="range" id="sell" min="0" max="100" value="35">
+          <div id="profitOut" class="sub" style="color:var(--txt);font-size:13px;margin-top:10px"></div>
+          <button class="btn sm pri noprint" id="toFc">Haftalik prognozni ochish</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORECAST -->
+    <div class="sec" id="s-ai">
+      <div class="grid cols2">
+        <div class="card"><h3>Haftalik yuk prognozi</h3><canvas class="ch" id="chFc" width="760" height="230"></canvas><div class="sub num" id="fcTable"></div>
+          <button class="btn sm noprint" id="fcCsv" style="margin-top:8px">Prognozni CSV yuklash</button>
+        </div>
+        <div class="card"><h3>Tahlil xulosasi</h3><div class="sub" id="aiFull" style="color:var(--txt);font-size:13.5px;line-height:1.75"></div>
+          <div style="display:flex;gap:8px;margin-top:10px" class="noprint"><button class="btn sm pri" id="fcRe">Qayta hisoblash</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div class="sec" id="s-chat">
+      <div class="card"><h3>Dispetcher yordamchisi — joriy o'lchovlar asosida javob beradi</h3>
+        <div class="chat" id="chatBox"></div>
+        <div style="display:flex;gap:8px;margin-top:10px" class="noprint"><input type="text" id="chatIn" placeholder="Savolni kiriting... (Enter — yuborish)" autocomplete="off"><button class="btn pri" id="chatSend">Yuborish</button></div>
+        <div class="chips noprint" id="chatChips"></div>
+      </div>
+    </div>
+
+    <!-- CLIMATE -->
+    <div class="sec" id="s-clim">
+      <div class="grid cols2">
+        <div class="card"><h3>Smena tarkibi</h3><table><thead><tr><th>Xodim</th><th>Smena</th><th>Belgilangan harorat</th><th>Qayd</th></tr></thead><tbody id="wBody"></tbody></table>
+          <div class="sub" id="learnLog" style="margin-top:10px"></div>
+          <button class="btn sm pri noprint" id="learnBtn" style="margin-top:8px">Kunlik rejimni arxivga yozish</button>
+        </div>
+        <div class="card"><h3>Mikroiqlim boshqaruvi</h3>
+          <div class="kv"><span>Sex harorati (o'lchangan)</span><b class="num" id="cTemp">—</b></div>
+          <div class="kv"><span>Belgilangan harorat K-1</span><b class="num" id="cSet">24°C</b></div>
+          <input type="range" min="16" max="30" value="24" id="cTempR">
+          <div class="kv"><span>Pardalar (yorug'lik datchigi: avtomatik)</span><b id="cCur">Ochiq 70%</b></div>
+          <input type="range" min="0" max="100" value="70" id="cCurR">
+          <div class="kv"><span>Smena kayfiyati (rejimni moslaydi)</span></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap" class="noprint" id="moodRow"></div>
+          <div class="sub" id="moodOut" style="margin-top:8px">Hozir: me'yorida.</div>
+          <hr class="hr"><h3>Sex audiotizimi (PA)</h3>
+          <div class="kv"><span>Faol manba</span><b id="paSrc">Manba-1</b></div>
+          <label class="fl">Ovoz balandligi</label><input type="range" min="0" max="100" value="40" id="paVol">
+          <div style="display:flex;gap:8px;margin-top:10px" class="noprint">
+            <button class="btn sm" id="paTest">Test signalini berish</button>
+            <button class="btn sm" id="paEvac">Evakuatsiya e'loni testi</button>
+          </div>
+          <div class="sub">Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDIT -->
+    <div class="sec" id="s-audit">
+      <div class="card"><h3>Energiya auditi — fiderlar kesimida</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" class="noprint">
+          <button class="btn sm pri" id="audRe">Auditni yangilash</button>
+          <button class="btn sm" id="audCsv">CSV yuklab olish</button>
+          <button class="btn sm" id="audZero">Kunlik hisobni nollash</button>
+          <button class="btn sm" id="audPrint">Chop etish</button>
+        </div>
+        <div style="overflow:auto"><table><thead><tr><th>Zona</th><th>Sarf (kun), kVt·soat</th><th>Summa (kun), so'm</th><th>Samaradorlik</th><th>Xulosa</th><th>Topshiriq</th></tr></thead><tbody id="audBody"></tbody></table></div>
+        <div class="sub" id="audSum" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="sec" id="s-set">
+      <div class="grid cols2">
+        <div class="card"><h3>Tizim sozlamalari</h3>
+          <label class="fl">O'lchov tezligi (simulyatsiya rejimida)</label>
+          <div style="display:flex;gap:8px" class="noprint"><button class="btn sm" data-spd="1">1x</button><button class="btn sm" data-spd="5">5x</button><button class="btn sm" data-spd="10">10x</button></div>
+          <label class="fl">Gaz evakuatsiya chegarasi (ppm)</label><input type="number" id="gasThr" value="1500" min="500" max="2500" step="50">
+          <label class="fl">Gaz ogohlantirish chegarasi (ppm)</label><input type="number" id="gasWarn" value="800" min="200" max="1400" step="50">
+          <label class="fl">Yuqori yuk chegarasi (kVt)</label><input type="number" id="hiThr" value="55" min="20" max="120">
+          <label class="fl">Bulutlilik (%)</label><input type="range" id="cloudR" min="0" max="100" value="20">
+          <label class="fl">Tashqi harorat (°C)</label><input type="range" id="toutR" min="-5" max="45" value="31">
+          <label class="fl">Smena</label>
+          <div style="display:flex;gap:8px" class="noprint"><button class="btn sm" id="shDay">Kunduzgi (08–20)</button><button class="btn sm" id="shNight">Tungi (20–08)</button></div>
+          <hr class="hr"><h3>Demo ssenariylari</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" class="noprint">
+            <button class="btn sm" id="scPeak">Ssenariy: pik yuk</button>
+            <button class="btn sm" id="scFault">Ssenariy: fider avariyasi</button>
+            <button class="btn sm" id="scGas">Ssenariy: gaz sizishi</button>
+            <button class="btn sm okb" id="scNorm">Normal rejimga qaytish</button>
+          </div>
+        </div>
+        <div class="card"><h3>Ekspluatatsiya reglamenti (qisqacha)</h3>
+          <div class="sub" style="color:var(--txt);line-height:1.85">
+          1. Soat 17:00–21:00 oralig'ida tarif yuqori bo'lgani uchun og'ir yuklar (kompressor, pech) reja asosida kechiktiriladi.<br>
+          2. Har 1 kVt·soat tejash 0,42 kg CO2 kamayishi sifatida qayd etiladi.<br>
+          3. Quvvat koeffitsienti (cos φ) 0,85 dan tushsa, ogohlantirish beriladi.<br>
+          4. Tungi smenada gaz nazorati kuchaytirilgan rejimda ishlaydi.<br>
+          5. Filtr ifloslanishi 80% dan oshsa, texnik xizmatga topshiriq ochiladi.<br>
+          6. Himoya toki (I>) dan oshiq yuk 3 o'lchov ketma-ket qayd etilsa, fider himoya orqali o'chiriladi.
+          </div>
+          <hr class="hr"><div class="sub">Tizim oflayn ishlaydi: internet talab etilmaydi. Sozlamalar brauzer xotirasida saqlanadi.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="foot"><span>Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2</span><span>Jurnal arxivlanadi · O'lchov davri: 1 s</span><span style="margin-left:auto">Ichki foydalanish uchun · Dispetcher xizmati</span></div>
+
+<div class="mov" id="evacMov"><div class="mbox crit">
+  <h2>Gaz bo'yicha favqulodda holat — evakuatsiya tartibi</h2>
+  <p id="evacTxt"></p>
+  <ol class="proc"><li>Hududni zudlik bilan tark eting, liftdan foydalanmang.</li><li>Shamollatish avtomatik ishga tushirildi, zona klapani berkitildi.</li><li>Navbatchi dispetcherga signal yuborildi.</li><li>Gaz normaga qaytmaguncha hududga kirmang.</li></ol>
+  <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap"><button class="btn dan" id="evacOk">Tushundim, hudud tark etildi</button><button class="btn" id="evacFix">Normaga keltirish (sinov)</button></div>
+</div></div>
+
+<div class="mov" id="cfMov"><div class="mbox">
+  <h2 id="cfTitle">Tasdiqlash</h2><p id="cfTxt"></p>
+  <div style="display:flex;gap:10px;margin-top:16px"><button class="btn dan" id="cfYes">Tasdiqlash</button><button class="btn" id="cfNo">Bekor qilish</button></div>
+</div></div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+"use strict";
+/* ============ UTIL ============ */
+function $(id){return document.getElementById(id);}
+function on(id,ev,fn){var e=$(id);if(e)e.addEventListener(ev,fn);}
+function fmt(n,d){if(d===undefined)d=1;return Number(n).toLocaleString("uz-UZ",{minimumFractionDigits:d,maximumFractionDigits:d});}
+function fmt0(n){return Math.round(Number(n)).toLocaleString("uz-UZ");}
+function nowT(){return new Date().toLocaleTimeString("uz-UZ",{hour12:false});}
+function load(k,d){try{var v=localStorage.getItem(k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function beep(f,dur,type,vol){if(!S.sound)return;try{S.ac=S.ac||new (window.AudioContext||window.webkitAudioContext)();var o=S.ac.createOscillator(),g=S.ac.createGain();o.type=type||"sine";o.frequency.value=f;g.gain.value=vol||0.06;o.connect(g);g.connect(S.ac.destination);o.start();g.gain.exponentialRampToValueAtTime(0.0008,S.ac.currentTime+dur);o.stop(S.ac.currentTime+dur);}catch(e){}}
+function horn(){beep(620,0.35,"sawtooth",0.05);setTimeout(function(){beep(430,0.35,"sawtooth",0.05);},400);}
+function toast(msg,crit){var box=$("toasts");if(!box)return;var t=document.createElement("div");t.className="toast"+(crit?" crit":"");t.innerHTML=msg;box.appendChild(t);setTimeout(function(){t.remove();},6500);}
+
+/* ============ STATE ============ */
+var S={
+mode:"real",speed:1,sound:load("esg_sound",true),t:0,totalKwh:0,solarDay:0,bat:62,
+cloud:20,tOut:31,shift:"Kunduzgi",roomTemp:24,mood:"Me'yorida",learned:0,
+gasThr:load("esg_gasThr",1500),gasWarn:load("esg_gasWarn",800),hiThr:load("esg_hiThr",55),
+tarifBuy:load("esg_tb",1200),tarifSell:load("esg_ts",900),sellOn:true,
+selFd:0,hist:[],solHist:[],fc:null,cool:{},ac:null,
+lines:[
+{n:"Sex-1 (stanoklar)",f:"Shina A-1",tr:1,base:48,load:70,on:true,v:221,a:0,kw:0,st:"OK",e:0,over:0,iset:150},
+{n:"Sex-2 (pech)",f:"Shina A-2",tr:1,base:62,load:80,on:true,v:220,a:0,kw:0,st:"OK",e:0,over:0,iset:190},
+{n:"Ombor, sovutkichlar",f:"Shina B-1",tr:1,base:28,load:60,on:true,v:222,a:0,kw:0,st:"OK",e:0,over:0,iset:95},
+{n:"Ofis, server xonasi",f:"Shina B-2",tr:1,base:22,load:55,on:true,v:223,a:0,kw:0,st:"OK",e:0,over:0,iset:80},
+{n:"Qozonxona",f:"Shina C-1",tr:2,base:35,load:65,on:true,v:219,a:0,kw:0,st:"OK",e:0,over:0,iset:115},
+{n:"Kompressor stansiyasi",f:"Shina C-2",tr:2,base:40,load:72,on:true,v:220,a:0,kw:0,st:"OK",e:0,over:0,iset:130},
+{n:"Yoritish, videokuzatuv",f:"Shina D-1",tr:2,base:14,load:50,on:true,v:224,a:0,kw:0,st:"OK",e:0,over:0,iset:55},
+{n:"Quyosh invertori",f:"Shina S-1",tr:0,base:-30,load:60,on:true,v:225,a:0,kw:0,st:"OK",e:0,over:0,iset:100}],
+gas:[
+{n:"Sex-1",ppm:120,vent:false,valve:true,leak:false,warned:false,evaced:false},
+{n:"Sex-2 (pech)",ppm:180,vent:false,valve:true,leak:false,warned:false,evaced:false},
+{n:"Qozonxona",ppm:220,vent:false,valve:true,leak:false,warned:false,evaced:false},
+{n:"Ombor",ppm:90,vent:false,valve:true,leak:false,warned:false,evaced:false},
+{n:"Ofis",ppm:60,vent:false,valve:true,leak:false,warned:false,evaced:false},
+{n:"Kompressor xonasi",ppm:140,vent:false,valve:true,leak:false,warned:false,evaced:false}],
+devs:[
+{n:"Konditsioner K-1 (Sex-1)",t:"cond",on:true,temp:24,v:221,extra:8},
+{n:"Konditsioner K-2 (ofis)",t:"cond",on:true,temp:23,v:222,extra:6},
+{n:"Havo filtri F-1",t:"filter",on:true,v:220,extra:3,filter:42},
+{n:"Havo filtri F-2",t:"filter",on:true,v:219,extra:3,filter:61},
+{n:"Monitor M-1 (majlis xonasi)",t:"tv",on:true,v:223,extra:2,ch:"E'lonlar"},
+{n:"Monitor M-2 (qorovulxona)",t:"tv",on:false,v:0,extra:1.5,ch:"Videokuzatuv"}],
+strings:[{n:"String S-1",cap:30,on:true},{n:"String S-2",cap:30,on:true},{n:"String S-3",cap:30,on:true},{n:"String S-4",cap:30,on:true}],
+workers:[
+{n:"A. Karimov (operator)",sh:"08:00–17:00",fav:"22°C",habit:"09:00 da stanoklarni ishga tushiradi"},
+{n:"D. Yusupova (muhandis)",sh:"09:00–18:00",fav:"24°C",habit:"Server xonasi haroratini nazorat qiladi"},
+{n:"J. Hakimov (tungi navbatchi)",sh:"22:00–06:00",fav:"23°C",habit:"Tungi yuklamani kamaytiradi"}],
+alarms:[],alarmSeq:0,feed:[],maxGas:{v:0,r:"—"},solar:0
+};
+S.sound=S.sound!==false;
+
+/* ============ NAV ============ */
+var NAV=[["s-dash","Umumiy nazorat"],["s-scheme","Chiziqli sxema"],["s-elec","Elektr tarmoqlari"],["s-gas","Gaz nazorati"],["s-dev","Qurilmalar"],["s-sol","Quyosh stansiyasi"],["s-ai","Prognoz"],["s-chat","Yordamchi"],["s-clim","Mikroiqlim"],["s-audit","Audit"],["s-set","Sozlamalar"]];
+var TITLES={};NAV.forEach(function(x){TITLES[x[0]]=x[1];});
+function buildNav(){var n=$("nav");n.innerHTML="";NAV.forEach(function(x){var b=document.createElement("button");b.className="nbtn";b.id="n-"+x[0];var s=document.createElement("span");s.textContent=x[1];var c=document.createElement("span");c.className="bdg";c.id="bdg-"+x[0];c.style.display="none";b.appendChild(s);b.appendChild(c);b.addEventListener("click",function(){go(x[0]);});n.appendChild(b);});}
+function go(id){var secs=document.querySelectorAll(".sec");for(var i=0;i<secs.length;i++)secs[i].classList.remove("on");$(id).classList.add("on");var bs=document.querySelectorAll(".nbtn");for(var j=0;j<bs.length;j++)bs[j].classList.remove("on");var b=$("n-"+id);if(b)b.classList.add("on");$("crumb").innerHTML="Boshqaruv / <b>"+TITLES[id]+'</b><span class="live">● jonli — ma\'lumot har 1 s da yangilanadi</span>';if(id==="s-ai")buildForecast(false);if(id==="s-audit")renderAudit();try{window.scrollTo({top:0,behavior:"smooth"});}catch(e){}}
+
+/* ============ JOURNAL + ALARMS ============ */
+function log(msg,cls){S.feed.unshift({t:nowT(),msg:msg,cls:cls||""});if(S.feed.length>60)S.feed.pop();renderFeed();}
+function renderFeed(){var f=$("feed");if(!f)return;f.innerHTML="";S.feed.slice(0,14).forEach(function(e){var d=document.createElement("div");d.className="ev "+e.cls;var b=document.createElement("b");b.className="tm";b.textContent=e.t;d.appendChild(b);d.appendChild(document.createTextNode(" — "));var s=document.createElement("span");s.innerHTML=e.msg;d.appendChild(s);f.appendChild(d);});}
+function raise(sev,text,key,coolS){var now=Date.now();if(key){if(S.cool[key]&&now-S.cool[key]<(coolS||25)*1000)return;S.cool[key]=now;}
+for(var i=0;i<S.alarms.length;i++){if(S.alarms[i].key===key&&!S.alarms[i].ack)return;}
+S.alarmSeq++;S.alarms.unshift({id:S.alarmSeq,sev:sev,text:text,key:key||null,t:nowT(),ack:false});
+if(S.alarms.length>40)S.alarms.pop();
+log(text,sev==="crit"?"crit":"warn2");
+if(sev==="crit")horn();else beep(520,0.2,"sine",0.05);
+renderAlarms();}
+function unacked(){return S.alarms.filter(function(a){return !a.ack;});}
+function renderAlarms(){var u=unacked();var strip=$("astrip");var hasCrit=u.some(function(a){return a.sev==="crit";});
+if(u.length===0){strip.classList.remove("on");strip.classList.remove("warn");}
+else{strip.classList.add("on");strip.classList.toggle("warn",!hasCrit);$("astripN").textContent=u.length;$("astripT").textContent=hasCrit?"Faol avariya signallari mavjud — tasdiqlang":"Ogohlantirishlar mavjud";}
+$("kAlm").textContent=u.length;$("kAlmSub").textContent=u.length?(hasCrit?"Tasdiqlanmagan avariya bor":"Faqat ogohlantirish"):"Faol signal yo'q";
+var be=$("bdg-s-dash");if(be){if(u.length){be.style.display="";be.textContent=u.length;be.className="bdg"+(hasCrit?"":" w");}else be.style.display="none";}
+var be2=$("bdg-s-elec");var flt=S.lines.filter(function(l){return l.st==="FAULT";}).length;if(be2){if(flt){be2.style.display="";be2.textContent=flt;}else be2.style.display="none";}
+var bg=$("bdg-s-gas");var gw=S.gas.some(function(g){return g.ppm>S.gasWarn;});if(bg){if(gw){bg.style.display="";bg.textContent="!";bg.className="bdg w";}else bg.style.display="none";}
+var st=$("sysStat");if(st){st.innerHTML="Rejim: <b>"+(S.mode==="real"?"Real vaqt":"Simulyatsiya "+S.speed+"x")+"</b><br>O'lchovlar: <b>"+S.t+"</b><br>Faol signal: <b>"+u.length+"</b><br>Akkumulyator: <b>"+Math.round(S.bat)+"%</b>";}}
+
+/* ============ ENGINE ============ */
+function step(dt){S.t+=dt;
+var cloudF=1-S.cloud/160,peak=(S.shift==="Tungi"?0.55:1)*(S.tOut>33?1.12:1);
+var total=0;
+for(var i=0;i<S.lines.length;i++){var L=S.lines[i];
+if(!L.on){L.kw=0;L.a=0;L.v=0;continue;}
+var j=(S.mode==="real"?(Math.random()-0.5)*3:(Math.random()-0.5)*9);
+var target=L.base*(L.load/70)*peak*(L.base<0?cloudF*2.4:cloudF);
+if(L.st==="FAULT")target*=0.5+Math.random()*0.5;
+L.kw=Math.max(L.base<0?L.base*1.4:-5,target+j);
+if(L.base<0)L.kw=-Math.abs(L.kw);
+L.v=L.base<0?225+Math.round(j):Math.round(220+j+(L.st==="FAULT"?(Math.random()-0.5)*28:0));
+L.a=Math.abs(L.kw*1000/Math.max(L.v,1));
+L.e+=Math.max(L.kw,0)*dt/3600;
+if(L.base>0){total+=L.kw;
+if(L.kw>S.hiThr&&L.st==="OK"){L.st="HIGH";raise("warn","<b>"+L.n+"</b> da yuk me'yordan yuqori: "+fmt(L.kw)+" kVt (chegara "+S.hiThr+").","hi"+i,40);}
+else if(L.kw<=S.hiThr&&L.st==="HIGH"){L.st="OK";}
+if(L.v<198)raise("warn","<b>"+L.n+"</b> da kuchlanish pasaygan: "+L.v+" V.","uv"+i,60);
+if(L.a>L.iset){L.over+=dt;if(L.over>=3){L.on=false;L.over=0;L.st="OK";raise("crit","Himoya ishladi (I&gt; "+L.iset+" A): <b>"+L.n+"</b> o'chirildi.","prot"+i,10);}}else L.over=0;}}
+var devKw=0;S.devs.forEach(function(d){if(d.on){var k=d.extra;if(d.t==="cond")k*=(d.temp<=22?1.25:d.temp>=26?0.8:1);devKw+=k;}});
+total+=devKw;
+var sol=-S.lines[7].kw;S.solar=sol;
+S.bat=Math.min(100,Math.max(5,S.bat+(sol>10?0.6*dt:-0.9*dt)));
+S.hist.push(total);if(S.hist.length>60)S.hist.shift();
+S.solHist.push(sol);if(S.solHist.length>60)S.solHist.shift();
+S.totalKwh+=total*dt/3600;S.solarDay+=Math.max(sol,0)*dt/3600;
+var maxG=0,maxR="—";
+S.gas.forEach(function(g,gi){
+if(!g.valve&&!g.leak)g.ppm-=8*dt;else if(g.leak)g.ppm+=(40+Math.random()*80)*Math.min(dt,3);else g.ppm+=((Math.random()-0.5)*14-(g.vent?25:0))*Math.min(dt,3);
+g.ppm=Math.max(35,Math.min(2500,g.ppm));
+if(g.ppm>maxG){maxG=g.ppm;maxR=g.n;}
+if(g.ppm>S.gasThr&&!g.evaced){g.evaced=true;g.vent=true;g.valve=false;raise("crit","Gaz: <b>"+g.n+"</b> da CH4 "+Math.round(g.ppm)+" ppm — evakuatsiya tartibi.","gas"+gi,120);openEvac(g);}
+else if(g.ppm>S.gasWarn&&!g.warned){g.warned=true;g.vent=true;raise("warn","Gaz: <b>"+g.n+"</b> da CH4 "+Math.round(g.ppm)+" ppm — shamollatish ishga tushirildi.","gasw"+gi,90);}
+if(g.ppm<S.gasWarn-200){g.warned=false;g.evaced=false;}});
+S.maxGas={v:maxG,r:maxR};
+S.roomTemp+=((S.devs[0].on?S.devs[0].temp:S.tOut)-S.roomTemp)*0.02*Math.min(dt,3);
+}
+
+/* ============ STATIC BUILD (once) ============ */
+var R={elec:[],gas:[],dev:[],str:[],aud:[]};
+function el(tag,cls,html){var e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e;}
+function buildElec(){var tb=$("elecBody");tb.innerHTML="";R.elec=[];S.lines.forEach(function(L,i){var tr=el("tr","clickable");tr.addEventListener("click",function(ev){if(ev.target.classList&&ev.target.classList.contains("sw"))return;selectFd(i);});
+var c={};tr.appendChild(el("td","","<b>"+L.n+"</b><br><span style='color:var(--dim);font-size:11.5px'>"+L.f+"</span>"));
+c.v=el("td","num","—");c.a=el("td","num","—");c.kw=el("td","num","—");
+var tdB=el("td");c.barWrap=el("div","bar");c.bar=el("i");c.bar.style.width="0%";c.barWrap.appendChild(c.bar);tdB.appendChild(c.barWrap);
+var tdS=el("td");c.tag=el("span","tag t-ok","Normal");tdS.appendChild(c.tag);c.sub=el("div","sub","");c.sub.style.display="none";tdS.appendChild(c.sub);
+var tdW=el("td");c.sw=el("span","sw on");c.sw.addEventListener("click",function(ev){ev.stopPropagation();toggleLine(i);});tdW.appendChild(c.sw);
+tr.appendChild(c.v);tr.appendChild(c.a);tr.appendChild(c.kw);tr.appendChild(tdB);tr.appendChild(tdS);tr.appendChild(tdW);
+tb.appendChild(tr);c.tr=tr;R.elec.push(c);});}
+function buildGas(){var g=$("gasGrid");g.innerHTML="";R.gas=[];S.gas.forEach(function(z,i){var card=el("div","card");card.id="gasCard"+i;
+var h=el("h3",null,z.n);card.appendChild(h);
+var box=el("div","gaugeBox");
+var svgNS="http://www.w3.org/2000/svg";var svg=document.createElementNS(svgNS,"svg");svg.setAttribute("width","110");svg.setAttribute("height","70");svg.setAttribute("viewBox","0 0 110 70");
+var bg=document.createElementNS(svgNS,"path");bg.setAttribute("d","M10 60 A45 45 0 0 1 100 60");bg.setAttribute("fill","none");bg.setAttribute("stroke","#223252");bg.setAttribute("stroke-width","10");bg.setAttribute("stroke-linecap","round");svg.appendChild(bg);
+var fg=document.createElementNS(svgNS,"path");fg.setAttribute("d","M10 60 A45 45 0 0 1 100 60");fg.setAttribute("fill","none");fg.setAttribute("stroke","#3ecf7f");fg.setAttribute("stroke-width","10");fg.setAttribute("stroke-linecap","round");fg.setAttribute("stroke-dasharray","141.4");fg.setAttribute("stroke-dashoffset","141.4");svg.appendChild(fg);
+box.appendChild(svg);
+var rv=el("div");var big=el("div","big num","0");var un=el("div","sub","ppm CH4");var tg=el("div");tg.appendChild(el("span","tag t-ok","Normal"));rv.appendChild(big);rv.appendChild(un);rv.appendChild(tg);box.appendChild(rv);card.appendChild(box);
+var bar=el("div","bar");var bi=el("i");bi.style.width="0%";bar.appendChild(bi);card.appendChild(bar);
+var sub=el("div","sub","");card.appendChild(sub);
+var row=el("div");row.style.cssText="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap";
+var bV=el("button","btn sm","Shamollatish");bV.addEventListener("click",function(){z.vent=!z.vent;log("<b>"+z.n+"</b>: shamollatish "+(z.vent?"yoqildi.":"o'chirildi."));updateGas();});
+var bK=el("button","btn sm","Klapan");bK.addEventListener("click",function(){z.valve=!z.valve;log("<b>"+z.n+"</b>: klapan "+(z.valve?"ochildi.":"masofadan berkitildi."),z.valve?"":"warn2");updateGas();});
+row.appendChild(bV);row.appendChild(bK);card.appendChild(row);
+g.appendChild(card);R.gas.push({card:card,fg:fg,big:big,tag:tg.firstChild,bar:bi,sub:sub,bV:bV,bK:bK,h:h});});}
+function buildDevs(){var g=$("devGrid");g.innerHTML="";R.dev=[];S.devs.forEach(function(d,i){var card=el("div","card");card.appendChild(el("h3",null,d.n));
+var top=el("div");top.style.cssText="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px";
+var tag=el("span","tag t-ok","Ishlayapti");var sw=el("span","sw on");sw.addEventListener("click",function(){d.on=!d.on;beep(d.on?700:300,0.15);log("<b>"+d.n+"</b> "+(d.on?"ishga tushirildi.":"to'xtatildi."));updateDevs();});
+top.appendChild(tag);top.appendChild(sw);card.appendChild(top);
+var body=el("div");card.appendChild(body);g.appendChild(card);R.dev.push({tag:tag,sw:sw,body:body});});
+var moods=["Me'yorida","Charchagan","Issiq","Sovuq","Diqqat talab"];var mr=$("moodRow");moods.forEach(function(m){var b=el("button","btn sm",m);b.addEventListener("click",function(){setMood(m);});mr.appendChild(b);});
+var wb=$("wBody");S.workers.forEach(function(w){var tr=el("tr");tr.appendChild(el("td","","<b>"+w.n+"</b>"));tr.appendChild(el("td","num",w.sh));tr.appendChild(el("td","num",w.fav));var td=el("td",null,w.habit);tr.appendChild(td);wb.appendChild(tr);w._td=td;});}
+function buildStrings(){var tb=$("strBody");tb.innerHTML="";R.str=[];S.strings.forEach(function(s,i){var tr=el("tr");tr.appendChild(el("td","","<b>"+s.n+"</b> <span style='color:var(--dim)'>· "+s.cap+" kVt</span>"));
+var c={kw:el("td","num","0"),st:el("td"),ctl:el("td")};var tag=el("span","tag t-ok","Ulangan");c.st.appendChild(tag);c.tag=tag;
+var sw=el("span","sw on");sw.addEventListener("click",function(){s.on=!s.on;log("<b>"+s.n+"</b> "+(s.on?"zanjirga ulandi.":"zanjirdan ajratildi."));updateStrings();});c.sw=sw;c.ctl.appendChild(sw);
+tr.appendChild(c.kw);tr.appendChild(c.st);tr.appendChild(c.ctl);tb.appendChild(tr);R.str.push(c);});}
+function buildAudit(){var tb=$("audBody");tb.innerHTML="";R.aud=[];S.lines.forEach(function(L,i){if(L.base<0)return;var tr=el("tr");
+tr.appendChild(el("td","","<b>"+L.n+"</b>"));var c={kwh:el("td","num","0"),sum:el("td","num","0"),eff:el("td","Qoniqarli"),note:el("td","—"),tk:el("td")};
+tr.appendChild(c.kwh);tr.appendChild(c.sum);tr.appendChild(c.eff);tr.appendChild(c.note);
+var b=el("button","btn sm","Topshiriq");b.style.display="none";b.addEventListener("click",function(){toast("Topshiriq ochildi: <b>"+L.n+"</b> — navbatchi elektrikka yuborildi.");log("Topshiriq ochildi: <b>"+L.n+"</b>.");});c.tk.appendChild(b);c.btn=b;
+tr.appendChild(c.tk);tb.appendChild(tr);R.aud.push({L:L,idx:i,c:c});});}
+function buildMimic(){var svg=$("mimic");var NS="http://www.w3.org/2000/svg";
+function line(x1,y1,x2,y2,id,col){var p=document.createElementNS(NS,"path");p.setAttribute("d","M"+x1+" "+y1+" L"+x2+" "+y2);p.setAttribute("stroke",col||"#3f9dff");p.setAttribute("stroke-width","3");p.setAttribute("class","flow");if(id)p.setAttribute("id",id);svg.appendChild(p);return p;}
+function box(x,y,w,h,label,id){var g=document.createElementNS(NS,"g");var r=document.createElementNS(NS,"rect");r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("rx","8");r.setAttribute("fill","#131f36");r.setAttribute("stroke","#2c3f63");g.appendChild(r);var t=document.createElementNS(NS,"text");t.setAttribute("x",x+w/2);t.setAttribute("y",y+22);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#e9eff9");t.setAttribute("font-size","12");t.textContent=label;g.appendChild(t);var v=document.createElementNS(NS,"text");v.setAttribute("x",x+w/2);v.setAttribute("y",y+42);v.setAttribute("text-anchor","middle");v.setAttribute("fill","#8ea2c0");v.setAttribute("font-size","12");v.setAttribute("font-family","Consolas,monospace");v.setAttribute("id",id);v.textContent="—";g.appendChild(v);svg.appendChild(g);}
+svg.innerHTML="";
+line(120,60,220,60,"flGrid");line(120,150,220,150,"flSol", "#3ecf7f");
+line(340,60,340,150);line(340,105,440,105,"flBus");
+line(560,60,660,60,"flA");line(560,105,660,105,"flB");line(560,150,660,150,"flC");
+box(20,32,100,56,"Tarmoq 10 kV","mmGrid");box(20,122,100,56,"Quyosh","mmSol");
+box(220,32,120,56,"TR-1 · 400 kVA","mmTR1");box(220,122,120,56,"TR-2 · 400 kVA","mmTR2");
+box(440,77,120,56,"Shina 0,4 kV","mmBus");
+box(660,32,0,0,"","mmX");
+[["Sexlar A","mmA",32],["Ofis + ombor","mmB",77],["Qozonxona + kompr.","mmC",122]].forEach(function(o){var g=document.createElementNS(NS,"g");var r=document.createElementNS(NS,"rect");r.setAttribute("x",560);r.setAttribute("y",o[2]);r.setAttribute("width",140);r.setAttribute("height",56);r.setAttribute("rx","8");r.setAttribute("fill","#131f36");r.setAttribute("stroke","#2c3f63");g.appendChild(r);var t=document.createElementNS(NS,"text");t.setAttribute("x",630);t.setAttribute("y",o[2]+22);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#e9eff9");t.setAttribute("font-size","11.5");t.textContent=o[0];g.appendChild(t);var v=document.createElementNS(NS,"text");v.setAttribute("x",630);v.setAttribute("y",o[2]+42);v.setAttribute("text-anchor","middle");v.setAttribute("fill","#8ea2c0");v.setAttribute("font-size","12");v.setAttribute("font-family","Consolas,monospace");v.setAttribute("id",o[1]);g.appendChild(v);svg.appendChild(g);});}
+function buildScheme(){var svg=$("scheme");var NS="http://www.w3.org/2000/svg";svg.innerHTML="";R.brk=[];R.fltm=null;
+function txt(x,y,s,size,fill,anchor,id){var t=document.createElementNS(NS,"text");t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("font-size",size||12);t.setAttribute("fill",fill||"#e9eff9");if(anchor)t.setAttribute("text-anchor",anchor);if(id)t.setAttribute("id",id);t.textContent=s;svg.appendChild(t);return t;}
+function wire(x1,y1,x2,y2,col,w){var p=document.createElementNS(NS,"path");p.setAttribute("d","M"+x1+" "+y1+" L"+x2+" "+y2);p.setAttribute("stroke",col||"#3f9dff");p.setAttribute("stroke-width",w||3);p.setAttribute("class","flow");svg.appendChild(p);return p;}
+function trBox(x,y,id){var r=document.createElementNS(NS,"rect");r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",70);r.setAttribute("height",44);r.setAttribute("rx","6");r.setAttribute("fill","#131f36");r.setAttribute("stroke","#2c3f63");svg.appendChild(r);txt(x+35,y+20,"TR",12,"#8ea2c0","middle");var v=document.createElementNS(NS,"text");v.setAttribute("x",x+35);v.setAttribute("y",y+37);v.setAttribute("text-anchor","middle");v.setAttribute("fill","#e9eff9");v.setAttribute("font-size","12");v.setAttribute("font-family","Consolas,monospace");v.setAttribute("id",id);svg.appendChild(v);}
+txt(490,24,"10 kV kirish",13,"#8ea2c0","middle");
+wire(490,30,300,80);wire(490,30,680,80);
+trBox(265,80,"scTR1");trBox(645,80,"scTR2");
+wire(300,124,300,160);wire(680,124,680,160);
+[0,1,2,3].forEach(function(k){var x=120+k*110;wire(x,160,x,200);brkSym(x,200,S.lines[k],k);feedLbl(x,268,S.lines[k],k);});
+[4,5,6].forEach(function(k){var x=470+(k-4)*110;wire(x+60,160,x+60,200);brkSym(x+60,200,S.lines[k],k);feedLbl(x+60,268,S.lines[k],k);});
+wire(120,182,450,182);wire(530,182,860,182);
+txt(120,178,"0,4 kV · 1-seksiya",11,"#8ea2c0");txt(860,178,"0,4 kV · 2-seksiya",11,"#8ea2c0","end");
+wire(800,200,800,240);brkSym(800,240,S.lines[7],7);feedLbl(800,308,S.lines[7],7);
+txt(800,330,"Quyosh invertori",11,"#8ea2c0","middle");
+var fm=document.createElementNS(NS,"g");fm.setAttribute("id","fltMark");fm.style.display="none";
+var c=document.createElementNS(NS,"circle");c.setAttribute("r","11");c.setAttribute("fill","none");c.setAttribute("stroke","#ef5750");c.setAttribute("stroke-width","3");c.setAttribute("class","fltmark");fm.appendChild(c);
+var t2=document.createElementNS(NS,"text");t2.setAttribute("y","-16");t2.setAttribute("text-anchor","middle");t2.setAttribute("fill","#ff8f88");t2.setAttribute("font-size","11");t2.textContent="shikastlanish";fm.appendChild(t2);
+svg.appendChild(fm);R.fltm=fm;
+function brkSym(x,y,L,i){var g=document.createElementNS(NS,"g");g.setAttribute("class","brk");
+var r=document.createElementNS(NS,"rect");r.setAttribute("x",x-11);r.setAttribute("y",y-11);r.setAttribute("width",22);r.setAttribute("height",22);r.setAttribute("rx","4");r.setAttribute("class","bx");g.appendChild(r);
+var t=document.createElementNS(NS,"text");t.setAttribute("x",x);t.setAttribute("y",y+5);t.setAttribute("text-anchor","middle");t.setAttribute("font-size","12");t.setAttribute("font-weight","bold");t.textContent="Q";g.appendChild(t);
+var q=document.createElementNS(NS,"text");q.setAttribute("x",x+18);q.setAttribute("y",y+4);q.setAttribute("font-size","10");q.setAttribute("fill","#8ea2c0");q.textContent="Q"+(i+1);g.appendChild(q);
+g.addEventListener("click",function(){toggleLine(i);});svg.appendChild(g);R.brk.push({box:r,ch:t});wire(x,y+11,x,y+34,"#5f7191",2);}
+function feedLbl(x,y,L,i){txt(x,y-14,L.n.split(" (")[0],11,"#e9eff9","middle");var v=txt(x,y,"—",11,"#8ea2c0","middle","scV"+i);v.setAttribute("font-family","Consolas,monospace");}}
+
+/* ============ UPDATE (in place) ============ */
+function stTag(L){if(!L.on)return["t-off","O'chirilgan"];if(L.st==="FAULT")return["t-bad","Nosoz"];if(L.st==="HIGH")return["t-warn","Yuk yuqori"];return["t-ok","Normal"];}
+function updateElec(){S.lines.forEach(function(L,i){var c=R.elec[i];if(!c)return;
+c.v.textContent=L.on?L.v:0;c.a.textContent=L.on?fmt(L.a,0):0;c.kw.textContent=L.on?fmt(L.kw):"0.0";
+var pct=Math.min(100,Math.abs(L.kw));c.bar.style.width=pct+"%";c.barWrap.className="bar"+(L.kw>S.hiThr||L.st==="FAULT"?" r":L.st==="HIGH"?" y":"");
+var t=stTag(L);c.tag.className="tag "+t[0];c.tag.textContent=t[1];
+if(L.st==="FAULT"){c.sub.style.display="";c.sub.textContent="Taxminiy joy: "+(L.faultAt||"—");}else c.sub.style.display="none";
+c.sw.className="sw"+(L.on?" on":"");c.tr.classList.toggle("sel",i===S.selFd);});
+updateFdDetail();}
+function updateFdDetail(){var L=S.lines[S.selFd];$("fdName").textContent=L.n+" · "+L.f;var b=$("fdBody");var t=stTag(L);
+var loadPct=L.on?Math.round(Math.abs(L.kw)/Math.max(L.iset*0.22,1)*22):0;
+b.innerHTML="";
+function kv(k,v){var d=el("div","kv");var s1=el("span",null,k);var s2=el("b","num",v);d.appendChild(s1);d.appendChild(s2);b.appendChild(d);}
+kv("Holati",t[1]);kv("Kuchlanish (U)",L.on?L.v+" V":"—");kv("Tok (I)",L.on?fmt(L.a,0)+" A":"—");kv("Faol quvvat (P)",L.on?fmt(L.kw)+" kVt":"—");
+kv("Bugungi sarf",fmt(L.e)+" kVt·soat");kv("Himoya toki (I>)",L.iset+" A");
+var lb=el("label","fl","Yuklanish darajasi, % — ");var lv=el("b","num",L.load+"%");lb.appendChild(lv);b.appendChild(lb);
+var r=el("input");r.type="range";r.min="10";r.max="120";r.value=L.load;r.addEventListener("input",function(){L.load=+r.value;lv.textContent=r.value+"%";});b.appendChild(r);
+var lb2=el("label","fl","Himoya toki I> (A)");b.appendChild(lb2);
+var ni=el("input");ni.type="number";ni.min="20";ni.max="400";ni.value=L.iset;ni.addEventListener("change",function(){L.iset=Math.max(20,+ni.value||L.iset);log("<b>"+L.n+"</b>: himoya toki "+L.iset+" A ga o'rnatildi.");});b.appendChild(ni);
+var row=el("div");row.style.cssText="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap";
+var b1=el("button","btn sm "+(L.on?"dan":"okb"),L.on?"O'chirish":"Ulash");b1.addEventListener("click",function(){toggleLine(S.selFd);});
+var b2=el("button","btn sm","Topshiriq ochish");b2.addEventListener("click",function(){toast("Topshiriq ochildi: <b>"+L.n+"</b> — navbatchi elektrikka yuborildi.");log("Topshiriq ochildi: <b>"+L.n+"</b>.");});
+row.appendChild(b1);row.appendChild(b2);b.appendChild(row);}
+function selectFd(i){S.selFd=i;updateElec();}
+function toggleLine(i){var L=S.lines[i];L.on=!L.on;if(!L.on&&L.st!=="FAULT")L.st="OK";L.over=0;beep(L.on?700:300,0.15);log("<b>"+L.n+"</b> masofadan "+(L.on?"ulandi.":"o'chirildi."),L.on?"":"warn2");updateElec();updateScheme();}
+function updateScheme(){S.lines.forEach(function(L,i){var b=R.brk[i];if(!b)return;var col=!L.on?"#3a4a68":L.st==="FAULT"?"#ef5750":L.st==="HIGH"?"#f0a63c":"#3ecf7f";b.box.setAttribute("fill",col);b.ch.setAttribute("fill",!L.on?"#8ea2c0":"#06121f");
+var v=$("scV"+i);if(v){v.textContent=L.on?fmt(L.kw)+" kVt":"o'chiq";v.setAttribute("fill",!L.on?"#5f7191":L.st==="FAULT"?"#ff8f88":"#8ea2c0");}});
+var t1=0,t2=0;S.lines.forEach(function(L){if(L.tr===1&&L.on&&L.base>0)t1+=L.kw;if(L.tr===2&&L.on&&L.base>0)t2+=L.kw;});
+var e1=$("scTR1"),e2=$("scTR2");if(e1)e1.textContent=Math.round(t1/400*100)+"%";if(e2)e2.textContent=Math.round(t2/400*100)+"%";
+var f=S.lines.findIndex(function(L){return L.st==="FAULT";});var fm=R.fltm;
+if(fm){if(f>=0){var xs=[120,230,340,450,530,640,750,800];fm.style.display="";fm.setAttribute("transform","translate("+xs[f]+" 190)");}else fm.style.display="none";}}
+function updateGas(){S.gas.forEach(function(z,i){var c=R.gas[i];if(!c)return;var thr=S.gasThr,wr=S.gasWarn;
+var frac=Math.min(1,z.ppm/2000);c.fg.setAttribute("stroke-dashoffset",(141.4*(1-frac)).toFixed(1));
+c.fg.setAttribute("stroke",z.ppm>thr?"#ef5750":z.ppm>wr?"#f0a63c":"#3ecf7f");
+c.big.textContent=fmt0(z.ppm);
+var t=z.ppm>thr?["t-bad","Favqulodda"]:z.ppm>wr?["t-warn","Ogohlantirish"]:["t-ok","Normal"];
+c.tag.className="tag "+t[0];c.tag.textContent=t[1];
+c.bar.style.width=Math.min(100,z.ppm/20)+"%";c.card.parentNode;void 0;
+c.bar.parentNode.className="bar"+(z.ppm>wr?(z.ppm>thr?" r":" y"):"");
+c.sub.textContent="Klapan: "+(z.valve?"ochiq":"berk")+" · Shamollatish: "+(z.vent?"ishlayapti":"o'chiq");
+c.bV.textContent=z.vent?"Shamollatishni o'chirish":"Shamollatishni yoqish";
+c.bK.textContent=z.valve?"Klapan berkitish":"Klapan ochish";
+c.card.style.borderTop="3px solid "+(z.ppm>thr?"var(--bad)":z.ppm>wr?"var(--warn)":"var(--ok)");});}
+function updateDevs(){S.devs.forEach(function(d,i){var c=R.dev[i];if(!c)return;
+c.tag.className="tag "+(d.on?"t-ok":"t-off");c.tag.textContent=d.on?"Ishlayapti":"O'chiq";c.sw.className="sw"+(d.on?" on":"");
+c.body.innerHTML="";
+function kv(k,v){var x=el("div","kv");x.appendChild(el("span",null,k));x.appendChild(el("b","num",v));c.body.appendChild(x);}
+if(d.t==="cond"){kv("Belgilangan harorat",d.temp+"°C");
+var r=el("input");r.type="range";r.min="16";r.max="30";r.value=d.temp;
+r.addEventListener("input",function(){d.temp=+r.value;updateDevs();});c.body.appendChild(r);
+kv("Kuchlanish",d.on?d.v+" V":"—");kv("Kompressor",d.on?(d.v<205||d.v>238?"Nosozlik":"Normal"):"O'chiq");
+var row=el("div");row.style.cssText="display:flex;gap:6px;margin-top:6px";
+[22,24,26].forEach(function(t){var b=el("button","btn sm",t+"°");b.addEventListener("click",function(){d.temp=t;updateDevs();log("<b>"+d.n+"</b>: "+t+"°C o'rnatildi.");});row.appendChild(b);});c.body.appendChild(row);}
+else if(d.t==="filter"){kv("Ifloslanish darajasi",Math.round(d.filter)+"%");
+var bar=el("div","bar"+(d.filter>70?" y":""));var bi=el("i");bi.style.width=Math.min(100,d.filter)+"%";bar.appendChild(bi);c.body.appendChild(bar);
+var s=el("div","sub",d.filter>80?"Almashtirish talab etiladi — topshiriq ochildi.":d.filter>60?"Yaqin orada tozalash tavsiya etiladi.":"Toza.");c.body.appendChild(s);}
+else{kv("Kuchlanish",d.on?"223 V":"—");kv("Signal manbai",d.ch);
+var row2=el("div");row2.style.cssText="display:flex;gap:6px;margin-top:6px";
+["E'lonlar","Videokuzatuv"].forEach(function(ch){var b=el("button","btn sm",ch);b.addEventListener("click",function(){d.ch=ch;updateDevs();});row2.appendChild(b);});c.body.appendChild(row2);}});}
+function updateStrings(){var per=[0,0,0,0];var sun=(1-S.cloud/160);S.strings.forEach(function(s,i){var p=s.on?s.cap*sun*(S.tOut>33?0.94:1)*(0.97+Math.random()*0.03):0;per[i]=p;var c=R.str[i];if(!c)return;
+c.kw.textContent=fmt(p);c.tag.className="tag "+(s.on?"t-ok":"t-off");c.tag.textContent=s.on?"Ulangan":"Ajratilgan";c.sw.className="sw"+(s.on?" on":"");});
+return per;}
+function renderAudit(){var t=S.tarifBuy;R.aud.forEach(function(o){var L=o.L,c=o.c;var cost=L.e*t;
+c.kwh.textContent=fmt(L.e,0);c.sum.textContent=fmt0(cost);
+var eff=L.st==="FAULT"?["Qoniqarsiz","t-bad"]:L.kw>S.hiThr?["Past","t-warn"]:["Qoniqarli","t-ok"];
+c.eff.innerHTML="";var sp=el("span","tag "+eff[1],eff[0]);c.eff.appendChild(sp);
+c.note.textContent=L.st==="FAULT"?("Himoya/nosozlik — "+(L.faultAt||"tekshirish")):L.kw>S.hiThr?"Chegaradan yuqori — rejimni ko'rib chiqing":"Me'yorda";
+var show=(L.st==="FAULT"||L.kw>S.hiThr)&&L.on;c.btn.style.display=show?"":"none";});
+var tot=R.aud.reduce(function(a,o){return a+o.L.e;},0);
+$("audSum").innerHTML="Jami (bugun): <b class='num'>"+fmt(tot,0)+" kVt·soat</b> · <b class='num'>"+fmt0(tot*t)+" so'm</b> · Hisobiy tejash imkoniyati: 18–25%.";}
+
+/* ============ DASHBOARD RENDER ============ */
+function renderDash(total){$("clock").textContent=new Date().toLocaleString("uz-UZ",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+$("shiftLbl").textContent=S.shift;
+$("kPow").textContent=fmt(total);$("kPowSub").textContent="Limit 320 kVt · "+(total>320?"Limitdan oshdi":"Me'yorda");
+$("kKwh").textContent=fmt(S.totalKwh);$("kCost").textContent=fmt0(S.totalKwh*S.tarifBuy)+" so'm · CO2 -"+fmt0(S.totalKwh*0.42)+" kg";
+$("kSol").textContent=fmt(Math.max(S.solar,0));$("kBat").textContent="Akkumulyator: "+Math.round(S.bat)+"% · Tashqi "+S.tOut+"°C";
+$("kGas").textContent=fmt0(S.maxGas.v);$("kGasSub").textContent="Maksimal: "+S.maxGas.r;
+var t1=0,t2=0;S.lines.forEach(function(L){if(L.tr===1&&L.on&&L.base>0)t1+=L.kw;if(L.tr===2&&L.on&&L.base>0)t2+=L.kw;});
+var trPct=Math.round((t1+t2)/800*100);$("kTr").textContent=trPct;$("kTrSub").textContent="TR-1: "+Math.round(t1/400*100)+"% · TR-2: "+Math.round(t2/400*100)+"%";
+function setT(id,v){var e=$(id);if(e)e.textContent=v;}
+setT("mmGrid",fmt(total-devKwCache)+" kVt");setT("mmSol",fmt(Math.max(S.solar,0))+" kVt");
+setT("mmTR1","yuk "+Math.round(t1/400*100)+"%");setT("mmTR2","yuk "+Math.round(t2/400*100)+"%");setT("mmBus",fmt(total)+" kVt");
+var gA=S.lines[0].kw+S.lines[1].kw,gB=S.lines[2].kw+S.lines[3].kw,gC=S.lines[4].kw+S.lines[5].kw+S.lines[6].kw;
+setT("mmA",fmt(Math.max(gA,0))+" kVt");setT("mmB",fmt(Math.max(gB,0))+" kVt");setT("mmC",fmt(Math.max(gC,0))+" kVt");
+var db=$("distBars");if(db){db.innerHTML="";var arr=S.lines.filter(function(L){return L.base>0;}).sort(function(a,b){return b.kw-a.kw;});
+var mx=Math.max.apply(null,arr.map(function(L){return Math.max(L.kw,0.1);}));arr.slice(0,6).forEach(function(L){var r=el("div");r.style.marginBottom="8px";
+var h=el("div");h.style.cssText="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px";
+h.appendChild(el("span",null,L.n));var vv=el("span","num",fmt(Math.max(L.kw,0))+" kVt");h.appendChild(vv);r.appendChild(h);
+var bar=el("div","bar"+(L.st==="FAULT"?" r":L.st==="HIGH"?" y":""));var bi=el("i");bi.style.width=Math.round(Math.max(L.kw,0)/mx*100)+"%";bar.appendChild(bi);r.appendChild(bar);db.appendChild(r);});}
+var top=S.lines.filter(function(L){return L.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];
+$("aiTip").innerHTML="Eng yuqori yuk: <b>"+top.n+" ("+fmt(top.kw)+" kVt)</b>."+(S.maxGas.v>S.gasWarn?"<br>"+S.maxGas.r+" zonada CH4 "+fmt0(S.maxGas.v)+" ppm — shamollatish ishga tushirilgan.":"")+"<br>Og'ir yuklarni 11:00–15:00 oralig'iga rejalashtirish tavsiya etiladi.";
+$("cTemp").textContent=fmt(S.roomTemp)+"°C (belgilangan "+S.devs[0].temp+"°C)";
+$("cSet").textContent=S.devs[0].temp+"°C";
+$("cCur").textContent=(S.cloud<45&&S.shift==="Kunduzgi")?"Nur tushmoqda — parda yopiqroq":"Bulutli — parda ochiq";
+drawLive();drawSolMini();}
+var devKwCache=0;
+
+/* ============ CHARTS ============ */
+function setupCv(id){var c=$(id);var r=c.getBoundingClientRect();if(r.width>0){c.width=r.width*2;c.height=230*2;}var x=c.getContext("2d");x.setTransform(2,0,0,2,0,0);return{x:x,W:c.width/2,H:230};}
+function grid(x,W,H,max,unit){x.clearRect(0,0,W,H);x.strokeStyle="#1d2c4b";x.lineWidth=1;x.fillStyle="#5f7191";x.font="10px Consolas,monospace";
+for(var g=0;g<=4;g++){var y=12+g*(H-44)/4;x.beginPath();x.moveTo(34,y);x.lineTo(W-6,y);x.stroke();x.fillText(fmt(max*(1-g/4),0),2,y+3);}
+x.fillText(unit||"kVt",2,H-6);}
+function plot(x,arr,col,max){if(arr.length<2)return;x.strokeStyle=col;x.lineWidth=1.8;x.beginPath();arr.forEach(function(v,i){var px=34+i/59*(x._W-40),py=12+(1-Math.min(1,Math.max(0,v/max)))*(x._H-44);if(i===0)x.moveTo(px,py);else x.lineTo(px,py);});x.stroke();}
+function drawLive(){var c=$("chLive");if(!c||!c.offsetParent)return;var s=setupCv("chLive");var x=s.x;x._W=s.W;x._H=s.H;grid(x,s.W,s.H,400,"kVt");
+plot(x,S.hist,"#3f9dff",400);plot(x,S.solHist,"#7d8aa0",400);
+x.strokeStyle="#ef5750";x.setLineDash([6,4]);x.beginPath();var y=12+(1-320/400)*(s.H-44);x.moveTo(34,y);x.lineTo(s.W-6,y);x.stroke();x.setLineDash([]);
+if(S._hov!==undefined&&S.hist.length>1){var i=Math.max(0,Math.min(S.hist.length-1,S._hov));var px=34+i/59*(s.W-40);x.strokeStyle="#e9eff9";x.beginPath();x.moveTo(px,12);x.lineTo(px,s.H-32);x.stroke();
+x.fillStyle="#0e1729";x.strokeStyle="#2c3f63";var tx="T-"+(S.hist.length-1-i)+"s: "+fmt(S.hist[i])+" kVt";x.fillRect(px+6,20,150,22);x.strokeRect(px+6,20,150,22);x.fillStyle="#e9eff9";x.font="11px Consolas,monospace";x.fillText(tx,px+12,35);}}
+function drawSolMini(){var c=$("chSol");if(!c||!c.offsetParent)return;var s=setupCv("chSol");grid(s.x,s.W,s.H,150,"kVt");s.x._W=s.W;s.x._H=s.H;plot(s.x,S.solHist,"#3ecf7f",150);
+$("solKw").textContent=fmt(Math.max(S.solar,0))+" kVt";$("solBat").textContent=Math.round(S.bat)+"%";$("solBar").style.width=S.bat+"%";$("solDay").textContent=fmt(S.solarDay)+" kVt·soat";}
+function calcProfit(){var pk=+($("pk").value||120),sell=+($("sell").value||35);$("pkV").textContent=pk;$("sellV").textContent=sell;
+var dayKwh=pk*4.2*(1-S.cloud/200),monthKwh=dayKwh*30,sellKwh=monthKwh*sell/100;
+var profit=sellKwh*S.tarifSell,sav=(monthKwh-sellKwh)*S.tarifBuy;
+$("profitOut").innerHTML="Kunlik ishlab chiqarish: <b class='num'>~"+fmt0(dayKwh)+" kVt·soat</b> · Oylik: <b class='num'>~"+fmt0(monthKwh)+"</b><br>Sotishdan tushum: <b class='num'>"+fmt0(profit)+" so'm/oy</b><br>O'z iste'molini qoplash: <b class='num'>"+fmt0(sav)+" so'm/oy</b><br>Taxminiy qoplanish: <b class='num'>"+fmt(pk*9000000/Math.max(profit+sav,1)*12)+" oy</b>";}
+function buildForecast(manual){var days=["Du","Se","Ch","Pa","Ju","Sh","Ya"];var base=S.hist.length?S.hist[S.hist.length-1]:180;
+S.fc=days.map(function(d,i){return{d:d,kwh:Math.round((base*20*(1+Math.sin(i*1.2)*0.15)+(i>=5?-900:600))/10)};});
+var c=$("chFc");if(c&&c.offsetParent){var s=setupCv("chFc");var x=s.x;x.clearRect(0,0,s.W,s.H);var max=Math.max.apply(null,S.fc.map(function(f){return f.kwh;}));
+S.fc.forEach(function(f,i){var bw=(s.W-50)/7-14,h=(f.kwh/max)*(s.H-60);x.fillStyle=i>=5?"#5f7191":"#3f9dff";x.fillRect(40+i*(s.W-50)/7,s.H-34-h,bw,h);x.fillStyle="#8ea2c0";x.font="11px Consolas,monospace";x.fillText(f.d,40+i*(s.W-50)/7+bw/2-4,s.H-16);x.fillStyle="#e9eff9";x.fillText(fmt0(f.kwh),40+i*(s.W-50)/7-4,s.H-40-h);});}
+$("fcTable").innerHTML=S.fc.map(function(f){return"<b>"+f.d+"</b>: "+fmt0(f.kwh);}).join(" · ")+" kVt·soat";
+var tot=S.fc.reduce(function(a,b){return a+b.kwh;},0);
+var top=S.lines.filter(function(L){return L.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];
+$("aiFull").innerHTML="Haftalik jami yuk: <b class='num'>"+fmt0(tot)+" kVt·soat</b> (~"+fmt0(tot*S.tarifBuy)+" so'm).<br><br>Payshanba–juma kunlari yuk eng yuqori — kompressor ishini 14:00 dan keyinga rejalashtirish tavsiya etiladi.<br>Shanba–yakshanba yuk kam — generatsiyaning 60% gacha qismini tarmoqqa uzatish mumkin.<br><b>"+top.n+"</b> bo'yicha alohida o'lchov o'tkazish tavsiya etiladi.";
+if(manual)toast("Prognoz qayta hisoblandi.");}
+
+/* ============ ACTIONS ============ */
+function setMode(m){S.mode=m;$("mReal").classList.toggle("on",m==="real");$("mSim").classList.toggle("on",m==="sim");toast(m==="real"?"Real vaqt rejimi yoqildi.":"Simulyatsiya rejimi yoqildi. Tezlikni Sozlamalardan o'zgartiring.");renderAlarms();}
+function setSpeed(v){S.speed=v;$("spdLbl").textContent=v+"x";toast("O'lchov tezligi: "+v+"x.");renderAlarms();}
+function setShift(v){S.shift=v;log("Smena almashinuvi qayd etildi: "+v+".");}
+function injectFault(){var c=S.lines.filter(function(l){return l.on&&l.base>0;});if(!c.length)return;var L=c[Math.floor(Math.random()*c.length)];L.st="FAULT";L.faultAt=L.f+" bo'yicha taxm. "+(100+Math.floor(Math.random()*800))+" m";raise("crit","Nosozlik qaydi: <b>"+L.n+"</b> — "+L.faultAt+".","flt"+L.n,5);toast("Nosozlik: <b>"+L.n+"</b><br>"+L.faultAt,1);updateElec();updateScheme();}
+function injectGas(){var i=Math.floor(Math.random()*S.gas.length);S.gas[i].leak=true;log("<b>"+S.gas[i].n+"</b> da sizish ssenariysi boshlandi.","warn2");setTimeout(function(){S.gas[i].leak=false;},25000);}
+function fixAll(){S.lines.forEach(function(l){l.on=true;if(l.st==="FAULT")l.st="OK";l.load=Math.min(l.load,85);l.over=0;});log("Barcha fiderlar ish rejimiga qaytarildi.");toast("Barcha fiderlar tiklandi.");updateElec();updateScheme();}
+function fixGas(){S.gas.forEach(function(g){g.ppm=60+Math.random()*120;g.leak=false;g.evaced=false;g.warned=false;g.valve=true;});closeEvac();log("Gaz ko'rsatkichlari normaga keltirildi.");updateGas();}
+function openEvac(g){$("evacTxt").textContent=g.n+" zonasida CH4 "+fmt0(g.ppm)+" ppm dan oshdi. Quyidagi tartibga amal qiling.";$("evacMov").classList.add("on");}
+function closeEvac(){$("evacMov").classList.remove("on");}
+var cfCb=null;
+function confirmDlg(title,txt,cb){$("cfTitle").textContent=title;$("cfTxt").textContent=txt;cfCb=cb;$("cfMov").classList.add("on");}
+function emergencyStop(){confirmDlg("Avariya stop","Barcha ishlab chiqarish fiderlari o'chiriladi. Quyosh invertori va yoritish ishda qoladi. Davom etilsinmi?",function(){S.lines.forEach(function(l){if(l.base>0)l.on=false;});raise("crit","Avariya stop bajarildi: ishlab chiqarish fiderlari o'chirildi.","estop",5);updateElec();updateScheme();});}
+function diagnose(){var out=[];S.devs.forEach(function(d){if(d.t==="cond"&&d.on&&(d.v<205||d.v>238))out.push(d.n+": kuchlanish me'yordan chetda");if(d.t==="filter"&&d.filter>80)out.push(d.n+": almashtirish talab etiladi");});S.lines.forEach(function(l){if(l.st==="FAULT")out.push(l.n+": "+(l.faultAt||"tekshirish"));});
+$("diagOut").textContent=out.length?("Aniqlangan holatlar: "+out.join("; ")):"Barcha qurilmalar ish rejimida. Chetlanish aniqlanmadi.";
+if(out.length){raise("warn","Diagnostika: "+out.length+" ta holat qayd etildi.","diag",60);}else toast("Diagnostika yakunlandi: chetlanish yo'q.");}
+function cleanFilters(){S.devs.forEach(function(d){if(d.t==="filter")d.filter=5;});toast("Filtrlar tozalandi.");updateDevs();}
+function setMood(m){S.mood=m;var c1=S.devs[0],c2=S.devs[1];var msg="";
+if(m==="Issiq"){c1.temp=22;c2.temp=22;msg="Sex harorati 22°C ga tushirildi, pardalar yopiqroq.";}
+else if(m==="Sovuq"){c1.temp=26;c2.temp=26;msg="Harorat 26°C ga ko'tarildi.";}
+else if(m==="Charchagan"){c1.temp=23;msg="Harorat 23°C ga tushirildi, yoritish yumshatildi.";}
+else if(m==="Diqqat talab"){c1.temp=23;msg="23°C saqlanadi, ortiqcha bildirishnomalar o'chirildi.";}
+else msg="Rejim: 24°C, pardalar avtomatik.";
+$("moodOut").textContent="Hozir: "+m+". "+msg;$("cTempR").value=c1.temp;$("cSet").textContent=c1.temp+"°C";log("Mikroiqlim tuzatildi ("+m+"): "+msg);updateDevs();}
+function setRoomTemp(v){S.devs[0].temp=+v;$("cSet").textContent=v+"°C";}
+function learnDay(){S.learned++;var w=S.workers[S.learned%3];w.habit+=" (kun "+S.learned+" qaydi)";w._td.textContent=w.habit;$("learnLog").innerHTML="<b>"+S.learned+"-kun arxivga yozildi:</b> "+w.n+" rejimi yangilandi. Tizim smenadan 15 daqiqa oldin xonani tayyorlaydi.";toast("Kunlik rejim arxivga yozildi.");}
+function paTone(seq,who){if(!S.sound){toast("Ovoz o'chirilgan — Sozlamalar ustidagi tugmadan yoqing.");return;}
+try{S.ac=S.ac||new (window.AudioContext||window.webkitAudioContext)();var t=S.ac.currentTime;seq.forEach(function(f,i){var o=S.ac.createOscillator(),g=S.ac.createGain();o.type="sine";o.frequency.value=f;g.gain.value=0.08;o.connect(g);g.connect(S.ac.destination);o.start(t+i*0.35);g.gain.exponentialRampToValueAtTime(0.0008,t+i*0.35+0.3);o.stop(t+i*0.35+0.32);});}catch(e){}
+log("PA tizim: <b>"+who+"</b> signal berildi.");toast("PA tizim: "+who+".");}
+
+/* ============ CHAT ============ */
+var CHIPS=["Yuk yuqori qayerda?","Gaz holati qanday?","Haftalik prognoz","Quyosh iqtisodi","Nosozlik bormi?"];
+function buildChat(){var box=$("chatBox");box.innerHTML="";sysMsg("Xayrli kun. Joriy yuk, gaz ko'rsatkichlari, quyosh generatsiyasi va prognoz bo'yicha ma'lumot bera olaman.");
+var cc=$("chatChips");CHIPS.forEach(function(q){var b=el("button","btn sm",q);b.addEventListener("click",function(){$("chatIn").value=q;sendChat();});cc.appendChild(b);});}
+function sysMsg(t){var box=$("chatBox");var m=el("div","m",t);box.appendChild(m);box.scrollTop=box.scrollHeight;}
+function sendChat(){var inp=$("chatIn"),q=inp.value.trim();if(!q)return;var box=$("chatBox");
+var me=el("div","m me",q.replace(/</g,"&lt;"));box.appendChild(me);inp.value="";
+var tp=el("div","m");tp.innerHTML='<span class="typ"><i></i><i></i><i></i></span>';box.appendChild(tp);box.scrollTop=box.scrollHeight;
+setTimeout(function(){var a=aiAnswer(q);tp.innerHTML="";var sp=el("span",null,a);tp.appendChild(sp);
+var cp=el("button","cp","nusxa");cp.title="Javobni nusxalash";cp.addEventListener("click",function(){copyTxt(tp.textContent);});tp.appendChild(cp);box.scrollTop=box.scrollHeight;},450);}
+function copyTxt(t){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast("Javob nusxalandi.");},function(){toast("Nusxalashda xatolik.");});else toast("Nusxalash qo'llanilmaydi.");}
+function aiAnswer(q){var l=q.toLowerCase();
+function top(){return S.lines.filter(function(x){return x.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];}
+var t=top();
+if(/salom|assalom|xayr/.test(l))return "Xayrli kun. Joriy yuk "+fmt(S.hist[S.hist.length-1]||0)+" kVt, gaz bo'yicha maksimal "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+"). Qaysi bo'lim bo'yicha ma'lumot kerak?";
+if(/yuk|fider|iste|sex|qayer|yuqori|ko.p/.test(l))return "Eng yuqori yuk — "+t.n+": "+fmt(t.kw)+" kVt ("+t.f+", yuklanish "+t.load+"%). Tavsiya: yukni 60% atrofiga tushirish yoki ishni 11:00–15:00 oralig'iga ko'chirish.";
+if(/gaz|ch4|xavf|evakuatsiya/.test(l))return S.maxGas.v>S.gasWarn?(S.maxGas.r+" zonada CH4 "+fmt0(S.maxGas.v)+" ppm. Shamollatish ishga tushirilgan."+(S.maxGas.v>S.gasThr?" Evakuatsiya tartibiga amal qiling.":" Hozircha kuzatuv rejimi kifoya.")):"Gaz ko'rsatkichlari me'yorda. Maksimal: "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+").";
+if(/prognoz|hafta|kelasi/.test(l)){buildForecast(false);var tot=S.fc.reduce(function(a,b){return a+b.kwh;},0);return "Haftalik jami yuk "+fmt0(tot)+" kVt·soat (~"+fmt0(tot*S.tarifBuy)+" so'm) kutilmoqda. Batafsil — Prognoz bo'limida.";}
+if(/quyosh|foyda|sotish|panel|iqtisod|tarif/.test(l)){var pk=+($("pk").value||120);return "Joriy generatsiya "+fmt(Math.max(S.solar,0))+" kVt, akkumulyator "+Math.round(S.bat)+"%. "+pk+" kVt stansiya kuniga taxminan "+fmt0(pk*4.2)+" kVt·soat beradi.";}
+if(/nosoz|avariya|kabel|uzilish|himoya/.test(l)){var f=S.lines.filter(function(x){return x.st==="FAULT";});return f.length?(f.length+" ta qayd: "+f.map(function(x){return x.n+" ("+(x.faultAt||"tekshirish")+ ")";}).join("; ")+". Fiderni o'chirib, topshiriq ochish tavsiya etiladi."):"Nosozlik qayd etilmagan. Kuchlanishlar ishchi oraliqda.";}
+if(/konditsioner|harorat|filtr|sovu|issi/.test(l))return "K-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"ishlayapti":"o'chiq")+"), sex harorati "+fmt(S.roomTemp)+"°C. F-1 ifloslanishi "+Math.round(S.devs[2].filter)+"%.";
+if(/xodim|smena|kayfiyat|mikroiqlim/.test(l))return "Arxivda "+S.learned+" kunlik rejim qaydi bor. Hozirgi holat: "+S.mood+". Mikroiqlim bo'limidan rejimni o'zgartirish mumkin.";
+return "Savol qabul qilindi. Yuk, gaz, quyosh iqtisodi, prognoz yoki mikroiqlim bo'yicha aniqroq so'rang. Masalan: "+CHIPS[0];}
+
+/* ============ CSV / PRINT ============ */
+function dl(name,content){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+content],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},500);}
+function exportAudit(){var s="Zona;Sarf_kun_kVtsoat;Summa_kun_som\n";R.aud.forEach(function(o){s+=o.L.n+";"+fmt(o.L.e,0)+";"+fmt0(o.L.e*S.tarifBuy)+"\n";});dl("energiya-auditi.csv",s);toast("Hisobot yuklab olindi.");log("Audit hisoboti CSV shaklida yuklab olindi.");}
+function exportFc(){if(!S.fc)buildForecast(false);var s="Kun;Prognoz_kVtsoat\n";S.fc.forEach(function(f){s+=f.d+";"+f.kwh+"\n";});dl("haftalik-prognoz.csv",s);toast("Prognoz yuklab olindi.");}
+
+/* ============ WIRING ============ */
+function wire(){
+on("mReal","click",function(){setMode("real");});on("mSim","click",function(){setMode("sim");});
+on("sndBtn","click",function(){S.sound=!S.sound;save("esg_sound",S.sound);$("sndBtn").textContent=S.sound?"Ovoz: yoqilgan":"Ovoz: o'chirilgan";});
+on("fsBtn","click",function(){try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen();}catch(e){toast("To'liq ekran qo'llanilmaydi.");}});
+on("estopBtn","click",emergencyStop);
+on("ackAllBtn","click",function(){S.alarms.forEach(function(a){a.ack=true;});renderAlarms();log("Barcha signallar tasdiqlandi.");});
+on("goAlarmBtn","click",function(){go("s-dash");});
+on("dFault","click",injectFault);on("dGas","click",injectGas);on("dFix","click",function(){fixAll();fixGas();});
+on("gTest","click",injectGas);on("gFix","click",fixGas);
+on("diagBtn","click",diagnose);on("fltBtn","click",cleanFilters);
+on("sellSw","click",function(){S.sellOn=!S.sellOn;$("sellSw").classList.toggle("on",S.sellOn);log("Tarmoqqa uzatish "+(S.sellOn?"yoqildi.":"to'xtatildi."));calcProfit();});
+on("tarifBuy","input",function(){S.tarifBuy=+($("tarifBuy").value||1200);save("esg_tb",S.tarifBuy);calcProfit();});
+on("tarifSell","input",function(){S.tarifSell=+($("tarifSell").value||900);save("esg_ts",S.tarifSell);calcProfit();});
+on("pk","input",calcProfit);on("sell","input",calcProfit);on("toFc","click",function(){go("s-ai");});
+on("fcRe","click",function(){buildForecast(true);});on("fcCsv","click",exportFc);
+on("chatSend","click",sendChat);on("chatIn","keydown",function(e){if(e.key==="Enter")sendChat();});
+on("cTempR","input",function(){setRoomTemp($("cTempR").value);});
+on("cCurR","input",function(){var v=+$("cCurR").value;$("cCur").textContent=(v>50?"Ochiq ":"Yopiq ")+v+"%";});
+on("learnBtn","click",learnDay);
+on("paTest","click",function(){paTone([880,660],"test");});on("paEvac","click",function(){paTone([620,620,430,430],"evakuatsiya e'loni (sinov)");});
+on("paVol","input",function(){$("paSrc").textContent="Manba-1 · "+$("paVol").value+"%";});
+on("audRe","click",function(){renderAudit();toast("Audit yangilandi.");});on("audCsv","click",exportAudit);
+on("audZero","click",function(){S.lines.forEach(function(l){l.e=0;});S.totalKwh=0;renderAudit();log("Kunlik hisob nollandi.");});
+on("audPrint","click",function(){window.print();});
+var spds=document.querySelectorAll("[data-spd]");spds.forEach(function(b){b.addEventListener("click",function(){setSpeed(+b.getAttribute("data-spd"));});});
+on("gasThr","input",function(){S.gasThr=+($("gasThr").value||1500);save("esg_gasThr",S.gasThr);});
+on("gasWarn","input",function(){S.gasWarn=+($("gasWarn").value||800);save("esg_gasWarn",S.gasWarn);});
+on("hiThr","input",function(){S.hiThr=+($("hiThr").value||55);save("esg_hiThr",S.hiThr);});
+on("cloudR","input",function(){S.cloud=+($("cloudR").value||0);});
+on("toutR","input",function(){S.tOut=+($("toutR").value||31);});
+on("shDay","click",function(){setShift("Kunduzgi");});on("shNight","click",function(){setShift("Tungi");});
+on("scPeak","click",function(){S.lines.forEach(function(l){if(l.on&&l.base>0)l.load=105;});log("Ssenariy 'pik yuk': yuklamalar oshirildi.","warn2");toast("Ssenariy: pik yuklamalar berildi.");});
+on("scFault","click",injectFault);on("scGas","click",injectGas);
+on("scNorm","click",function(){fixAll();fixGas();S.lines.forEach(function(l){l.load=Math.min(l.load,80);});log("Ssenariy yakunlandi: normal rejim.");});
+on("evacOk","click",function(){S.alarms.forEach(function(a){if(a.key&&a.key.indexOf("gas")===0)a.ack=true;});closeEvac();renderAlarms();log("Evakuatsiya tartibi tasdiqlandi.");});
+on("evacFix","click",fixGas);
+on("cfYes","click",function(){$("cfMov").classList.remove("on");if(cfCb)cfCb();cfCb=null;});
+on("cfNo","click",function(){$("cfMov").classList.remove("on");cfCb=null;});
+var ch=$("chLive");ch.addEventListener("mousemove",function(e){var r=ch.getBoundingClientRect();var x=(e.clientX-r.left)*(ch.width/r.width)/2;var frac=(x-34)/((ch.width/2)-74);S._hov=Math.round(frac*59);});
+ch.addEventListener("mouseleave",function(){S._hov=undefined;});
+on("objSel","change",function(){log("Obyekt tanlandi: "+$("objSel").value+".");});
+}
+
+/* ============ INIT + LOOP ============ */
+function init(){
+$("tarifBuy").value=S.tarifBuy;$("tarifSell").value=S.tarifSell;
+$("gasThr").value=S.gasThr;$("gasWarn").value=S.gasWarn;$("hiThr").value=S.hiThr;
+$("cloudR").value=S.cloud;$("toutR").value=S.tOut;
+$("sndBtn").textContent=S.sound?"Ovoz: yoqilgan":"Ovoz: o'chirilgan";
+buildNav();buildMimic();buildScheme();buildElec();buildGas();buildDevs();buildStrings();buildAudit();buildChat();
+wire();selectFd(0);updateStrings();calcProfit();buildForecast(false);renderAudit();renderAlarms();
+log("Tizim ishga tushirildi. 8 ta fider va 6 ta gaz zonasi nazoratga olindi.");
+setInterval(function(){
+for(var k=0;k<S.speed;k++){step(1);
+var dk=0;S.devs.forEach(function(d){if(d.on){var c=d.extra;if(d.t==="cond")c*=(d.temp<=22?1.25:d.temp>=26?0.8:1);dk+=c;}});devKwCache=dk;}
+var total=S.hist[S.hist.length-1]||0;
+updateElec();updateScheme();updateGas();updateStrings();renderDash(total);renderAlarms();calcProfit();
+if($("s-audit").classList.contains("on"))renderAudit();
+},1000);
+setInterval(function(){if(Math.random()<0.04&&S.mode!=="real")injectFault();},45000);
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+</script>
+</body>
+</html>
