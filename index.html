@@ -16,40 +16,41 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg0:#05080c;--bg1:#0b1218;--bg2:#101a23;--bg3:#15222e;
---line:#1c2a37;--line2:#2a3d4f;
---txt:#d7e3f0;--mut:#7e93a8;--dim:#4d6276;
---acc:#2f8bff;--acc2:#1a5fd0;
---ok:#37d67a;--warn:#ffb020;--bad:#ff4d4d;
+--bg0:#070d17;--bg1:#0c1523;--bg2:#111e2f;--bg3:#16263a;
+--line:#1f3149;--line2:#2e4666;
+--txt:#dde7f5;--mut:#8ba3bf;--dim:#5d7590;
+--acc:#3d8df5;--acc2:#1f63c9;
+--ok:#3fd687;--warn:#f2a63c;--bad:#ff6262;
 --mono:"Consolas","Cascadia Mono","Roboto Mono",monospace;
 --cond:"Roboto Condensed","Arial Narrow","Segoe UI",Arial,sans-serif;
---gold:#c9a233;
+--gold:#d8a74a;
 --lcd:#8ef0b8;--lcdDim:#3f7a5c;
+--card1:rgba(23,38,57,.72);--card2:rgba(12,21,34,.94);
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--cond);background:var(--bg0);color:var(--txt);font-size:12.5px;min-height:100vh;padding-bottom:28px}
+body{font-family:var(--cond);background:radial-gradient(1400px 700px at 78% -8%,rgba(30,64,110,.35) 0%,rgba(30,64,110,0) 62%),linear-gradient(180deg,#0a1322 0%,#070d17 55%,#050a12 100%);background-attachment:fixed;color:var(--txt);font-size:12.5px;min-height:100vh;padding-bottom:28px}
 button{font-family:inherit}
 ::selection{background:var(--acc);color:#fff}
 /* ---------- TOP BAR ---------- */
-.top{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;min-height:46px;padding:4px 12px;background:linear-gradient(180deg,#0e1822,#0a131b);border-bottom:1px solid var(--line2);box-shadow:0 1px 0 #000,0 2px 8px rgba(0,0,0,.5);color:#fff;flex-wrap:wrap}
+.top{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;min-height:46px;padding:4px 12px;background:linear-gradient(180deg,#101d30,#0b1524);border-bottom:1px solid var(--line2);box-shadow:0 2px 12px rgba(2,6,14,.55);color:#fff;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:9px;min-width:230px}
-.mark{width:28px;height:28px;border-radius:2px;background:linear-gradient(160deg,#0d2033,#123a63);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #2a4a6b;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.mark{width:28px;height:28px;border-radius:5px;background:linear-gradient(160deg,#123049,#1b4c7d);display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #2e5580;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 10px rgba(61,141,245,.25)}
 .brand b{font-size:13px;display:block;line-height:1.15;letter-spacing:1.2px;text-transform:uppercase;font-weight:700}
 .brand span{font-size:9.5px;color:var(--dim);display:block;letter-spacing:.8px;text-transform:uppercase}
 .tsel{background:#0a141c;border:1px solid var(--line2);color:var(--txt);border-radius:2px;padding:5px 8px;font-size:11.5px;max-width:260px;font-family:var(--cond)}
-.seg{display:flex;border:1px solid var(--line2);border-radius:2px;overflow:hidden;background:#0a141c}
+.seg{display:flex;border:1px solid var(--line2);border-radius:4px;overflow:hidden;background:#0d1826}
 .seg button{border:0;background:transparent;color:var(--mut);padding:5px 11px;font-size:11px;cursor:pointer;text-transform:uppercase;letter-spacing:.6px;font-weight:600}
-.seg button.on{background:var(--acc2);color:#fff;box-shadow:inset 0 0 8px rgba(47,139,255,.35)}
+.seg button.on{background:linear-gradient(180deg,#2a76d8,#1c56ac);color:#fff;box-shadow:inset 0 0 8px rgba(61,141,245,.35)}
 .meta{font-size:10.5px;color:var(--dim);white-space:nowrap;letter-spacing:.3px}
 .meta b{color:var(--txt);font-family:var(--mono);font-weight:600;font-size:11px}
 .cmd{margin-left:auto;display:flex;gap:5px;align-items:center;flex-wrap:wrap}
-.btn{border:1px solid var(--line2);background:linear-gradient(180deg,#16222d,#101a23);color:var(--txt);padding:5px 11px;border-radius:2px;cursor:pointer;font-size:11.5px;font-weight:600;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.btn{border:1px solid var(--line2);background:linear-gradient(180deg,#1a2a3d,#122033);color:var(--txt);padding:5px 11px;border-radius:4px;cursor:pointer;font-size:11.5px;font-weight:600;letter-spacing:.3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
 .btn:hover{border-color:var(--acc);color:#fff}
-.btn.pri{background:linear-gradient(180deg,#2469c9,#1a4e9e);border-color:#3a7fe0;color:#fff}
-.btn.pri:hover{background:linear-gradient(180deg,#2f8bff,#1f5cb8)}
-.btn.dan{background:linear-gradient(180deg,#3d1512,#2a0e0c);border-color:#7a2420;color:#ff8a80}
+.btn.pri{background:linear-gradient(180deg,#2a76d8,#1c56ac);border-color:#4a90ee;color:#fff}
+.btn.pri:hover{background:linear-gradient(180deg,#3d8df5,#2265c9)}
+.btn.dan{background:linear-gradient(180deg,#481815,#33110f);border-color:#8a3a34;color:#ff9a92}
 .btn.dan:hover{background:var(--bad);color:#fff;border-color:var(--bad)}
-.btn.okb{background:linear-gradient(180deg,#0f2b1c,#0a1f14);border-color:#1e5c38;color:#6fe0a0}
+.btn.okb{background:linear-gradient(180deg,#113322,#0b2417);border-color:#25714a;color:#79e8ac}
 .btn.okb:hover{background:var(--ok);color:#04120a}
 .btn.sm{padding:3px 8px;font-size:10.5px}
 .btn:disabled{opacity:.4;cursor:default}
@@ -62,17 +63,17 @@ button{font-family:inherit}
 .astrip .sp{margin-left:auto;display:flex;gap:6px}
 /* ---------- LAYOUT ---------- */
 .wrap{display:grid;grid-template-columns:206px 1fr;min-height:calc(100vh - 46px)}
-.side{background:linear-gradient(180deg,#0b131b,#080f15);border-right:1px solid var(--line);padding:8px 6px;position:sticky;top:46px;height:calc(100vh - 46px - 28px);overflow:auto}
+.side{background:linear-gradient(180deg,#0c1523,#080f1a);border-right:1px solid var(--line);padding:8px 6px;position:sticky;top:46px;height:calc(100vh - 46px - 28px);overflow:auto}
 .side .cap{font-size:9px;text-transform:uppercase;letter-spacing:1.6px;color:var(--dim);padding:7px 8px 4px;font-weight:700}
 .nbtn{display:flex;justify-content:space-between;align-items:center;width:100%;text-align:left;padding:6px 9px;border-radius:2px;border:1px solid transparent;border-left:3px solid transparent;background:transparent;color:var(--mut);cursor:pointer;font-size:11.5px;margin-bottom:1px;font-weight:600;letter-spacing:.3px}
 .nbtn:hover{background:var(--bg2);color:var(--txt)}
-.nbtn.on{background:linear-gradient(90deg,#11243a,#0e1c2c);border-color:var(--line);border-left:3px solid var(--acc);color:#fff;box-shadow:inset 0 0 12px rgba(47,139,255,.08)}
+.nbtn.on{background:linear-gradient(90deg,#11243a,#0e1c2c);border-color:var(--line);border-left:3px solid var(--acc);color:#fff;box-shadow:inset 0 0 12px rgba(61,141,245,.08)}
 .nbtn .bdg{font-size:9.5px;background:var(--bad);color:#fff;border-radius:8px;padding:0 6px;font-family:var(--mono)}
 .nbtn .bdg.w{background:var(--warn);color:#111}
 .sstat{padding:7px 9px;font-size:10.5px;color:var(--mut);line-height:1.95;border:1px solid var(--line);background:#0a1219;margin:2px 3px;border-radius:2px;font-family:var(--mono)}
 .sstat b{color:var(--lcd);font-weight:600}
 .main{padding:10px 12px;max-width:1560px;min-width:0}
-.crumb{font-size:11px;color:var(--dim);margin-bottom:9px;background:linear-gradient(180deg,#0e1822,#0b141c);border:1px solid var(--line);border-left:3px solid var(--acc);padding:6px 11px;border-radius:2px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;text-transform:uppercase;letter-spacing:.8px}
+.crumb{font-size:11px;color:var(--dim);margin-bottom:9px;background:linear-gradient(180deg,#111f33,#0c1727);border:1px solid var(--line);border-left:3px solid var(--acc);padding:6px 11px;border-radius:5px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;text-transform:uppercase;letter-spacing:.8px}
 .crumb b{color:#fff;letter-spacing:1.2px}
 .crumb .live{color:var(--ok);font-size:10px;letter-spacing:.4px}
 .crumb .live:before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ok);margin-right:5px;animation:blink 2s steps(2) infinite;vertical-align:1px}
@@ -82,9 +83,9 @@ button{font-family:inherit}
 .cols2{grid-template-columns:1.6fr 1fr}
 .cols3{grid-template-columns:repeat(3,1fr)}
 .cols4{grid-template-columns:repeat(4,1fr)}
-.card{background:linear-gradient(180deg,#0d1620,#0a1219);border:1px solid var(--line);border-radius:2px;min-width:0;box-shadow:0 1px 3px rgba(0,0,0,.4);padding:10px 12px}
-.card h3{font-size:10px;color:#9fb8cf;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;padding:5px 10px;margin:-10px -12px 9px;background:linear-gradient(180deg,#13202c,#0f1a24);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
-.card h3:before{content:'';width:3px;height:11px;background:var(--acc);display:inline-block;box-shadow:0 0 6px rgba(47,139,255,.6)}
+.card{background:linear-gradient(180deg,var(--card1),var(--card2));border:1px solid #22374f;border-radius:6px;min-width:0;box-shadow:0 6px 18px rgba(2,6,14,.4),inset 0 1px 0 rgba(255,255,255,.035);padding:10px 12px}
+.card h3{font-size:10px;color:#9fb8cf;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;padding:6px 10px;margin:-10px -12px 9px;background:linear-gradient(180deg,rgba(35,58,86,.55),rgba(22,38,58,.4));border-bottom:1px solid var(--line);border-radius:6px 6px 0 0;display:flex;align-items:center;gap:8px}
+.card h3:before{content:'';width:3px;height:11px;background:var(--acc);display:inline-block;box-shadow:0 0 6px rgba(61,141,245,.6)}
 .card h3 .hint{color:var(--dim);font-weight:400;text-transform:none;letter-spacing:.2px;font-size:10px}
 .card .cbody{padding:10px 12px}
 .big{font-size:22px;font-weight:700;font-family:var(--mono);letter-spacing:-.5px;color:#fff}
@@ -93,7 +94,7 @@ button{font-family:inherit}
 .hr{border:0;border-top:1px solid var(--line);margin:8px 0}
 table{width:100%;border-collapse:collapse;font-size:11.5px}
 th,td{padding:5px 8px;border-bottom:1px solid #141f2a;text-align:left;vertical-align:middle}
-th{color:var(--dim);font-size:9px;text-transform:uppercase;letter-spacing:.8px;background:#0d1720;position:sticky;top:0;font-weight:700;z-index:1}
+th{color:var(--dim);font-size:9px;text-transform:uppercase;letter-spacing:.8px;background:#101d2e;position:sticky;top:0;font-weight:700;z-index:1}
 tr.sel td{background:#12253a}
 tr.clickable{cursor:pointer}
 tr.clickable:hover td{background:#101e2c}
@@ -110,11 +111,11 @@ tr.clickable:hover td{background:#101e2c}
 .sw.on:after{left:20px;background:#4fe08c;box-shadow:0 0 6px rgba(79,224,140,.6)}
 input[type=range]{width:100%;accent-color:var(--acc);height:18px}
 select,input[type=number],input[type=text]{background:#0a141c;border:1px solid var(--line2);color:var(--txt);padding:5px 8px;border-radius:2px;width:100%;outline:none;font-size:11.5px;font-family:inherit}
-select:focus,input:focus{border-color:var(--acc);box-shadow:0 0 0 1px rgba(47,139,255,.3)}
+select:focus,input:focus{border-color:var(--acc);box-shadow:0 0 0 1px rgba(61,141,245,.3)}
 label.fl{display:block;font-size:9.5px;color:var(--dim);margin:7px 0 3px;font-weight:700;text-transform:uppercase;letter-spacing:.7px}
 .bar{height:6px;background:#101a24;border:1px solid var(--line);border-radius:1px;overflow:hidden}
-.bar>i{display:block;height:100%;background:linear-gradient(90deg,#1a5fd0,#2f8bff);transition:width .4s}
-.bar.g>i{background:linear-gradient(90deg,#1a7a45,#37d67a)}.bar.y>i{background:linear-gradient(90deg,#8a6210,#ffb020)}.bar.r>i{background:linear-gradient(90deg,#8a1f1a,#ff4d4d)}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#1f63c9,#3d8df5);transition:width .4s}
+.bar.g>i{background:linear-gradient(90deg,#1a7a45,#3fd687)}.bar.y>i{background:linear-gradient(90deg,#8a6210,#f2a63c)}.bar.r>i{background:linear-gradient(90deg,#8a1f1a,#ff6262)}
 .sec{display:none}.sec.on{display:block}
 .journal{max-height:280px;overflow:auto;display:flex;flex-direction:column;gap:3px}
 .ev{padding:4px 8px;border-radius:1px;background:#0c151d;border:1px solid #16222e;border-left:3px solid var(--acc);font-size:11px;color:var(--txt);line-height:1.5}
@@ -123,7 +124,7 @@ label.fl{display:block;font-size:9.5px;color:var(--dim);margin:7px 0 3px;font-we
 .ev .tm{font-family:var(--mono);color:var(--dim);font-size:10px}
 .kv{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:4px 0;border-bottom:1px dashed #16222e}
 .kv b{color:#fff;font-family:var(--mono);font-weight:600}
-canvas.ch{width:100%;height:210px;background:#080e14;border:1px solid var(--line);display:block}
+canvas.ch{width:100%;height:210px;background:linear-gradient(180deg,#0b1524,#091120);border:1px solid #22374f;border-radius:6px;display:block}
 .legend{display:flex;gap:12px;font-size:10.5px;color:var(--mut);margin-top:5px;flex-wrap:wrap}
 .legend i{display:inline-block;width:16px;height:3px;vertical-align:middle;margin-right:4px}
 .flow{stroke-dasharray:7 5;animation:flow 1s linear infinite}
@@ -131,7 +132,7 @@ canvas.ch{width:100%;height:210px;background:#080e14;border:1px solid var(--line
 .flow.slow{animation-duration:1.8s}
 .flow.fast{animation-duration:.6s}
 .flow.fault{animation:flowFault .4s linear infinite}
-@keyframes flowFault{0%{stroke:#ff4d4d}50%{stroke:#ffb020}100%{stroke:#ff4d4d}}
+@keyframes flowFault{0%{stroke:#ff6262}50%{stroke:#f2a63c}100%{stroke:#ff6262}}
 /* structural diagram enhanced animations */
 #structSvg .stLive{filter:drop-shadow(0 0 3px rgba(55,214,122,.5))}
 #structSvg .stFault{animation:stFaultPulse .5s ease-in-out infinite}
@@ -139,22 +140,22 @@ canvas.ch{width:100%;height:210px;background:#080e14;border:1px solid var(--line
 #structSvg g[data-zl]{transition:transform .15s ease,filter .15s ease}
 #structSvg g[data-zl]:hover{transform:scale(1.03);filter:brightness(1.3) drop-shadow(0 0 4px rgba(255,255,255,.3))}
 #structSvg g[data-zl]:hover rect{stroke-width:2.5 !important}
-#structSvg #stAVR,#structSvg #stBus,#structSvg #stInvBox,#structSvg #stCR,#structSvg #stG1,#structSvg #stG2,#structSvg #stP1,#structSvg #stP2,#structSvg #stJct{cursor:pointer;transition:filter .2s ease,stroke-width .2s ease}
-#structSvg #stAVR:hover,#structSvg #stBus:hover,#structSvg #stInvBox:hover,#structSvg #stCR:hover,#structSvg #stG1:hover,#structSvg #stG2:hover,#structSvg #stP1:hover,#structSvg #stP2:hover,#structSvg #stJct:hover{filter:brightness(1.4) drop-shadow(0 0 6px rgba(255,255,255,.4))}
-#structSvg #stP1:active,#structSvg #stP2:active,#structSvg #stAVR:active,#structSvg #stInvBox:active,#structSvg #stCR:active{transform:scale(.97)}
+#structSvg #stAVR,#structSvg #stBus,#structSvg #stInvBox,#structSvg #stCR,#structSvg #stHVAC,#structSvg #stG1,#structSvg #stG2,#structSvg #stP1,#structSvg #stP2,#structSvg #stJct{cursor:pointer;transition:filter .2s ease,stroke-width .2s ease}
+#structSvg #stAVR:hover,#structSvg #stBus:hover,#structSvg #stInvBox:hover,#structSvg #stCR:hover,#structSvg #stHVAC:hover,#structSvg #stG1:hover,#structSvg #stG2:hover,#structSvg #stP1:hover,#structSvg #stP2:hover,#structSvg #stJct:hover{filter:brightness(1.4) drop-shadow(0 0 6px rgba(255,255,255,.4))}
+#structSvg #stP1:active,#structSvg #stP2:active,#structSvg #stAVR:active,#structSvg #stInvBox:active,#structSvg #stCR:active,#structSvg #stHVAC:active{transform:scale(.97)}
 /* energy pulse dots along live wires */
 @keyframes energyPulse{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(60px)}}
 #structSvg .epulse{opacity:0}
 #structSvg .epulse.on{animation:energyPulse 2s ease-in-out infinite}
 /* AVR active incomer highlight */
-@keyframes avrActive{0%,100%{stroke:#ffb020}50%{stroke:#ffd97a}}
+@keyframes avrActive{0%,100%{stroke:#f2a63c}50%{stroke:#ffd97a}}
 #structSvg .avrActive{animation:avrActive 1.5s ease-in-out infinite}
 /* inverter switching animation */
 @keyframes invDiag{0%{stroke-dashoffset:0}100%{stroke-dashoffset:40}}
 #structSvg #stInvBox+line{stroke-dasharray:60;animation:invDiag 2s linear infinite}
 /* bus live glow */
-#structSvg #stBus.liveGlow{filter:drop-shadow(0 0 4px rgba(201,162,51,.6));animation:busPulse 3s ease-in-out infinite}
-@keyframes busPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(201,162,51,.5))}50%{filter:drop-shadow(0 0 8px rgba(201,162,51,.8))}}
+#structSvg #stBus.liveGlow{filter:drop-shadow(0 0 4px rgba(70,184,232,.6));animation:busPulse 3s ease-in-out infinite}
+@keyframes busPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(70,184,232,.5))}50%{filter:drop-shadow(0 0 8px rgba(70,184,232,.8))}}
 /* old */
 .brk{cursor:pointer}
 .brk:hover .bx{stroke:#fff;stroke-width:2.5}
@@ -170,7 +171,7 @@ canvas.ch{width:100%;height:210px;background:#080e14;border:1px solid var(--line
 @keyframes tb{0%,100%{opacity:.25}50%{opacity:1}}
 .mov{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);padding:16px}
 .mov.on{display:flex}
-.mbox{background:linear-gradient(180deg,#101c27,#0b141c);border:1px solid var(--line2);border-top:3px solid var(--acc);border-radius:2px;padding:20px 22px;max-width:560px;width:100%;color:var(--txt);box-shadow:0 8px 40px rgba(0,0,0,.7)}
+.mbox{background:linear-gradient(180deg,#132234,#0c1726);border:1px solid var(--line2);border-top:3px solid var(--acc);border-radius:8px;padding:20px 22px;max-width:560px;width:100%;color:var(--txt);box-shadow:0 12px 48px rgba(0,0,0,.7)}
 .mbox.crit{border-top:3px solid var(--bad)}
 .mbox h2{font-size:14px;margin-bottom:8px;text-transform:uppercase;color:#fff;letter-spacing:1px}
 .mbox p{font-size:12px;color:var(--mut);line-height:1.65}
@@ -190,13 +191,46 @@ ol.proc{margin:10px 0 4px 18px;font-size:12px;line-height:1.75;color:var(--mut)}
 .tourBody{padding:11px 12px;font-size:12.5px;line-height:1.7;color:var(--txt)}
 .tourBody b{color:var(--acc)}
 .tourBar{height:3px;background:#131e29}
-.tourBar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),#3fb950);transition:width .5s ease}
+.tourBar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),#3fd687);transition:width .5s ease}
 .tourCtl{display:flex;gap:6px;padding:9px 10px;flex-wrap:wrap}
 @media(max-width:520px){.tourOv{left:6px;right:6px;bottom:30px}.tourBox{width:100%}}
 .tourFab{display:none;position:fixed;right:10px;bottom:52px;z-index:499;align-items:center;gap:5px;padding:9px 14px;border:1px solid var(--acc);border-radius:22px;background:linear-gradient(180deg,#16323d,#0e1c26);color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;font-family:var(--mono);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.6);text-transform:uppercase}
 .tourFab:active{transform:scale(.95)}
 @media(max-width:860px){body:not(.tourOn) .tourFab{display:flex}}
 @media print{.tourFab,.tourOv{display:none!important}}
+/* ---------- AI ASSISTANT DRAWER ---------- */
+.aiBtn{background:linear-gradient(180deg,#2a2150,#1b1540);border-color:#6d4ff0;color:#e9e2ff;display:inline-flex;align-items:center;gap:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 10px rgba(109,79,240,.3)}
+.aiBtn:hover{background:linear-gradient(180deg,#3a2f6e,#241b55);box-shadow:0 0 14px rgba(124,77,255,.5)}
+.betaS{font-size:7.5px;font-weight:800;letter-spacing:.6px;background:linear-gradient(180deg,#8b5cf6,#6d3ff0);color:#fff;border-radius:6px;padding:1.5px 4px;line-height:1.2}
+.aiFab{display:none;position:fixed;right:10px;bottom:52px;z-index:498;align-items:center;gap:5px;padding:9px 14px;border:1px solid #7c4dff;border-radius:22px;background:linear-gradient(180deg,#2a2150,#191243);color:#efe9ff;font-size:11px;font-weight:700;letter-spacing:1px;font-family:var(--mono);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.6);text-transform:uppercase}
+.aiFab:active{transform:scale(.95)}
+@media(max-width:520px){body:not(.aiOn):not(.tourOn) .aiFab{display:flex}}
+.aiDrawer{position:fixed;top:46px;right:0;bottom:0;width:392px;max-width:94vw;background:linear-gradient(180deg,#101f36,#0a1424);border-left:1px solid var(--line2);box-shadow:-14px 0 44px rgba(0,0,0,.6);transform:translateX(108%);transition:transform .32s cubic-bezier(.2,.8,.2,1);z-index:120;display:flex;flex-direction:column}
+.aiDrawer.on{transform:translateX(0)}
+.aiHead{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#1a2f52,#132640);color:#fff}
+.aiHead .t{font-size:12px;font-weight:800;letter-spacing:1.2px}
+.aiHead .beta{font-size:8px;font-weight:800;letter-spacing:.7px;background:linear-gradient(180deg,#8b5cf6,#6d3ff0);border-radius:6px;padding:1.5px 6px;color:#fff}
+.aiHead .sp{margin-left:auto;display:flex;gap:6px;align-items:center}
+.aiBody{flex:1;display:flex;flex-direction:column;gap:8px;padding:10px;overflow:auto}
+.aiQk{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.aiQk button{text-align:left;font-size:10.5px;line-height:1.35;padding:7px 8px;background:linear-gradient(180deg,#1d2b45,#141f33);border:1px solid #2e4666;border-radius:6px;color:#cfe0f2;cursor:pointer;font-weight:600;font-family:inherit}
+.aiQk button:hover{border-color:#7c4dff;box-shadow:0 0 8px rgba(124,77,255,.35);color:#fff}
+.aiQk button.on{border-color:#7c4dff;background:linear-gradient(180deg,#2a2150,#1b1540);color:#fff}
+.aiOut{display:none;font-size:11.5px;line-height:1.65;background:#0b1524;border:1px solid #22374f;border-left:3px solid #7c4dff;border-radius:6px;padding:9px 11px;color:var(--txt);max-height:300px;overflow:auto}
+.aiOut.on{display:block}
+.aiOut h4{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#a78bfa;margin:0 0 6px;font-weight:800}
+.aiOut table{font-size:10.5px;margin-top:5px}
+.aiOut .sub{margin-top:6px;font-size:10.5px}
+.aiOut .vbad{color:var(--bad);font-weight:700}
+.aiOut .vwarn{color:var(--warn);font-weight:700}
+.aiOut .vok{color:var(--ok);font-weight:700}
+.aiChat{min-height:70px;max-height:210px;overflow:auto;display:flex;flex-direction:column;gap:6px;padding:2px}
+.aiChat .m{max-width:94%;font-size:11px}
+.aiChips{display:flex;gap:5px;flex-wrap:wrap}
+.aiChips .btn{font-size:10px;padding:3px 7px}
+.aiInRow{display:flex;gap:6px}
+.aiInRow input{flex:1}
+@media print{.aiDrawer,.aiFab,.aiBtn{display:none!important}}
 .foot{padding:8px 14px;color:var(--dim);font-size:10px;display:flex;gap:16px;border-top:1px solid var(--line);background:var(--bg1);flex-wrap:wrap;letter-spacing:.4px}
 .gaugeBox{display:flex;gap:10px;align-items:center}
 .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
@@ -223,7 +257,7 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
 .rail{display:flex;flex-direction:column;gap:8px;min-width:0}
 .rail .kpi{gap:6px}
 /* ---------- FACEPLATE ---------- */
-.fp{position:fixed;right:14px;bottom:38px;width:330px;z-index:260;display:none;background:linear-gradient(180deg,#0e1a24,#0a131b);border:1px solid #2a4a63;border-top:3px solid var(--acc);border-radius:2px;box-shadow:0 10px 44px rgba(0,0,0,.75),inset 0 0 30px rgba(47,139,255,.04)}
+.fp{position:fixed;right:14px;bottom:38px;width:330px;z-index:260;display:none;background:linear-gradient(180deg,#0e1a24,#0a131b);border:1px solid #2a4a63;border-top:3px solid var(--acc);border-radius:2px;box-shadow:0 10px 44px rgba(0,0,0,.75),inset 0 0 30px rgba(61,141,245,.04)}
 .fp.on{display:block}
 .fpHead{display:flex;align-items:center;gap:8px;padding:6px 10px;background:linear-gradient(180deg,#15242f,#101c26);border-bottom:1px solid var(--line);cursor:move}
 .fpHead b{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#fff;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -290,7 +324,7 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
 
 <div class="top">
   <div class="brand">
-    <div class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" fill="#b9972f"/></svg></div>
+    <div class="mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z" fill="#46b8e8"/></svg></div>
     <div><b>EcoSmart Grid</b><span>Korxona EMS · SCADA dispetcherlik tizimi</span></div>
   </div>
   <select class="tsel" id="objSel" title="Obyekt">
@@ -304,6 +338,7 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
     <button class="btn sm" id="sndBtn">Ovoz: yoqilgan</button>
     <button class="btn sm" id="fsBtn">To'liq ekran</button>
     <button class="btn sm dan" id="estopBtn">AVARIYA STOP</button>
+    <button class="btn sm aiBtn" id="aiBtn" title="AI yordamchi (BETA)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="8.5" width="16" height="11" rx="3"/><circle cx="9.2" cy="13.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.5" r="1.3" fill="currentColor" stroke="none"/><path d="M12 8.5V4.5M12 4.5h4.5M4 13H2.2M20 13h1.8"/></svg><span>AI</span><span class="betaS">BETA</span></button>
     <button class="btn sm pri" id="tourBtn" title="Ko'rgazma turini boshlash">KO'RGAZMA</button>
   </div>
 </div>
@@ -402,6 +437,10 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
     <!-- GAS -->
     <div class="sec" id="s-gas">
       <div class="grid cols3" id="gasGrid"></div>
+      <div class="card" style="margin-top:10px"><h3>CH4 jonli grafigi <span class="hint">— maksimal zona · 880 ppm chegarasi</span></h3>
+        <canvas id="gasCh" class="ch" height="220"></canvas>
+        <div class="legend"><i style="background:#3fd687"></i> CH4 (maks zona) <i style="background:#ff6262"></i> <b style="color:#ff6262">Chegara 880 ppm</b> <span id="gasChNow" class="num" style="margin-left:auto;color:#8ef0b8"></span></div>
+      </div>
       <div class="card" style="margin-top:10px"><h3>Gaz xavfsizligi reglamenti <span class="hint">— IEC 60079-10</span></h3>
         <div class="sub">Metan portlash yuqori chegarasi (LEL) 5 hajm % = 50 000 ppm. <b>20 %LEL (10 000 ppm)</b> — ogohlantirish: shamollatish avtomatik ishga tushadi. <b>40 %LEL (20 000 ppm)</b> — evakuatsiya: zona klapani berkitiladi (masofadan), PA orqali e'lon, dispetcherga signal. Zona hajmi va havo almashinishi (ACH) bo'yicha diffuzion tenglama asosida modellashtirilgan: dC/dt = Q/V − C·ACH/3600. Chegaralar Sozlamalar bo'limidan o'zgartiriladi.</div>
         <div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap" class="noprint">
@@ -499,7 +538,7 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
           <button class="btn sm pri noprint" id="learnBtn" style="margin-top:8px">Kunlik rejimni arxivga yozish</button>
         </div>
         <div class="card"><h3>Mikroiqlim boshqaruvi</h3>
-          <div class="kv"><span>Sex harorati (o'lchangan)</span><b class="num" id="cTemp">—</b></div>
+          <div class="kv"><span>Tsex harorati (o'lchangan)</span><b class="num" id="cTemp">—</b></div>
           <div class="kv"><span>Belgilangan harorat K-1</span><b class="num" id="cSet">24°C</b></div>
           <input type="range" min="16" max="30" value="24" id="cTempR">
           <div class="kv"><span>Pardalar (yorug'lik datchigi)</span><b id="cCur">Ochiq 70%</b></div>
@@ -507,7 +546,7 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
           <div class="kv"><span>Smena kayfiyati</span></div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px" class="noprint" id="moodRow"></div>
           <div class="sub" id="moodOut" style="margin-top:7px">Hozir: me'yorida.</div>
-          <hr class="hr"><h3>Sex audiotizimi (PA)</h3>
+          <hr class="hr"><h3>Tsex audiotizimi (PA)</h3>
           <div class="kv"><span>Faol manba</span><b id="paSrc">Manba-1</b></div>
           <label class="fl">Ovoz balandligi</label><input type="range" min="0" max="100" value="40" id="paVol">
           <div style="display:flex;gap:6px;margin-top:9px" class="noprint">
@@ -516,6 +555,17 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
           </div>
           <div class="sub">Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.</div>
         </div>
+      </div>
+      <div class="card" id="climAI" style="margin-top:10px"><h3>AI mikroiqlim prognozi va aqlli boshqaruv <span class="tag t-ok" id="climTag" style="float:right">Aqlli boshqaruv: faol</span></h3>
+        <div class="grid cols3">
+          <div class="kv"><span>Tsex harorati / K-1 nishon</span><b class="num" id="climT">—</b></div>
+          <div class="kv"><span>Tashqi harorat</span><b class="num" id="climOut">—</b></div>
+          <div class="kv"><span>Bulutlilik</span><b class="num" id="climCloud">—</b></div>
+          <div class="kv"><span>KVK termik yuk</span><b class="num" id="climKw">—</b></div>
+          <div class="kv"><span>KVK qurilmalari</span><b id="climStat">—</b></div>
+          <div class="kv"><span>Ob-havo manbai</span><b id="climSrc">—</b></div>
+        </div>
+        <div class="sub" id="climAdvice" style="margin-top:8px">—</div>
       </div>
     </div>
 
@@ -619,6 +669,27 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
 <div class="toasts" id="toasts"></div>
 
 <button class="tourFab" id="tourFab" title="Ko'rgazma turini boshlash">▶ KO'RGAZMA</button>
+<button class="aiFab" id="aiFab" title="AI yordamchi (BETA)">◆ AI <span class="betaS">BETA</span></button>
+
+<div class="aiDrawer" id="aiDrawer" aria-hidden="true" aria-label="AI yordamchi">
+  <div class="aiHead">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="8.5" width="16" height="11" rx="3"/><circle cx="9.2" cy="13.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="14.8" cy="13.5" r="1.3" fill="currentColor" stroke="none"/><path d="M12 8.5V4.5M12 4.5h4.5M4 13H2.2M20 13h1.8"/></svg>
+    <span class="t">AI YORDAMCHI</span><span class="beta">BETA</span>
+    <span class="sp"><button class="btn sm" id="aiClose" aria-label="Yopish">✕</button></span>
+  </div>
+  <div class="aiBody">
+    <div class="aiQk">
+      <button id="aiq1">Tizimni tahlil qilish</button>
+      <button id="aiq2">Ob-havo va yuk prognozi</button>
+      <button id="aiq3">Tarmoq ogohlantirishlarini tekshirish</button>
+      <button id="aiq4">Energiya auditi + Excel export</button>
+    </div>
+    <div class="aiOut" id="aiOut"></div>
+    <div class="aiChat" id="aiChat"></div>
+    <div class="aiChips" id="aiChips"></div>
+    <div class="aiInRow"><input type="text" id="aiIn" placeholder="Savolingizni yozing... (Enter — yuborish)" autocomplete="off"><button class="btn pri" id="aiSend">Yuborish</button></div>
+  </div>
+</div>
 
 <div class="tourOv" id="tourOv">
   <div class="tourBox">
@@ -666,14 +737,104 @@ var RU={
 "AR — havo liniyasi nosozliklarida avtomatik qayta ulash":"АР — автоматическое повторное включение при повреждении ВЛ","Havo liniyasi nosozligi (AR sinovi)":"Повреждение ВЛ (испытание АР)","ASU/CHARK — shartnoma quvvati oshganda yuklarni avtomatik uzish":"АСУ/ЧАРК — автоматическое отключение нагрузок при превышении договорной мощности","AR / ATS / ASU hodisalari":"События АР / АВР / АСУ","ARV avtomati":"Автомат АРН","KB — reaktiv quvvat stansiyasi avtomatik boshqaruvi (cos φ ≥ 0,90)":"КРС — автоматическое управление компенсацией реактивной мощности (cos φ ≥ 0,90)","KB: 30 / 60 kvar":"КРС: 30 / 60 кВАр","KB: 30 / 60 kvar · past!":"КРС: 30 / 60 кВАр · низко!","KB: 20 / 60 kvar · past!":"КРС: 20 / 60 кВАр · низко!",
 "Gaz nazorati":"Газовый контроль","Gaz xavfsizligi reglamenti":"Регламент газовой безопасности","Sizish ssenariysi":"Сценарий утечки","Shamollatishni yoqish":"Включить вентиляцию","Klapan berkitish":"Закрыть клапан","Gaz holati qanday?":"Как газ?","Gaz: maks. CH4":"Газ: макс. CH4","Maksimal CH4":"Макс. CH4","Gaz evakuatsiya chegarasi, %LEL":"Порог эвакуации газа, %LEL","Gaz ogohlantirish chegarasi, %LEL":"Порог предупреждения газа, %LEL","Gaz bo'yicha favqulodda holat — evakuatsiya tartibi":"Чрезвычайная ситуация по газу — порядок эвакуации","Metan portlash yuqori chegarasi (LEL) 5 hajm % = 50 000 ppm.":"Верхний порог взрыва метана (LEL) 5 об.% = 50 000 ppm.","20 %LEL (10 000 ppm) — ogohlantirish: shamollatish avtomatik ishga tushadi.":"20 %LEL (10 000 ppm) — предупреждение: вентиляция запускается автоматически.","40 %LEL (20 000 ppm) — evakuatsiya: zona klapani berkitiladi (masofadan), PA orqali e'lon, dispetcherga signal.":"40 %LEL (20 000 ppm) — эвакуация: клапан зоны закрывается (дистанционно), объявление по ТА, сигнал диспетчеру.","Zona hajmi va havo almashinishi (ACH) bo'yicha diffuzion tenglama asosida modellashtirilgan: dC/dt = Q/V − C·ACH/3600.":"Моделируется по диффузионному уравнению в зависимости от объёма зоны и воздухообмена (ACH): dC/dt = Q/V − C·ACH/3600.","Chegaralar Sozlamalar bo'limidan o'zgartiriladi.":"Пороги изменяются в разделе Настройки.","Evakuatsiya e'loni testi":"Тест объявления эвакуации","Gaz normaga qaytmaguncha hududga kirmang.":"Не входить в зону, пока газ не вернётся к норме.","Hududni zudlik bilan tark eting, liftdan foydalanmang.":"Немедленно покиньте зону, не используйте лифт.","Tushundim, hudud tark etildi":"Понятно, зона покинута","Gaz ko'rsatkichlari normaga keltirildi.":"Показатели газа нормализованы.","Navbatchi dispetcherga signal yuborildi, PA orqali e'lon qilindi.":"Сигнал дежурному диспетчеру отправлен, объявление по ТА.","Shamollatish avtomatik ishga tushirildi, zona klapani berkitildi.":"Вентиляция запущена автоматически, клапан зоны закрыт.","klapan ochiq":"клапан открыт","klapan berk":"клапан закрыт","shamollatish ON":"вентиляция ВКЛ","shamollatish OFF":"вентиляция ВЫКЛ","shamollatish yoqildi.":"вентиляция включена.","shamollatish o'chirildi.":"вентиляция выключена.","Shamollatish":"Вентиляция",
 "Quyosh stansiyasi":"Солнечная станция","Quyosh oqimi":"Солнечный поток","Quyosh generatsiyasi":"Солнечная генерация","Quyosh invertori GET":"Инвертор СЭС","Quyosh INV":"Инвертор СЭС","Stringlar holati":"Состояние строк","String":"Строка","String S-1":"Строка S-1","String S-2":"Строка S-2","String S-3":"Строка S-3","String S-4":"Строка S-4","Stansiya quvvati, kVt —":"Мощность станции, кВт —","Tarmoqqa uzatish (GET)":"Отдача в сеть (Инвертор)","Tarmoqqa uzatish ulushi, % —":"Доля отдачи в сеть, % —","Quyosh iqtisodi":"Экономика СЭС","Sotib olish tarifi, so'm/kVt·soat":"Тариф покупки, сум/кВт·ч","Sotish tarifi, so'm/kVt·soat":"Тариф продажи, сум/кВт·ч","Sotishdan tushum:":"Выручка от продажи:","O'z iste'molini qoplash:":"Покрытие своего потребления:","Taxminiy qoplanish:":"Ориентировочная окупаемость:","Utilizatsiya":"Утилизация","Kunlik ishlab chiqarish:":"Дневное производство:","Oylik:":"Месячное:","Bugungi sarf":"Расход сегодня","Jami sarf":"Итого расход","Jami summa":"Итого сумма","Summa (kun), so'm":"Сумма (день), сум","Sarf (kun), kVt·soat":"Расход (день), кВт·ч","Samaradorlik":"КПД","Xulosa":"Заключение","Topshiriq":"Наряд","Haftalik prognoz":"Прогноз на неделю","Haftalik yuk prognozi":"Прогноз нагрузки на неделю","Haftalik jami yuk":"Суммарная нагрузка за неделю","Haftalik jami yuk:":"Суммарная нагрузка за неделю:","Haftalik prognozni ochish":"Открыть прогноз на неделю","Prognozni CSV yuklash":"Скачать прогноз CSV","CSV yuklab olish":"Скачать CSV","Hisobotni shakllantirish":"Сформировать отчёт","Hisobotni shakllantirish tugmasini bosing.":"Нажмите кнопку формирования отчёта.","Hisobotlar":"Отчёты","Kunlik energiya hisoboti":"Дневной энергетический отчёт","KUNLIK ENERGIYA HISOBOTI":"ДНЕВНОЙ ЭНЕРГЕТИЧЕСКИЙ ОТЧЁТ","Kunlik rejimni arxivga yozish":"Записать дневной режим в архив","Kunlik hisobni nollash":"Обнулить дневной счётчик","Jurnal arxivlanadi · O'lchov davri: 1 s":"Журнал архивируется · период опроса: 1 с","Arxivni tozalash":"Очистить архив","Yozuvlar soni":"Количество записей","Auditni yangilash":"Обновить аudit","Energiya auditi — fiderlar kesimida":"Энергоаудит — по фидерам","Auditni yangilash":"Обновить аудит","Chop etish / PDF":"Печать / PDF","Chop etish":"Печать","Masofadan boshqaruv — tanlash":"Дистанционное управление — выбор","o'chirgichni bosing: tanlash → tasdiqlash (SBO)":"нажмите выключатель: выбор → подтверждение (SBO)",
-"Korxona EMS · SCADA dispetcherlik tizimi":"Корпоративная АСКУЭ · SCADA диспетчерская","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Единая однолинейная схема · 10/0,4 кВ · ред.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Объект: производственный комплекс · Вход: 10/0,4 кВ, ТП-2","TP-2 · 10/0,4 kV":"ТП-2 · 10/0,4 кВ","Tarmoq 10 kV":"Сеть 10 кВ","Tarmoq uzilishi (ABB)":"Отключение сети (ABB)","Tarmoq 10 kV":"Сеть 10 кV","Shina 0,4 kV":"Шина 0,4 кV","TR-1 · 630 kVA":"ТР-1 · 630 кВА","TR-2 · 630 kVA":"ТР-2 · 630 кВА","Transformator TR-1 · 630 kVA · Dyn11":"Трансформатор ТР-1 · 630 кВА · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Трансформатор ТР-2 · 630 кВА · Dyn11","Transformatorlar":"Трансформаторы","TR-1 / TR-2 maksimal yuklama":"ТР-1 / ТР-2 максимальная загрузка","Moy harorati":"Температура масла","Og'iz harorati":"Температура обмотки","Yo'qotish":"Потери","Yo'qotishlar":"Потери","ARV avtomati":"Автомат АРН","QF-S buzer":"Бзزر QF-S","Shinlar buzeri":"Бззер шин","Kuchlanish U, V":"Напряжение U, В","U, V":"U, В","ΔU, V":"ΔU, В","Kirish kuchlanish":"Входное напряжение","Joriy generatsiya (AC)":"Текущая генерация (AC)","Iste'mol oqimi":"Поток потребления","Iste'mol, kVt":"Потребление, кВт","Quvvat, kVt":"Мощность, кВт","Quyosh, kVt":"Солнце, кВт","Quyosh ES":"СЭС","Tarmoq AC":"Сетевой AC","Jami yuk":"Суммарная нагрузка","Yuk":"Нагрузка","Yuklama":"Загрузка","Pik yuk":"Пиковое значение","Max talab 15 daq":"Макс. спрос 15 мин","Max talab 15 daq (demand)":"Макс. спрос 15 мин (demand)","Shartnoma quvvati, kVA":"Договорная мощность, кВА","Shartnoma quvvati":"Договорная мощность","Shartnoma":"Договор","Shartnoma chegarasi 320 kVt":"Договорной лимит 320 кВт","maks 314 / 400 kVA":"макс 314 / 400 кВА","Shartnoma quvvati oshganda jarima xavfi":"Риск штрафа при превышении договорной мощности","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Ovoz: yoqilgan":"Звук: вкл","Belgilangan harorat":"Заданная температура","Belgilangan harorat K-1":"Заданная температура К-1","Konditsioner":"Кондиционер","Havo filtri F-1":"Воздушный фильтр F-1","Havo filtri F-2":"Воздушный фильтр F-2","Pardalar (yorug'lik datchigi)":"Шторы (датчик освещённости)","Monitor":"Монитор","E'lonlar":"Объявления","Videokuzatuv":"Видеонаблюдение","Sex harorati (o'lchangan)":"Температура цеха (измеренная)","Sex audiotizimi (PA)":"Аудиосистема цеха (ТА)","Kompressor stansiyasi":"Компрессорная станция","Kompressor xonasi":"Компрессорная","Kompressor":"Компрессор","Pech":"Печь","Ombor":"Склад","Ombor, sovutkichlar":"Склад, холодильники","Ofis":"Офис","Ofis, server xonasi":"Офис, серверная","Ofis + ombor":"Офис + склад","Qozonxona":"Котельная","Qozonxona + kompr.":"Котельная + компр.","Sex-1":"Цех-1","Sex-2":"Цех-2","Sexlar A":"Цеха A","Sex-1 (stanoklar)":"Цех-1 (станки)","Sex-2 (pech)":"Цех-2 (печь)","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Yoritish":"Освещение","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Server xonasi haroratini nazorat qiladi":"Контролирует температуру серверной","Tungi yuklamani kamaytiradi":"Снижает ночную нагрузку","09:00 da stanoklarni ishga tushiradi":"В 09:00 запускает станки","Manba-1":"Источник-1","Manba":"Источник","Faol manba":"Активный источник","AR holati":"Состояние АР","ARV avtomati":"Автомат АРН","QF0 holati":"Состояние QF0","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"Бззер QF-S","A / QF1":"А / QF1","KOMMUNIKATSIYA:":"КОММУНИКАЦИЯ:","OBYEKT:":"ОБЪЕКТ:","VAQT:":"ВРЕМЯ:","TEZLIK:":"СКОРОСТЬ:","SMENA:":"СМЕНА:","DISPETCHER":"ДИСПЕТЧЕР","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Громкость","Sana:":"Дата:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Дата: 2026-10-23 · Диспетчер: dispatch-01","Sana:":"Дата:","Hisobot davri: smena boshidan (bugun)":"Отчётный период: с начала смены (сегодня)","Ichki foydalanish uchun · Dispetcher xizmati":"Для внутреннего пользования · Диспетчерская служba","Chap jadvaldan fiderni tanlang.":"Выберите фидер в левой таблице.","Dispecher paneli /":"Диспетчерская /","Umumiy nazorat":"Общий обзор","Tizim sozlamalari":"Настройки системы","Tizim holati":"Состояние системы","Tizim ishga tushirildi. 8 ta fider, 2 ta transformator va 6 ta gaz zonasi nazoratga olindi.":"Система запущена. 8 фидеров, 2 трансформатора и 6 газовых зон взяты под контроль.","Tizim oflayn ishlaydi: internet talab etilmaydi. Sozlamalar brauzer xotirasida saqlanadi.":"Система работает офлайн: интернет не требуется. Настройки хранятся в памяти браузера.","Tizim ish rejimida. Kuchlanish me'yoriy oraliq: 207–235 V (GOST 29322).":"Система в рабочем режиме. Нормальный диапазон напряжения: 207–235 В (ГОСТ 29322).","Barcha fiderlar ish rejimiga qaytarildi, AR/ATS/ASU nollarlandi.":"Все фидеры возвращены в рабочий режим, АР/АВР/АСУ обнулены.","Barcha fiderlar tiklandi.":"Все фидеры восстановлены.","Gaz ko'rsatkichlari normaga keltirildi.":"Показатели газа нормализованы.","Nosozlik qaydi:":"Запись неисправности:","Topshiriq ochildi:":"Наряд открыт:","Normal rejimga qaytish":"Возврат в нормальный режим","Diagnostikani ishga tushirish":"Запустить диагностику","Diagnostika":"Диатегностика","Test signali":"Тестовый сигнал","Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.":"Тестовый сигнал проигрывается через браузер и записывается в журнал.","Evakuatsiya e'loni testi":"Тест объявления эвакуации","Sizish ssenariysi":"Сценарий утечки","Normaga keltirish (sinov)":"Нормализовать (тест)","Rejim:":"Режим:","O'lchovlar:":"Измерения:","O'lchovlar":"Измерения","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","Minimal / maksimal (tanlangan)":"Минимальное / максимальное (выбрано)","Filtrlarni tozalash":"Очистить фильтры","Filtrlarni tozalash":"Очистить фильтры","Arxivni tozalash":"Очистить архiv","Arxivni tozalash":"Очистить архив","Yozuvlar soni":"Количество записей","Yozuvlar soni":"Количество записий","Rejim:":"Режим:","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","Sotib olish tarifi, so'm/kVt·soat":"Тариф покупки, сум/кВт·ч","Sotish tarifi, so'm/kVt·soat":"Тариф продажи, сум/кВт·ч","Sotib olish tarifi, so'm/kVt·soat":"Тариф покупки, сум/кВт·ч","Sotish tarifi, so'm/kVt·soat":"Тариф продажи, сум/кВт·ч","Yoqilgan":"Вкл","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Ovoz: o'chirgan":"Звук: выкл","To'liq ekran":"Полный экран","AVARIYA STOP":"АВАРИЙНЫЙ СТОП","AVARIYA STOP":"АВАРИЙНЫЙ СТОП","Ovoz: yoqilgan":"Звук: вкл","Ovoz: o'chirgan":"Звук: выкл",
+"Korxona EMS · SCADA dispetcherlik tizimi":"Корпоративная АСКУЭ · SCADA диспетчерская","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Единая однолинейная схема · 10/0,4 кВ · ред.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Объект: производственный комплекс · Вход: 10/0,4 кВ, ТП-2","TP-2 · 10/0,4 kV":"ТП-2 · 10/0,4 кВ","Tarmoq 10 kV":"Сеть 10 кВ","Tarmoq uzilishi (ABB)":"Отключение сети (ABB)","Tarmoq 10 kV":"Сеть 10 кV","Shina 0,4 kV":"Шина 0,4 кV","TR-1 · 630 kVA":"ТР-1 · 630 кВА","TR-2 · 630 kVA":"ТР-2 · 630 кВА","Transformator TR-1 · 630 kVA · Dyn11":"Трансформатор ТР-1 · 630 кВА · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Трансформатор ТР-2 · 630 кВА · Dyn11","Transformatorlar":"Трансформаторы","TR-1 / TR-2 maksimal yuklama":"ТР-1 / ТР-2 максимальная загрузка","Moy harorati":"Температура масла","Og'iz harorati":"Температура обмотки","Yo'qotish":"Потери","Yo'qotishlar":"Потери","ARV avtomati":"Автомат АРН","QF-S buzer":"Бзزر QF-S","Shinlar buzeri":"Бззер шин","Kuchlanish U, V":"Напряжение U, В","U, V":"U, В","ΔU, V":"ΔU, В","Kirish kuchlanish":"Входное напряжение","Joriy generatsiya (AC)":"Текущая генерация (AC)","Iste'mol oqimi":"Поток потребления","Iste'mol, kVt":"Потребление, кВт","Quvvat, kVt":"Мощность, кВт","Quyosh, kVt":"Солнце, кВт","Quyosh ES":"СЭС","Tarmoq AC":"Сетевой AC","Jami yuk":"Суммарная нагрузка","Yuk":"Нагрузка","Yuklama":"Загрузка","Pik yuk":"Пиковое значение","Max talab 15 daq":"Макс. спрос 15 мин","Max talab 15 daq (demand)":"Макс. спрос 15 мин (demand)","Shartnoma quvvati, kVA":"Договорная мощность, кВА","Shartnoma quvvati":"Договорная мощность","Shartnoma":"Договор","Shartnoma chegarasi 320 kVt":"Договорной лимит 320 кВт","maks 314 / 400 kVA":"макс 314 / 400 кВА","Shartnoma quvvati oshganda jarima xavfi":"Риск штрафа при превышении договорной мощности","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Ovoz: yoqilgan":"Звук: вкл","Belgilangan harorat":"Заданная температура","Belgilangan harorat K-1":"Заданная температура К-1","Konditsioner":"Кондиционер","Havo filtri F-1":"Воздушный фильтр F-1","Havo filtri F-2":"Воздушный фильтр F-2","Pardalar (yorug'lik datchigi)":"Шторы (датчик освещённости)","Monitor":"Монитор","E'lonlar":"Объявления","Videokuzatuv":"Видеонаблюдение","Tsex harorati (o'lchangan)":"Температура цеха (измеренная)","Tsex audiotizimi (PA)":"Аудиосистема цеха (ТА)","Kompressor stansiyasi":"Компрессорная станция","Kompressor xonasi":"Компрессорная","Kompressor":"Компрессор","Pech":"Печь","Ombor":"Склад","Ombor, sovutkichlar":"Склад, холодильники","Ofis":"Офис","Ofis, server xonasi":"Офис, серверная","Ofis + ombor":"Офис + склад","Qozonxona":"Котельная","Qozonxona + kompr.":"Котельная + компр.","Tsex-1":"Цех №1","Tsex-2":"Цех №2","Tsexlar A":"Цеха A / Цех №1–2","Tsex-1 (stanoklar)":"Цех №1 (станки)","Tsex-2 (pech)":"Цех №2 (печь)","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Yoritish":"Освещение","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Server xonasi haroratini nazorat qiladi":"Контролирует температуру серверной","Tungi yuklamani kamaytiradi":"Снижает ночную нагрузку","09:00 da stanoklarni ishga tushiradi":"В 09:00 запускает станки","Manba-1":"Источник-1","Manba":"Источник","Faol manba":"Активный источник","AR holati":"Состояние АР","ARV avtomati":"Автомат АРН","QF0 holati":"Состояние QF0","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"Бззер QF-S","A / QF1":"А / QF1","KOMMUNIKATSIYA:":"КОММУНИКАЦИЯ:","OBYEKT:":"ОБЪЕКТ:","VAQT:":"ВРЕМЯ:","TEZLIK:":"СКОРОСТЬ:","SMENA:":"СМЕНА:","DISPETCHER":"ДИСПЕТЧЕР","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Громкость","Sana:":"Дата:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Дата: 2026-10-23 · Диспетчер: dispatch-01","Sana:":"Дата:","Hisobot davri: smena boshidan (bugun)":"Отчётный период: с начала смены (сегодня)","Ichki foydalanish uchun · Dispetcher xizmati":"Для внутреннего пользования · Диспетчерская служba","Chap jadvaldan fiderni tanlang.":"Выберите фидер в левой таблице.","Dispecher paneli /":"Диспетчерская /","Umumiy nazorat":"Общий обзор","Tizim sozlamalari":"Настройки системы","Tizim holati":"Состояние системы","Tizim ishga tushirildi. 8 ta fider, 2 ta transformator va 6 ta gaz zonasi nazoratga olindi.":"Система запущена. 8 фидеров, 2 трансформатора и 6 газовых зон взяты под контроль.","Tizim oflayn ishlaydi: internet talab etilmaydi. Sozlamalar brauzer xotirasida saqlanadi.":"Система работает офлайн: интернет не требуется. Настройки хранятся в памяти браузера.","Tizim ish rejimida. Kuchlanish me'yoriy oraliq: 207–235 V (GOST 29322).":"Система в рабочем режиме. Нормальный диапазон напряжения: 207–235 В (ГОСТ 29322).","Barcha fiderlar ish rejimiga qaytarildi, AR/ATS/ASU nollarlandi.":"Все фидеры возвращены в рабочий режим, АР/АВР/АСУ обнулены.","Barcha fiderlar tiklandi.":"Все фидеры восстановлены.","Gaz ko'rsatkichlari normaga keltirildi.":"Показатели газа нормализованы.","Nosozlik qaydi:":"Запись неисправности:","Topshiriq ochildi:":"Наряд открыт:","Normal rejimga qaytish":"Возврат в нормальный режим","Diagnostikani ishga tushirish":"Запустить диагностику","Diagnostika":"Диатегностика","Test signali":"Тестовый сигнал","Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.":"Тестовый сигнал проигрывается через браузер и записывается в журнал.","Evakuatsiya e'loni testi":"Тест объявления эвакуации","Sizish ssenariysi":"Сценарий утечки","Normaga keltirish (sinov)":"Нормализовать (тест)","Rejim:":"Режим:","O'lchovlar:":"Измерения:","O'lchovlar":"Измерения","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","Minimal / maksimal (tanlangan)":"Минимальное / максимальное (выбрано)","Filtrlarni tozalash":"Очистить фильтры","Filtrlarni tozalash":"Очистить фильтры","Arxivni tozalash":"Очистить архiv","Arxivni tozalash":"Очистить архив","Yozuvlar soni":"Количество записей","Yozuvlar soni":"Количество записий","Rejim:":"Режим:","O'lchov tezligi (simulyatsiya rejimida)":"Частота опроса (в режиме симуляции)","Sotib olish tarifi, so'm/kVt·soat":"Тариф покупки, сум/кВт·ч","Sotish tarifi, so'm/kVt·soat":"Тариф продажи, сум/кВт·ч","Sotib olish tarifi, so'm/kVt·soat":"Тариф покупки, сум/кВт·ч","Sotish tarifi, so'm/kVt·soat":"Тариф продажи, сум/кВт·ч","Yoqilgan":"Вкл","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Ovoz: o'chirgan":"Звук: выкл","To'liq ekran":"Полный экран","AVARIYA STOP":"АВАРИЙНЫЙ СТОП","AVARIYA STOP":"АВАРИЙНЫЙ СТОП","Ovoz: yoqilgan":"Звук: вкл","Ovoz: o'chirgan":"Звук: выкл",
 "Tizim holati":"Состояние системы","Rejim: real":"Режим: реальный","Rejim: simulyatsiya":"Режим: симуляция","O'lchovlar:":"Измерения:","Signallar: avariya / ogohlantirish":"Сигналы: авария / предупреждение","Akkumulyator:":"Аккумулятор:","Akkumulyator SOC":"SOC аккумулятора","Tashqi harorat, °C":"Наружная температура, °C","Belgilangan harorat":"Заданная температура","Belgilangan harorat K-1":"Заданная температура К-1","Bulutlilik, %":"Облачность, %","Kunduzgi":"Дневная","Tungi":"Ночная","Kunduzgi (08–20)":"Дневная (08–20)","Tungi (20–08)":"Ночная (20–08)","Smena kayfiyati":"Настроение смены","Smena tarkibi":"Состав смены","Xodim":"Сотрудник","A. Karimov (operator)":"А. Каримов (оператор)","D. Yusupova (muhandis)":"Д. Юсупова (инженер)","J. Hakimov (tungi navbatchi)":"Ж. Хакимов (ночной дежурный)","08:00–17:00":"08:00–17:00","09:00–18:00":"09:00–18:00","22:00–06:00":"22:00–06:00","23°C":"23°C","22°C":"22°C","24°C":"24°C","Me'yorda":"В норме","Issiq":"Жарко","Sovuq":"Холодно","Charchagan":"Устал",
 "Mimik sxema — energiya oqimi":"Мимик-схема — поток энергии","Mimik sxema — energiya oqimi":"Мимик-схема — поток энергии","Quvvat oqimi mimik sxemasi":"Мимик-схема потока мощности","TR yoki shina elementini bosing → faceplate":"Нажмите ТР или элемент шины → faceplate","Yagona chiziqli sxema":"Единая однолинейная схема","Yagona chiziqli sxema 10/0,4 kV":"Единая однолинейная схема 10/0,4 кВ","10 kV kirish · ABB":"Вход 10 кВ · ABB","10 kV kirish · QF0 · ABB":"Вход 10 кВ · QF0 · ABB","10 kV kirish (ABB)":"Вход 10 кВ (ABB)","U 10 kV":"U 10 кВ","Tarmoq 10 kV":"Сеть 10 кВ","Tarmoq uzilishi (ABB)":"Отключение сети (ABB)","QF0 holati":"Состояние QF0","Kran pozitsiyasi":"Позиция крана","380–415 V → kran ∓5":"380–415 В → кран ∓5","Shina 0,4 kV":"Шина 0,4 кВ","0,4 kV · shina A":"0,4 кВ · шина A","0,4 kV · shina B":"0,4 кВ · шина B","shina A":"шина A","shina B":"шина B","shina":"шина","Shina / o'chirgich":"Шина / выключатель","Quyosh PV · 150 kVt":"СЭС ПВ · 150 кВт","Quyosh ES":"СЭС","Gibrid inverter":"Гибридный инвертор","Quyosh invertori GET":"Инвертор СЭС","AC o'chirgich":"AC выключатель","Tarmoq AC":"Сетевой AC","Tarmoqka uzatish (GET)":"Отдача в сеть (инвертор)","Quyosh oqimi":"Солнечный поток","TR-1 · 630 kVA · Dyn11":"ТР-1 · 630 кВА · Dyn11","TR-2 · 630 kVA · Dyn11":"ТР-2 · 630 кВА · Dyn11","630 kVA · Dyn11":"630 кВА · Dyn11","Transformator TR-1 · 630 kVA · Dyn11":"Трансформатор ТР-1 · 630 кВА · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Трансформатор ТР-2 · 630 кВА · Dyn11","AR holati":"Состояние АР","ARV avtomati":"Автомат АРН","QF-S buzer":"Бззер QF-S","Shinlar buzeri":"Бззер шин",
 "Yuk yuqori":"Высокая нагрузка","Yuk yuqori!":"Высокая нагрузка!","Me'yorida":"В норме","Me'yorda":"В норме","Normal":"Норма","O'chiq":"Откл.","o'chiq":"откл.","Ulangan":"Подкл.","ulangan":"подкл.","Ishlayapti":"Работает","AVARIYA":"АВАРИЯ","OGOHL.":"ПРЕДУПР.","Diqqat talab":"Требует внимания","Qoniqarli":"Удовлетв.","Past":"Низк","Issiq":"Жарко","Sovuq":"Холодно","Charchagan":"Устал","Nosoz uchastka":"Неисправный участок",
 "Fiderlar — 0,4 kV taqsimlash shiti":"Фидеры — РУ 0,4 кВ","Fiderlar — 0,4 kV taqsimlash shiti — qatlam bosing":"Фидеры — РУ 0,4 кВ — нажмите слой","Fider pasporti —":"Паспорт фидера —","Fider":"Фидер","Fider avariyasi":"Авария фидера","Shina / o'chirgich":"Шина / выключатель","Kuchlanish":"Напряжение","Tok":"Ток","Kuchlanish U, V":"Напряжение U, В","Quvvat koeffitsienti":"Коэффициент мощности","cos φ":"cos φ","Kabel":"Кабель","Rezistans R / reaktans X":"Сопротивление R / реактивность X","AR holati":"Состояние АР","Yuklanish darajasi, %":"Степень загрузки, %","Himoya toki (A)":"Ток защиты (А)","Himoya toki > (A)":"> Ток защиты (А)","O'chirish (SBO)":"Отключение (SBO)","Topshiriq ochish":"Открыть наряд","Faceplate":"Faceplate","ARV avtomati":"Автомат АРН","QF-S buzer":"Бззер QF-S",
 "Gaz nazorati":"Газовый контроль","Zona":"Зона","Zonada CH4":"CH4 в зоне","Sarf (kun), kVt·soat":"Расход (день), кВт·ч","Summa (kun), so'm":"Сумма (день), сум","Summa, so'm":"Сумма, сум","Samaradorlik":"КПД","Xulosa":"Заключение","Topshiriq":"Наряд","Haftalik jami yuk:":"Суммарная нагрузка за неделю:","Haftalik prognoz":"Прогноз на неделю","Haftalik yuk prognozi":"Прогноз нагрузки на неделю","Haftalik prognozni ochish":"Открыть прогноз на неделю","Prognozni CSV yuklash":"Скачать прогноз CSV","CSV yuklab olish":"Скачать CSV","Hisobotni shakllantirish":"Сформировать отчёт","Hisobotni shakllantirish tugmasini bosing.":"Нажмите кнопку формирования отчёта.","Hisobotlar":"Отчёты","Kunlik energiya hisoboti":"Дневной энергетический отчёт","KUNLIK ENERGIYA HISOBOTI":"ДНЕВНОЙ ЭНЕРГЕТИЧЕСКИЙ ОТЧЁТ","Kunlik rejimni arxivga yozish":"Записать дневной режим в архив","Kunlik hisobni nollash":"Обнулить дневной счётчик","Jurnal arxivlanadi · O'lchov davri: 1 s":"Журнал архивируется · период опроса: 1 с","Arxivni tozalash":"Очистить архив","Yozuvlar soni":"Количество записей","Auditni yangilash":"Обновить аудит","Audit":"Аудит","Chop etish / PDF":"Печать / PDF","Chop etish":"Печать","Energiya auditi — fiderlar kesimida":"Энергоаудит — по фидерам","Zona":"Зона","Zonada CH4":"CH4 в зоне","Gaz holati qanday?":"Как газ?","Gaz: maks. CH4":"Газ: макс. CH4","Maksimal CH4":"Макс. CH4","Gaz evakuatsiya chegarasi, %LEL":"Порог эвакуации газа, %LEL","Gaz ogohlantirish chegarasi, %LEL":"Порог предупреждения газа, %LEL","Gaz bo'yicha favqulodda holat — evakuatsiya tartibi":"Чрезвычайная ситуация по газу — порядок эвакуации","Metan portlash yuqori chegarasi (LEL) 5 hajm % = 50 000 ppm.":"Верхний порог взрыва метана (LEL) 5 об.% = 50 000 ppm.","20 %LEL (10 000 ppm) — ogohlantirish: shamollatish avtomatik ishga tushadi.":"20 %LEL (10 000 ppm) — предупреждение: вентиляция запускается автоматически.","40 %LEL (20 000 ppm) — evakuatsiya: zona klapani berkitiladi (masofadan), PA orqali e'lon, dispetcherga signal.":"40 %LEL (20 000 ppm) — эвакуация: клапан зоны закрывается (дистанционно), объявление по ТА, сигнал диспетчеру.","Zona hajmi va havo almashinishi (ACH) bo'yicha diffuzion tenglama asosida modellashtirilgan: dC/dt = Q/V − C·ACH/3600.":"Моделируется по диффузионному уравнению в зависимости от объёма зоны и воздухообмена (ACH): dC/dt = Q/V − C·ACH/3600.","Chegaralar Sozlamalar bo'limidan o'zgartiriladi.":"Пороги изменяются в разделе Настройки.","Evakuatsiya e'loni testi":"Тест объявления эвакуации","Gaz normaga qaytmaguncha hududga kirmang.":"Не входить в зону, пока газ не вернётся к норме.","Hududni zudlik bilan tark eting, liftdan foydalanmang.":"Немедленно покиньте зону, не используйте лифт.","Tushundim, hudud tark etildi":"Понятно, зона покинута","Gaz ko'rsatkichlari normaga keltirildi.":"Показатели газа нормализованы.","Navbatchi dispetcherga signal yuborildi, PA orqali e'lon qilindi.":"Сигнал дежурному диспетчеру отправлен, объявление по ТА.","Shamollatish avtomatik ishga tushirildi, zona klapani berkitildi.":"Вентиляция запущена автоматически, клапан зоны закрыт.","klapan ochiq":"клапан открыт","klapan berk":"клапан закрыт","shamollatish ON":"вентиляция ВКЛ","shamollatish OFF":"вентиляция ВЫКЛ","shamollatish yoqildi.":"вентиляция включена.","shamollatish o'chirildi.":"вентиляция выключена.","Shamollatish":"Вентиляция","Shamollatishni yoqish":"Включить вентиляцию","Klapan berkitish":"Закрыть клапan","Gaz sizishi":"Газовая утечka","Sizish ssenariysi":"Сценарий утечки","Gaz xavfsizligi reglamenti":"Регламент газовой безопасности","Zona":"Зона","Zonada CH4":"CH4 в зоне","klapan":"клапан","shamollatish":"вентиляция",
-"Korxona EMS · SCADA dispetcherlik tizimi":"Корпоративная АСКУЭ · SCADA диспетчерская","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Единая однолинейная схема · 10/0,4 кВ · ред.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Объект: производственный комплекс · Вход: 10/0,4 кВ, ТП-2","TP-2 · 10/0,4 kV":"ТП-2 · 10/0,4 кВ","Tarmoq 10 kV":"Сеть 10 кВ","Tarmoq uzilishi (ABB)":"Отключение сети (ABB)","Tarmoq 10 kV":"Сеть 10 кВ","Shina 0,4 kV":"Шина 0,4 кВ","TR-1 · 630 kVA":"ТР-1 · 630 кВА","TR-2 · 630 kVA":"ТР-2 · 630 кВА","Transformator TR-1 · 630 kVA · Dyn11":"Трансформатор ТР-1 · 630 кВА · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Трансформатор ТР-2 · 630 кВА · Dyn11","Transformatorlar":"Трансформаторы","TR-1 / TR-2 maksimal yuklama":"ТР-1 / ТР-2 максимальная загрузка","Moy harorati":"Температура масла","Og'iz harorati":"Температура обмотки","Yo'qotish":"Потери","Yo'qotishlar":"Потери","ARV avtomati":"Автомат АРН","QF-S buzer":"Бззер QF-S","Shinlar buzeri":"Бззер шин","Kuchlanish U, V":"Напряжение U, В","U, V":"U, В","ΔU, V":"ΔU, В","Kirish kuchlanish":"Входное напряжение","Joriy generatsiya (AC)":"Текущая генерация (AC)","Iste'mol oqimi":"Поток потребления","Iste'mol, kVt":"Потребление, кВт","Quvvat, kVt":"Мощность, кВт","Quyosh, kVt":"Солнце, кВт","Quyosh ES":"СЭС","Tarmoq AC":"Сетевой AC","Jami yuk":"Суммарная нагрузка","Yuk":"Нагрузка","Yuklama":"Загрузка","Pik yuk":"Пиковое значение","Max talab 15 daq":"Макс. спрос 15 мин","Max talab 15 daq (demand)":"Макс. спрос 15 мин (demand)","Shartnoma quvvati, kVA":"Договорная мощность, кВА","Shartnoma quvvati":"Договорная мощность","Shartnoma":"Договор","Shartnoma chegarasi 320 kVt":"Договорной лимит 320 кВт","maks 314 / 400 kVA":"макс 314 / 400 кВА","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Belgilangan harorat":"Заданная температура","Belgilangan harorat K-1":"Заданная температура К-1","Konditsioner":"Кондиционер","Havo filtri F-1":"Воздушный фильтр F-1","Havo filtri F-2":"Воздушный фильтр F-2","Pardalar (yorug'lik datchigi)":"Шторы (датчик освещённости)","Monitor":"Монитор","E'lonlar":"Объявления","Videokuzatuv":"Видеонаблюдение","Sex harorati (o'lchangan)":"Температура цеха (измеренная)","Sex audiotizimi (PA)":"Аудиосистема цеха (ТА)","Kompressor stansiyasi":"Компрессорная станция","Kompressor xonasi":"Компрессорная","Kompressor":"Компрессор","Pech":"Печь","Ombor":"Склад","Ombor, sovutkichlar":"Склад, холодильники","Ofis":"Офис","Ofis, server xonasi":"Офис, серверная","Ofis + ombor":"Офис + склад","Qozonxona":"Котельная","Qozonxona + kompr.":"Котельная + компр.","Sex-1":"Цех-1","Sex-2":"Цех-2","Sexlar A":"Цеха A","Sex-1 (stanoklar)":"Цех-1 (станки)","Sex-2 (pech)":"Цех-2 (печь)","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Yoritish":"Освещение","Server xonasi haroratini nazorat qiladi":"Контролирует температуру серверной","Tungi yuklamani kamaytiradi":"Снижает ночную нагрузку","09:00 da stanoklarni ishga tushiradi":"В 09:00 запускает станки","Manba-1":"Источник-1","Manba":"Источник","Faol manba":"Активный источник","AR holati":"Состояние АР","ARV avtomati":"Автомат АРН","QF0 holati":"Состояние QF0","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"Бззер QF-S","A / QF1":"А / QF1","KOMMUNIKATSIYA:":"КОММУНИКАЦИЯ:","OBYEKT:":"ОБЪЕКТ:","VAQT:":"ВРЕМЯ:","TEZLIK:":"СКОРОСТЬ:","SMENA:":"СМЕНА:","DISPETCHER":"ДИСПЕТЧЕР","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Громкость","Sana:":"Дата:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Дата: 2026-10-23 · Диспетчер: dispatch-01","Sana:":"Дата:","Hisobot davri: smena boshidan (bugun)":"Отчётный период: с начала смены (сегодня)","Ichki foydalanish uchun · Dispetcher xizmati":"Для внутреннего пользования · Диспетчерская служба","Chap jadvaldan fiderni tanlang.":"Выберите фидер в левой таблице.","Dispecher paneli /":"Диспетчерская /","Umumiy nazorat":"Общий обзор","Tizim sozlamalari":"Настройки системы","Tizim holati":"Состояние системы"
+"Korxona EMS · SCADA dispetcherlik tizimi":"Корпоративная АСКУЭ · SCADA диспетчерская","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Корпоративная система диспетчерского управления энергией (АСКУЭ/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Единая однолинейная схема · 10/0,4 кВ · ред.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Объект: производственный комплекс · Вход: 10/0,4 кВ, ТП-2","TP-2 · 10/0,4 kV":"ТП-2 · 10/0,4 кВ","Tarmoq 10 kV":"Сеть 10 кВ","Tarmoq uzilishi (ABB)":"Отключение сети (ABB)","Tarmoq 10 kV":"Сеть 10 кВ","Shina 0,4 kV":"Шина 0,4 кВ","TR-1 · 630 kVA":"ТР-1 · 630 кВА","TR-2 · 630 kVA":"ТР-2 · 630 кВА","Transformator TR-1 · 630 kVA · Dyn11":"Трансформатор ТР-1 · 630 кВА · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Трансформатор ТР-2 · 630 кВА · Dyn11","Transformatorlar":"Трансформаторы","TR-1 / TR-2 maksimal yuklama":"ТР-1 / ТР-2 максимальная загрузка","Moy harorati":"Температура масла","Og'iz harorati":"Температура обмотки","Yo'qotish":"Потери","Yo'qotishlar":"Потери","ARV avtomati":"Автомат АРН","QF-S buzer":"Бззер QF-S","Shinlar buzeri":"Бззер шин","Kuchlanish U, V":"Напряжение U, В","U, V":"U, В","ΔU, V":"ΔU, В","Kirish kuchlanish":"Входное напряжение","Joriy generatsiya (AC)":"Текущая генерация (AC)","Iste'mol oqimi":"Поток потребления","Iste'mol, kVt":"Потребление, кВт","Quvvat, kVt":"Мощность, кВт","Quyosh, kVt":"Солнце, кВт","Quyosh ES":"СЭС","Tarmoq AC":"Сетевой AC","Jami yuk":"Суммарная нагрузка","Yuk":"Нагрузка","Yuklama":"Загрузка","Pik yuk":"Пиковое значение","Max talab 15 daq":"Макс. спрос 15 мин","Max talab 15 daq (demand)":"Макс. спрос 15 мин (demand)","Shartnoma quvvati, kVA":"Договорная мощность, кВА","Shartnoma quvvati":"Договорная мощность","Shartnoma":"Договор","Shartnoma chegarasi 320 kVt":"Договорной лимит 320 кВт","maks 314 / 400 kVA":"макс 314 / 400 кВА","Ovoz balandligi":"Громкость звука","Ovoz: yoqilgan":"Звук: вкл","Belgilangan harorat":"Заданная температура","Belgilangan harorat K-1":"Заданная температура К-1","Konditsioner":"Кондиционер","Havo filtri F-1":"Воздушный фильтр F-1","Havo filtri F-2":"Воздушный фильтр F-2","Pardalar (yorug'lik datchigi)":"Шторы (датчик освещённости)","Monitor":"Монитор","E'lonlar":"Объявления","Videokuzatuv":"Видеонаблюдение","Tsex harorati (o'lchangan)":"Температура цеха (измеренная)","Tsex audiotizimi (PA)":"Аудиосистема цеха (ТА)","Kompressor stansiyasi":"Компрессорная станция","Kompressor xonasi":"Компрессорная","Kompressor":"Компрессор","Pech":"Печь","Ombor":"Склад","Ombor, sovutkichlar":"Склад, холодильники","Ofis":"Офис","Ofis, server xonasi":"Офис, серверная","Ofis + ombor":"Офис + склад","Qozonxona":"Котельная","Qozonxona + kompr.":"Котельная + компр.","Tsex-1":"Цех №1","Tsex-2":"Цех №2","Tsexlar A":"Цеха A / Цех №1–2","Tsex-1 (stanoklar)":"Цех №1 (станки)","Tsex-2 (pech)":"Цех №2 (печь)","Yoritish, videokuzatuv":"Освещение, видеонаблюдение","Yoritish":"Освещение","Server xonasi haroratini nazorat qiladi":"Контролирует температуру серверной","Tungi yuklamani kamaytiradi":"Снижает ночную нагрузку","09:00 da stanoklarni ishga tushiradi":"В 09:00 запускает станки","Manba-1":"Источник-1","Manba":"Источник","Faol manba":"Активный источник","AR holati":"Состояние АР","ARV avtomati":"Автомат АРН","QF0 holati":"Состояние QF0","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"Бззер QF-S","A / QF1":"А / QF1","KOMMUNIKATSIYA:":"КОММУНИКАЦИЯ:","OBYEKT:":"ОБЪЕКТ:","VAQT:":"ВРЕМЯ:","TEZLIK:":"СКОРОСТЬ:","SMENA:":"СМЕНА:","DISPETCHER":"ДИСПЕТЧЕР","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Громкость","Sana:":"Дата:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Дата: 2026-10-23 · Диспетчер: dispatch-01","Sana:":"Дата:","Hisobot davri: smena boshidan (bugun)":"Отчётный период: с начала смены (сегодня)","Ichki foydalanish uchun · Dispetcher xizmati":"Для внутреннего пользования · Диспетчерская служба","Chap jadvaldan fiderni tanlang.":"Выберите фидер в левой таблице.","Dispecher paneli /":"Диспетчерская /","Umumiy nazorat":"Общий обзор","Tizim sozlamalari":"Настройки системы","Tizim holati":"Состояние системы"
  ,"Strukturaviy sxema — energiya oqimi":"Структурная схема — поток энергии","Kirish magistral kabeli (380 V)":"Входной магистральный кабель (380 В)","Kabel tarmoqlanishi (mufta/yig'ma)":"Разветвление кабеля (муфта/сборка)","Kirish P1 (Korxona kabeli 1)":"Вход P1 (Кабель предприятия 1)","Kirish P2 (Korxona kabeli 2)":"Вход P2 (Кабель предприятия 2)","UMUMIY AVR":"ОБЩИЙ АВР","Avtomatik rezerv kiritish":"Автоматический ввод резерва","UMUMIY GRSH":"ОБЩИЙ ГРЩ","Umumiy shinalarda sinxronizatsiya":"Синхронизация на общих шинах","4 quyosh paneli (ketma-ket)":"4 солнечных панели (последовательно)","Quyosh DC":"Солнечный DC","GIBRID INVERTOR":"ГИБРИДНЫЙ ИНВЕРТОР","Quyosh AC":"Солнечный AC","1-korxona iste'molchilari":"Потребители предприятия 1","2-korxona iste'molchilari":"Потребители предприятия 2","KRITIK":"КРИТИЧЕСКИЙ","kritik fiderlar":"критические фидеры","EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.1":"EG-TP2-EL-002 · Структурная схема · 10/0,4 кВ · ред.1","KO'RGAZMA":"ДЕМО-ТУР","← Oldingi":"← Назад","Keyingi →":"Далее →","To'xtatish":"Стоп","Pauza":"Пауза","Davom":"Продолжить",
+"KIRISH PUNKTI (AJRATISH)":"ВХОДНОЙ ПУНКТ (РАЗДЕЛЕНИЕ)"
+,"kabel muftasi · P1/P2 ga bo'linish":"кабельная муфта · разделение на P1/P2"
+,"Avtomatik rezerv o'tkazgich (ATS) · QF-AVR":"Автоматический переключатель на резерв (АВР) · QF-AVR"
+,"AVR chiqish quvvati":"Мощность на выходе АВР"
+,"0,4 kV · MDB":"0,4 кВ · ГРЩ"
+,"1-TSEX filiali":"Фидер цеха №1"
+,"2-TSEX filiali":"Фидер цеха №2"
+,"UZLUKSIZ · Yoritish + VK":"НЕПРЕРЫВНОЕ · Освещение + ВК"
+,"UZLUKSIZ · KVK va mikroiqlim":"НЕПРЕРЫВНОЕ · ХВК и микроклимат"
+,"K-1/K-2 · uzluksiz quvvat":"К-1/К-2 · бесперебойное питание"
+,"Inverter zaxira (AVR)":"Резерв инвертора (АВР)"
+,"Zonalar":"Зоны"
+,"EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.2":"EG-TP2-EL-002 · Структурная схема · 10/0,4 кВ · ред.2"
+,"GIBRID INVERTOR (Quyosh PV)":"ГИБРИДНЫЙ ИНВЕРТОР (СЭС ПВ)"
+,"CH4 jonli grafigi":"Живой график CH4"
+,"— maksimal zona · 880 ppm chegarasi":"— максимальная зона · порог 880 ppm"
+,"CH4 (maks zona)":"CH4 (макс. зона)"
+,"Chegara 880 ppm":"Порог 880 ppm"
+,"Chegara: 880 ppm":"Порог: 880 ppm"
+,"Hozirgi qiymat":"Текущее значение"
+,"AI YORDAMCHI":"AI АССИСТЕНТ"
+,"Tizimni tahlil qilish":"Анализ системы"
+,"Ob-havo va yuk prognozi":"Погода и прогноз нагрузки"
+,"Tarmoq ogohlantirishlarini tekshirish":"Проверка сетевых предупреждений"
+,"Energiya auditi + Excel export":"Энергоаудит + экспорт в Excel"
+,"Yuborish":"Отправить"
+,"AI yordamchi tayyor.":"AI-ассистент готов."
+,"Savol bering yoki quyidagi tez amallardan foydalaning:":"Задайте вопрос или используйте быстрые действия:"
+,"Eng yuqori fider":"Максимальный фидер"
+,"moy":"масло"
+,"Quyosh":"Солнце"
+,"kunlik":"в сутки"
+,"Gaz (CH4)":"Газ (CH4)"
+,"cheklov":"предел"
+,"Nosozliklar":"Неисправности"
+,"yo'q":"нет"
+,"ta":"шт."
+,"Tasdiqlanmagan signallar":"Неподтверждённые сигналы"
+,"KVK / mikroiqlim":"ХВК / микроклимат"
+,"tsex":"цех"
+,"nishon":"задание"
+,"Tavsiyalar":"Рекомендации"
+,"Muammolar topilmadi — tizim normal rejimda.":"Проблем не обнаружено — система в нормальном режиме."
+,"Tizim tahlili":"Анализ системы"
+,"Tarmoq ogohlantirishlari":"Сетевые предупреждения"
+,"Faol ogohlantirish topilmadi. Tizim me'yoriy chegaralarda.":"Активных предупреждений не обнаружено. Система в нормальных пределах."
+,"Chegaralar: CH4 880 ppm · kuchlanish 207–235 V · cos φ ≥ 0,90 · TR moy ≤ 85°C.":"Пороги: CH4 880 ppm · напряжение 207–235 В · cos φ ≥ 0,90 · масло ТР ≤ 85°C."
+,"Ma'lumot olinmoqda...":"Загрузка данных..."
+,"Energiya auditi":"Энергоаудит"
+,"Hozircha audit ma'lumoti yo'q.":"Данных аудита пока нет."
+,"Kunlik sarf":"Расход в сутки"
+,"Eng ko'p sarflovchi zona":"Зона с наибольшим расходом"
+,"Kunlik xarajat":"Стоимость в сутки"
+,"CSV yuklab olish (Excel, UTF-8 BOM)":"Скачать CSV (Excel, UTF-8 BOM)"
+,"so'm":"сум"
+,"Hozirgi ob-havo":"Текущая погода"
+,"bulut":"облачность"
+,"shamol":"ветер"
+,"yomg'ir":"дождь"
+,"Kun":"День"
+,"Harorat":"Температура"
+,"Bulut":"Облачность"
+,"Yomg'ir ehtimoli":"Вероятность дождя"
+,"QES taxminiy":"СЭС (оценка)"
+,"Yuk taxminiy":"Нагрузка (оценка)"
+,"Yomg'ir ehtimoli yuqori — QES generatsiyasi pasayadi.":"Высокая вероятность дождя — генерация СЭС снизится."
+,"Issiq kun — KVK termik yuk ortadi, shamollatishni kuchaytiring.":"Жаркий день — тепловая нагрузка ХВК растёт, усильте вентиляцию."
+,"Quyoshli kun — QES maksimal rejimda ishlaydi.":"Солнечный день — СЭС работает в максимальном режиме."
+,"Ob-havo sharoiti normal, qo'shimcha chora talab qilinmaydi.":"Погодные условия нормальны, дополнительные меры не требуются."
+,"(oflayn — simulyatsiya qiymatlari)":"(офлайн — значения симуляции)"
+,"AI mikroiqlim prognozi va aqlli boshqaruv":"Прогноз микроклимата ИИ и умное управление"
+,"Tsex harorati / K-1 nishon":"Температура цеха / задание К-1"
+,"Tashqi harorat":"Наружная температура"
+,"Bulutlilik":"Облачность"
+,"KVK termik yuk":"Тепловая нагрузка ХВК"
+,"KVK qurilmalari":"Устройства ХВК"
+,"Ob-havo manbai":"Источник погоды"
+,"Simulyatsiya (oflayn)":"Симуляция (офлайн)"
+,"Open-Meteo (Toshkent)":"Open-Meteo (Ташкент)"
+,"Tashqi havo issiq — KVK qo'shimcha yukda, derazalarni yopiq saqlang.":"Наружный воздух жаркий — ХВК под дополнительной нагрузкой, держите окна закрытыми."
+,"Tashqi sovuq — isitish yo'nalishiga e'tibor bering.":"Наружно холодно — обратите внимание на отопление."
+,"Tashqi harorat optimal — KVK odatiy rejimda.":"Наружная температура оптимальна — ХВК в обычном режиме."
+,"Tsex nishondan yuqori — K-1 quvvatini oshiring yoki smena oralig'ida shamollating.":"Цех выше задания — увеличьте мощность К-1 или проветрите в перерыве."
+,"Tsex nishondan past — KVK rejimini yumshatish mumkin.":"Цех ниже задания — режим ХВК можно смягчить."
+,"Tsex harorati nishonga mos — aqlli boshqaruv saqlanmoqda.":"Температура цеха соответствует заданию — умное управление поддерживается."
+,"Bulutli kun — QES kamayadi, akkumulyator zaxirasini hisobga oling.":"Облачный день — СЭС снижается, учтите резерв аккумулятора."
+,"Moslashtirilmoqda":"Настраивается"
+,"Aqlli boshqaruv: faol":"Умное управление: активно"
+,"Savolingizni yozing... (Enter — yuborish)":"Введите вопрос... (Enter — отправить)"
+,"km/h":"км/ч"
 };
 
 var EN={"Umumiy nazorat":"Overview","Yagona sxema":"Single-line diagram","Strukturaviy sxema":"Structural diagram","Elektr tarmoqlari":"Electrical networks","Gaz nazorati":"Gas monitoring","Qurilmalar":"Equipment","Quyosh stansiyasi":"Solar plant","Tarixchi":"Historian","Signallar jurnali":"Event log","Prognoz":"Forecast","Yordamchi":"Assistant","Mikroiqlim":"Climate","Audit":"Audit","Hisobotlar":"Reports","Sozlamalar":"Settings","Bo'limlar":"Sections","Tizim holati":"System status",
@@ -687,9 +848,99 @@ var EN={"Umumiy nazorat":"Overview","Yagona sxema":"Single-line diagram","Strukt
 "AR — havo liniyasi nosozliklarida avtomatik qayta ulash":"AR — automatic reclosing on overhead line faults","Havo liniyasi nosozligi (AR sinovi)":"Overhead line fault (AR test)","ASU/CHARK — shartnoma quvvati oshganda yuklarni avtomatik uzish":"ASU/CHARK — automatic load shedding when contract capacity exceeded","AR / ATS / ASU hodisalari":"AR / ATS / ASU events","KB — reaktiv quvvat stansiyasi avtomatik boshqaruvi (cos φ ≥ 0,90)":"Capacitor bank automatic control (cos φ ≥ 0.90)","KB: 30 / 60 kvar":"CB: 30 / 60 kvar","KB: 30 / 60 kvar · past!":"CB: 30 / 60 kvar · low!","KB: 20 / 60 kvar · past!":"CB: 20 / 60 kvar · low!",
 "Gaz nazorati":"Gas monitoring","Gaz xavfsizligi reglamenti":"Gas safety regulation","Sizish ssenariysi":"Leak scenario","Shamollatishni yoqish":"Start ventilation","Klapan berkitish":"Close valve","Gaz holati qanday?":"How is gas?","Gaz: maks. CH4":"Gas: max CH4","Maksimal CH4":"Max CH4","Gaz evakuatsiya chegarasi, %LEL":"Gas evacuation threshold, %LEL","Gaz ogohlantirish chegarasi, %LEL":"Gas warning threshold, %LEL","Gaz bo'yicha favqulodda holat — evakuatsiya tartibi":"Gas emergency — evacuation procedure","Metan portlash yuqori chegarasi (LEL) 5 hajm % = 50 000 ppm.":"Methane upper explosion limit (LEL) 5 vol.% = 50,000 ppm.","20 %LEL (10 000 ppm) — ogohlantirish: shamollatish avtomatik ishga tushadi.":"20 %LEL (10,000 ppm) — warning: ventilation starts automatically.","40 %LEL (20 000 ppm) — evakuatsiya: zona klapani berkitiladi (masofadan), PA orqali e'lon, dispetcherga signal.":"40 %LEL (20,000 ppm) — evacuation: zone valve closed (remote), PA announcement, signal to dispatcher.","Zona hajmi va havo almashinishi (ACH) bo'yicha diffuzion tenglama asosida modellashtirilgan: dC/dt = Q/V − C·ACH/3600.":"Modelled by diffusion equation based on zone volume and air change rate (ACH): dC/dt = Q/V − C·ACH/3600.","Chegaralar Sozlamalar bo'limidan o'zgartiriladi.":"Thresholds can be changed in Settings.","Evakuatsiya e'loni testi":"Evacuation announcement test","Gaz normaga qaytmaguncha hududga kirmang.":"Do not enter the zone until gas returns to normal.","Hududni zudlik bilan tark eting, liftdan foydalanmang.":"Leave the area immediately; do not use elevators.","Tushundim, hudud tark etildi":"Understood, area evacuated","Gaz ko'rsatkichlari normaga keltirildi.":"Gas indicators normalized.","Navbatchi dispetcherga signal yuborildi, PA orqali e'lon qilindi.":"Signal sent to duty dispatcher; PA announcement made.","Shamollatish avtomatik ishga tushirildi, zona klapani berkitildi.":"Ventilation started automatically; zone valve closed.","klapan ochiq":"valve open","klapan berk":"valve closed","shamollatish ON":"ventilation ON","shamollatish OFF":"ventilation OFF","shamollatish yoqildi.":"ventilation started.","shamollatish o'chirildi.":"ventilation stopped.","Shamollatish":"Ventilation",
 "Quyosh stansiyasi":"Solar plant","Quyosh oqimi":"Solar irradiance","Quyosh generatsiyasi":"Solar generation","Quyosh invertori GET":"Solar inverter","Quyosh INV":"Solar INV","Stringlar holati":"String status","String":"String","String S-1":"String S-1","String S-2":"String S-2","String S-3":"String S-3","String S-4":"String S-4","Stansiya quvvati, kVt —":"Plant power, kW —","Tarmoqqa uzatish (GET)":"Export to grid (inverter)","Tarmoqqa uzatish ulushi, % —":"Export share, % —","Quyosh iqtisodi":"Solar economics","Sotib olish tarifi, so'm/kVt·soat":"Purchase tariff, UZS/kWh","Sotish tarifi, so'm/kVt·soat":"Sales tariff, UZS/kWh","Sotishdan tushum:":"Sales revenue:","O'z iste'molini qoplash:":"Self-consumption coverage:","Taxminiy qoplanish:":"Estimated payback:","Utilizatsiya":"Utilization","Kunlik ishlab chiqarish:":"Daily production:","Oylik:":"Monthly:","Bugungi sarf":"Today's consumption","Jami sarf":"Total consumption","Jami summa":"Total amount","Summa (kun), so'm":"Amount (day), UZS","Sarf (kun), kVt·soat":"Consumption (day), kWh","Samaradorlik":"Efficiency","Xulosa":"Conclusion","Topshiriq":"Work order","Haftalik prognoz":"Weekly forecast","Haftalik yuk prognozi":"Weekly load forecast","Haftalik jami yuk":"Weekly total load","Haftalik jami yuk:":"Weekly total load:","Haftalik prognozni ochish":"Open weekly forecast","Prognozni CSV yuklash":"Download forecast CSV","CSV yuklab olish":"Download CSV","Hisobotni shakllantirish":"Generate report","Hisobotni shakllantirish tugmasini bosing.":"Press the generate report button.","Hisobotlar":"Reports","Kunlik energiya hisoboti":"Daily energy report","KUNLIK ENERGIYA HISOBOTI":"DAILY ENERGY REPORT","Kunlik rejimni arxivga yozish":"Archive daily mode","Kunlik hisobni nollash":"Reset daily counter","Jurnal arxivlanadi · O'lchov davri: 1 s":"Log archived · poll period: 1 s","Arxivni tozalash":"Clear archive","Yozuvlar soni":"Record count","Auditni yangilash":"Refresh audit","Energiya auditi — fiderlar kesimida":"Energy audit — by feeders","Chop etish / PDF":"Print / PDF","Chop etish":"Print","Masofadan boshqaruv — tanlash":"Remote control — select","o'chirgichni bosing: tanlash → tasdiqlash (SBO)":"click breaker: select → confirm (SBO)",
-"Korxona EMS · SCADA dispetcherlik tizimi":"Enterprise EMS · SCADA dispatcher","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Enterprise energy management (EMS/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Enterprise energy management system (EMS/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Single-line diagram · 10/0.4 kV · rev.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Object: manufacturing plant · Incomer: 10/0.4 kV, TP-2","TP-2 · 10/0,4 kV":"TP-2 · 10/0.4 kV","Tarmoq 10 kV":"Grid 10 kV","Tarmoq uzilishi (ABB)":"Grid disconnection (ABB)","Tarmoq 10 kV":"Grid 10 kV","Shina 0,4 kV":"Bus 0.4 kV","TR-1 · 630 kVA":"TR-1 · 630 kVA","TR-2 · 630 kVA":"TR-2 · 630 kVA","Transformator TR-1 · 630 kVA · Dyn11":"Transformer TR-1 · 630 kVA · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Transformer TR-2 · 630 kVA · Dyn11","Transformatorlar":"Transformers","TR-1 / TR-2 maksimal yuklama":"TR-1 / TR-2 peak loading","Moy harorati":"Oil temperature","Og'iz harorati":"Winding temperature","Yo'qotish":"Losses","Yo'qotishlar":"Losses","ARV avtomati":"AVR breaker","QF-S buzer":"QF-S buzzer","Shinlar buzeri":"Bus buzzer","Kuchlanish U, V":"Voltage U, V","U, V":"U, V","ΔU, V":"ΔU, V","Kirish kuchlanish":"Incomer voltage","Joriy generatsiya (AC)":"Current generation (AC)","Iste'mol oqimi":"Demand flow","Iste'mol, kVt":"Consumption, kW","Quvvat, kVt":"Power, kW","Quyosh, kVt":"Solar, kW","Quyosh ES":"Solar PV","Tarmoq AC":"Grid AC","Jami yuk":"Total load","Yuk":"Load","Yuklama":"Loading","Pik yuk":"Peak load","Max talab 15 daq":"Max demand 15 min","Max talab 15 daq (demand)":"Max demand 15 min (demand)","Shartnoma quvvati, kVA":"Contract capacity, kVA","Shartnoma quvvati":"Contract capacity","Shartnoma":"Contract","Shartnoma chegarasi 320 kVt":"Contract limit 320 kW","maks 314 / 400 kVA":"max 314 / 400 kVA","Ovoz balandligi":"Volume","Ovoz: yoqilgan":"Sound: on","Belgilangan harorat":"Setpoint temperature","Belgilangan harorat K-1":"Setpoint temperature K-1","Konditsioner":"Air conditioner","Havo filtri F-1":"Air filter F-1","Havo filtri F-2":"Air filter F-2","Pardalar (yorug'lik datchigi)":"Curtains (light sensor)","Monitor":"Monitor","E'lonlar":"Announcements","Videokuzatuv":"CCTV","Sex harorati (o'lchangan)":"Workshop temperature (measured)","Sex audiotizimi (PA)":"Workshop PA system","Kompressor stansiyasi":"Compressor station","Kompressor xonasi":"Compressor room","Kompressor":"Compressor","Pech":"Furnace","Ombor":"Warehouse","Ombor, sovutkichlar":"Warehouse, chillers","Ofis":"Office","Ofis, server xonasi":"Office, server room","Ofis + ombor":"Office + warehouse","Qozonxona":"Boiler house","Qozonxona + kompr.":"Boiler house + compr.","Sex-1":"Workshop-1","Sex-2":"Workshop-2","Sexlar A":"Workshops A","Sex-1 (stanoklar)":"Workshop-1 (machine tools)","Sex-2 (pech)":"Workshop-2 (furnace)","Yoritish, videokuzatuv":"Lighting, CCTV","Yoritish":"Lighting","Server xonasi haroratini nazorat qiladi":"Monitors server room temperature","Tungi yuklamani kamaytiradi":"Reduces night load","09:00 da stanoklarni ishga tushiradi":"Starts machine tools at 09:00","Manba-1":"Source-1","Manba":"Source","Faol manba":"Active source","AR holati":"AR status","ARV avtomati":"AVR breaker","QF0 holati":"QF0 status","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"QF-S buzzer","A / QF1":"A / QF1","KOMMUNIKATSIYA:":"COMMUNICATION:","OBYEKT:":"OBJECT:","VAQT:":"TIME:","TEZLIK:":"SPEED:","SMENA:":"SHIFT:","DISPETCHER":"DISPATCHER","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Volume","Sana:":"Date:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Date: 2026-10-23 · Dispatcher: dispatch-01","Hisobot davri: smena boshidan (bugun)":"Report period: since shift start (today)","Ichki foydalanish uchun · Dispetcher xizmati":"For internal use · Dispatcher service","Chap jadvaldan fiderni tanlang.":"Select a feeder from the left table.","Dispecher paneli /":"Dispatcher panel /","Umumiy nazorat":"Overview","Tizim sozlamalari":"System settings","Tizim holati":"System status","Tizim ishga tushirildi. 8 ta fider, 2 ta transformator va 6 ta gaz zonasi nazoratga olindi.":"System started. 8 feeders, 2 transformers and 6 gas zones placed under control.","Tizim oflayn ishlaydi: internet talab etilmaydi. Sozlamalar brauzer xotirasida saqlanadi.":"System runs offline: no internet required. Settings are stored in browser memory.","Tizim ish rejimida. Kuchlanish me'yoriy oraliq: 207–235 V (GOST 29322).":"System in normal operation. Voltage range: 207–235 V (GOST 29322).","Barcha fiderlar ish rejimiga qaytarildi, AR/ATS/ASU nollarlandi.":"All feeders restored to operation; AR/ATS/ASU reset.","Barcha fiderlar tiklandi.":"All feeders restored.","Gaz ko'rsatkichlari normaga keltirildi.":"Gas indicators normalized.","Nosozlik qaydi:":"Fault record:","Topshiriq ochildi:":"Work order opened:","Normal rejimga qaytish":"Return to normal mode","Diagnostikani ishga tushirish":"Run diagnostics","Diagnostika":"Diagnostics","Test signali":"Test signal","Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.":"Test signal is played via browser and recorded in the log.","Evakuatsiya e'loni testi":"Evacuation announcement test","Sizish ssenariysi":"Leak scenario","Normaga keltirish (sinov)":"Normalize (test)","Rejim:":"Mode:","O'lchovlar:":"Measurements:","O'lchovlar":"Measurements","O'lchov tezligi (simulyatsiya rejimida)":"Poll rate (simulation mode)","Minimal / maksimal (tanlangan)":"Min / max (selected)","Filtrlarni tozalash":"Clear filters","Arxivni tozalash":"Clear archive","Yozuvlar soni":"Record count","Tizim holati":"System status","Rejim: real":"Mode: real","Rejim: simulyatsiya":"Mode: simulation","Signallar: avariya / ogohlantirish":"Alarms: emergency / warning","Akkumulyator:":"Battery:","Akkumulyator SOC":"Battery SOC","Tashqi harorat, °C":"Outdoor temperature, °C","Belgilangan harorat":"Setpoint temperature","Belgilangan harorat K-1":"Setpoint temperature K-1","Bulutlilik, %":"Cloudiness, %","Kunduzgi":"Day","Tungi":"Night","Kunduzgi (08–20)":"Day (08–20)","Tungi (20–08)":"Night (20–08)","Smena kayfiyati":"Shift mood","Smena tarkibi":"Shift roster","Xodim":"Employee","A. Karimov (operator)":"A. Karimov (operator)","D. Yusupova (muhandis)":"D. Yusupova (engineer)","J. Hakimov (tungi navbatchi)":"J. Hakimov (night duty)","08:00–17:00":"08:00–17:00","09:00–18:00":"09:00–18:00","22:00–06:00":"22:00–06:00","23°C":"23°C","22°C":"22°C","24°C":"24°C","Me'yorda":"Normal","Issiq":"Hot","Sovuq":"Cold","Charchagan":"Fatigued",
+"Korxona EMS · SCADA dispetcherlik tizimi":"Enterprise EMS · SCADA dispatcher","EcoSmart Grid — Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"EcoSmart Grid — Enterprise energy management (EMS/SCADA)","Korxona energiya dispetcherlik tizimi (EMS/SCADA)":"Enterprise energy management system (EMS/SCADA)","EG-TP2-EL-001 · Yagona chiziqli sxema · 10/0,4 kV · rev.3":"EG-TP2-EL-001 · Single-line diagram · 10/0.4 kV · rev.3","Obyekt: ishlab chiqarish korxonasi · Kirish: 10/0,4 kV, TP-2":"Object: manufacturing plant · Incomer: 10/0.4 kV, TP-2","TP-2 · 10/0,4 kV":"TP-2 · 10/0.4 kV","Tarmoq 10 kV":"Grid 10 kV","Tarmoq uzilishi (ABB)":"Grid disconnection (ABB)","Tarmoq 10 kV":"Grid 10 kV","Shina 0,4 kV":"Bus 0.4 kV","TR-1 · 630 kVA":"TR-1 · 630 kVA","TR-2 · 630 kVA":"TR-2 · 630 kVA","Transformator TR-1 · 630 kVA · Dyn11":"Transformer TR-1 · 630 kVA · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Transformer TR-2 · 630 kVA · Dyn11","Transformatorlar":"Transformers","TR-1 / TR-2 maksimal yuklama":"TR-1 / TR-2 peak loading","Moy harorati":"Oil temperature","Og'iz harorati":"Winding temperature","Yo'qotish":"Losses","Yo'qotishlar":"Losses","ARV avtomati":"AVR breaker","QF-S buzer":"QF-S buzzer","Shinlar buzeri":"Bus buzzer","Kuchlanish U, V":"Voltage U, V","U, V":"U, V","ΔU, V":"ΔU, V","Kirish kuchlanish":"Incomer voltage","Joriy generatsiya (AC)":"Current generation (AC)","Iste'mol oqimi":"Demand flow","Iste'mol, kVt":"Consumption, kW","Quvvat, kVt":"Power, kW","Quyosh, kVt":"Solar, kW","Quyosh ES":"Solar PV","Tarmoq AC":"Grid AC","Jami yuk":"Total load","Yuk":"Load","Yuklama":"Loading","Pik yuk":"Peak load","Max talab 15 daq":"Max demand 15 min","Max talab 15 daq (demand)":"Max demand 15 min (demand)","Shartnoma quvvati, kVA":"Contract capacity, kVA","Shartnoma quvvati":"Contract capacity","Shartnoma":"Contract","Shartnoma chegarasi 320 kVt":"Contract limit 320 kW","maks 314 / 400 kVA":"max 314 / 400 kVA","Ovoz balandligi":"Volume","Ovoz: yoqilgan":"Sound: on","Belgilangan harorat":"Setpoint temperature","Belgilangan harorat K-1":"Setpoint temperature K-1","Konditsioner":"Air conditioner","Havo filtri F-1":"Air filter F-1","Havo filtri F-2":"Air filter F-2","Pardalar (yorug'lik datchigi)":"Curtains (light sensor)","Monitor":"Monitor","E'lonlar":"Announcements","Videokuzatuv":"CCTV","Tsex harorati (o'lchangan)":"Workshop temperature (measured)","Tsex audiotizimi (PA)":"Workshop PA system","Kompressor stansiyasi":"Compressor station","Kompressor xonasi":"Compressor room","Kompressor":"Compressor","Pech":"Furnace","Ombor":"Warehouse","Ombor, sovutkichlar":"Warehouse, chillers","Ofis":"Office","Ofis, server xonasi":"Office, server room","Ofis + ombor":"Office + warehouse","Qozonxona":"Boiler house","Qozonxona + kompr.":"Boiler house + compr.","Tsex-1":"Workshop 1","Tsex-2":"Workshop 2","Tsexlar A":"Workshops A","Tsex-1 (stanoklar)":"Workshop 1 (machine tools)","Tsex-2 (pech)":"Workshop 2 (furnace)","Yoritish, videokuzatuv":"Lighting, CCTV","Yoritish":"Lighting","Server xonasi haroratini nazorat qiladi":"Monitors server room temperature","Tungi yuklamani kamaytiradi":"Reduces night load","09:00 da stanoklarni ishga tushiradi":"Starts machine tools at 09:00","Manba-1":"Source-1","Manba":"Source","Faol manba":"Active source","AR holati":"AR status","ARV avtomati":"AVR breaker","QF0 holati":"QF0 status","QF0":"QF0","QF1":"QF1","QF2":"QF2","QF3":"QF3","QF4":"QF4","QF5":"QF5","QF6":"QF6","QF7":"QF7","QF8":"QF8","QF":"QF","QF-S buzer":"QF-S buzzer","A / QF1":"A / QF1","KOMMUNIKATSIYA:":"COMMUNICATION:","OBYEKT:":"OBJECT:","VAQT:":"TIME:","TEZLIK:":"SPEED:","SMENA:":"SHIFT:","DISPETCHER":"DISPATCHER","DISPATCH-01":"DISPATCH-01","dispatch-01":"dispatch-01","ECO-SCADA":"ECO-SCADA","EcoSmart Grid SCADA":"EcoSmart Grid SCADA","EcoSmart Grid":"EcoSmart Grid","Ovoz balandligi":"Volume","Sana:":"Date:","Sana: 2026-10-23 · Dispetcher: dispatch-01":"Date: 2026-10-23 · Dispatcher: dispatch-01","Hisobot davri: smena boshidan (bugun)":"Report period: since shift start (today)","Ichki foydalanish uchun · Dispetcher xizmati":"For internal use · Dispatcher service","Chap jadvaldan fiderni tanlang.":"Select a feeder from the left table.","Dispecher paneli /":"Dispatcher panel /","Umumiy nazorat":"Overview","Tizim sozlamalari":"System settings","Tizim holati":"System status","Tizim ishga tushirildi. 8 ta fider, 2 ta transformator va 6 ta gaz zonasi nazoratga olindi.":"System started. 8 feeders, 2 transformers and 6 gas zones placed under control.","Tizim oflayn ishlaydi: internet talab etilmaydi. Sozlamalar brauzer xotirasida saqlanadi.":"System runs offline: no internet required. Settings are stored in browser memory.","Tizim ish rejimida. Kuchlanish me'yoriy oraliq: 207–235 V (GOST 29322).":"System in normal operation. Voltage range: 207–235 V (GOST 29322).","Barcha fiderlar ish rejimiga qaytarildi, AR/ATS/ASU nollarlandi.":"All feeders restored to operation; AR/ATS/ASU reset.","Barcha fiderlar tiklandi.":"All feeders restored.","Gaz ko'rsatkichlari normaga keltirildi.":"Gas indicators normalized.","Nosozlik qaydi:":"Fault record:","Topshiriq ochildi:":"Work order opened:","Normal rejimga qaytish":"Return to normal mode","Diagnostikani ishga tushirish":"Run diagnostics","Diagnostika":"Diagnostics","Test signali":"Test signal","Test signali brauzer orqali eshittiriladi va jurnalda qayd etiladi.":"Test signal is played via browser and recorded in the log.","Evakuatsiya e'loni testi":"Evacuation announcement test","Sizish ssenariysi":"Leak scenario","Normaga keltirish (sinov)":"Normalize (test)","Rejim:":"Mode:","O'lchovlar:":"Measurements:","O'lchovlar":"Measurements","O'lchov tezligi (simulyatsiya rejimida)":"Poll rate (simulation mode)","Minimal / maksimal (tanlangan)":"Min / max (selected)","Filtrlarni tozalash":"Clear filters","Arxivni tozalash":"Clear archive","Yozuvlar soni":"Record count","Tizim holati":"System status","Rejim: real":"Mode: real","Rejim: simulyatsiya":"Mode: simulation","Signallar: avariya / ogohlantirish":"Alarms: emergency / warning","Akkumulyator:":"Battery:","Akkumulyator SOC":"Battery SOC","Tashqi harorat, °C":"Outdoor temperature, °C","Belgilangan harorat":"Setpoint temperature","Belgilangan harorat K-1":"Setpoint temperature K-1","Bulutlilik, %":"Cloudiness, %","Kunduzgi":"Day","Tungi":"Night","Kunduzgi (08–20)":"Day (08–20)","Tungi (20–08)":"Night (20–08)","Smena kayfiyati":"Shift mood","Smena tarkibi":"Shift roster","Xodim":"Employee","A. Karimov (operator)":"A. Karimov (operator)","D. Yusupova (muhandis)":"D. Yusupova (engineer)","J. Hakimov (tungi navbatchi)":"J. Hakimov (night duty)","08:00–17:00":"08:00–17:00","09:00–18:00":"09:00–18:00","22:00–06:00":"22:00–06:00","23°C":"23°C","22°C":"22°C","24°C":"24°C","Me'yorda":"Normal","Issiq":"Hot","Sovuq":"Cold","Charchagan":"Fatigued",
 "Mimik sxema — energiya oqimi":"Mimic diagram — energy flow","Quvvat oqimi mimik sxemasi":"Power flow mimic diagram","TR yoki shina elementini bosing → faceplate":"Click TR or bus element → faceplate","Yagona chiziqli sxema":"Single-line diagram","Yagona chiziqli sxema 10/0,4 kV":"Single-line diagram 10/0.4 kV","10 kV kirish · ABB":"10 kV incomer · ABB","10 kV kirish · QF0 · ABB":"10 kV incomer · QF0 · ABB","10 kV kirish (ABB)":"10 kV incomer (ABB)","U 10 kV":"U 10 kV","Tarmoq 10 kV":"Grid 10 kV","Tarmoq uzilishi (ABB)":"Grid disconnection (ABB)","QF0 holati":"QF0 status","Kran pozitsiyasi":"Tap position","380–415 V → kran ∓5":"380–415 V → tap ∓5","Shina 0,4 kV":"Bus 0.4 kV","0,4 kV · shina A":"0.4 kV · bus A","0,4 kV · shina B":"0.4 kV · bus B","shina A":"bus A","shina B":"bus B","shina":"bus","Shina / o'chirgich":"Bus / breaker","Quyosh PV · 150 kVt":"Solar PV · 150 kW","Quyosh ES":"Solar PV","Gibrid inverter":"Hybrid inverter","Quyosh invertori GET":"Solar inverter","AC o'chirgich":"AC breaker","Tarmoq AC":"Grid AC","Tarmoqka uzatish (GET)":"Export to grid (inverter)","Quyosh oqimi":"Solar irradiance","TR-1 · 630 kVA · Dyn11":"TR-1 · 630 kVA · Dyn11","TR-2 · 630 kVA · Dyn11":"TR-2 · 630 kVA · Dyn11","630 kVA · Dyn11":"630 kVA · Dyn11","Transformator TR-1 · 630 kVA · Dyn11":"Transformer TR-1 · 630 kVA · Dyn11","Transformator TR-2 · 630 kVA · Dyn11":"Transformer TR-2 · 630 kVA · Dyn11","AR holati":"AR status","ARV avtomati":"AVR breaker","QF-S buzer":"QF-S buzzer","Shinlar buzeri":"Bus buzzer"
  ,"Strukturaviy sxema — energiya oqimi":"Structural diagram — energy flow","Kirish magistral kabeli (380 V)":"Incoming main cable (380 V)","Kabel tarmoqlanishi (mufta/yig'ma)":"Cable branching (joint/assembly)","Kirish P1 (Korxona kabeli 1)":"Incomer P1 (Plant cable 1)","Kirish P2 (Korxona kabeli 2)":"Incomer P2 (Plant cable 2)","UMUMIY AVR":"COMMON ATS","Avtomatik rezerv kiritish":"Automatic transfer switch","UMUMIY GRSH":"COMMON MSB","Umumiy shinalarda sinxronizatsiya":"Synchronization on common buses","4 quyosh paneli (ketma-ket)":"4 solar panels (series)","Quyosh DC":"Solar DC","GIBRID INVERTOR":"HYBRID INVERTOR","Quyosh AC":"Solar AC","1-korxona iste'molchilari":"Plant 1 consumers","2-korxona iste'molchilari":"Plant 2 consumers","KRITIK":"CRITICAL","kritik fiderlar":"critical feeders","EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.1":"EG-TP2-EL-002 · Structural diagram · 10/0.4 kV · rev.1","KO'RGAZMA":"DEMO TOUR","← Oldingi":"← Back","Keyingi →":"Next →","To'xtatish":"Stop","Pauza":"Pause","Davom":"Resume",
+"KIRISH PUNKTI (AJRATISH)":"INCOMER POINT (SPLIT)"
+,"kabel muftasi · P1/P2 ga bo'linish":"cable joint · split to P1/P2"
+,"Avtomatik rezerv o'tkazgich (ATS) · QF-AVR":"Automatic transfer switch (ATS) · QF-AVR"
+,"AVR chiqish quvvati":"ATS output power"
+,"0,4 kV · MDB":"0.4 kV · MDB"
+,"1-TSEX filiali":"Workshop 1 feeder"
+,"2-TSEX filiali":"Workshop 2 feeder"
+,"UZLUKSIZ · Yoritish + VK":"UNINTERRUPTIBLE · Lighting + CCTV"
+,"UZLUKSIZ · KVK va mikroiqlim":"UNINTERRUPTIBLE · HVAC & microclimate"
+,"K-1/K-2 · uzluksiz quvvat":"K-1/K-2 · uninterruptible supply"
+,"Inverter zaxira (AVR)":"Inverter backup (ATS)"
+,"Zonalar":"Zones"
+,"EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.2":"EG-TP2-EL-002 · Structural diagram · 10/0.4 kV · rev.2"
+,"GIBRID INVERTOR (Quyosh PV)":"HYBRID INVERTOR (Solar PV)"
+,"CH4 jonli grafigi":"CH4 live chart"
+,"— maksimal zona · 880 ppm chegarasi":"— max zone · 880 ppm limit"
+,"CH4 (maks zona)":"CH4 (max zone)"
+,"Chegara 880 ppm":"Limit 880 ppm"
+,"Chegara: 880 ppm":"Limit: 880 ppm"
+,"Hozirgi qiymat":"Current value"
+,"AI YORDAMCHI":"AI ASSISTANT"
+,"Tizimni tahlil qilish":"System analysis"
+,"Ob-havo va yuk prognozi":"Weather & load forecast"
+,"Tarmoq ogohlantirishlarini tekshirish":"Check grid violations"
+,"Energiya auditi + Excel export":"Energy audit + Excel export"
+,"Yuborish":"Send"
+,"AI yordamchi tayyor.":"AI assistant ready."
+,"Savol bering yoki quyidagi tez amallardan foydalaning:":"Ask a question or use the quick actions:"
+,"Eng yuqori fider":"Top feeder"
+,"moy":"oil"
+,"Quyosh":"Solar"
+,"kunlik":"per day"
+,"Gaz (CH4)":"Gas (CH4)"
+,"cheklov":"limit"
+,"Nosozliklar":"Faults"
+,"yo'q":"none"
+,"ta":"pcs"
+,"Tasdiqlanmagan signallar":"Unacknowledged alarms"
+,"KVK / mikroiqlim":"HVAC & microclimate"
+,"tsex":"workshop"
+,"nishon":"setpoint"
+,"Tavsiyalar":"Recommendations"
+,"Muammolar topilmadi — tizim normal rejimda.":"No issues found — system running normally."
+,"Tizim tahlili":"System analysis"
+,"Tarmoq ogohlantirishlari":"Grid violations"
+,"Faol ogohlantirish topilmadi. Tizim me'yoriy chegaralarda.":"No active warnings. System within normal limits."
+,"Chegaralar: CH4 880 ppm · kuchlanish 207–235 V · cos φ ≥ 0,90 · TR moy ≤ 85°C.":"Limits: CH4 880 ppm · voltage 207–235 V · cos φ ≥ 0.90 · TR oil ≤ 85°C."
+,"Ma'lumot olinmoqda...":"Loading data..."
+,"Energiya auditi":"Energy audit"
+,"Hozircha audit ma'lumoti yo'q.":"No audit data yet."
+,"Kunlik sarf":"Daily consumption"
+,"Eng ko'p sarflovchi zona":"Highest-consuming zone"
+,"Kunlik xarajat":"Daily cost"
+,"CSV yuklab olish (Excel, UTF-8 BOM)":"Download CSV (Excel, UTF-8 BOM)"
+,"so'm":"UZS"
+,"Hozirgi ob-havo":"Current weather"
+,"bulut":"cloud"
+,"shamol":"wind"
+,"yomg'ir":"rain"
+,"Kun":"Day"
+,"Harorat":"Temperature"
+,"Bulut":"Cloud"
+,"Yomg'ir ehtimoli":"Rain chance"
+,"QES taxminiy":"PV (est.)"
+,"Yuk taxminiy":"Load (est.)"
+,"Yomg'ir ehtimoli yuqori — QES generatsiyasi pasayadi.":"High rain chance — PV generation will drop."
+,"Issiq kun — KVK termik yuk ortadi, shamollatishni kuchaytiring.":"Hot day — HVAC thermal load rises, boost ventilation."
+,"Quyoshli kun — QES maksimal rejimda ishlaydi.":"Sunny day — PV runs at maximum."
+,"Ob-havo sharoiti normal, qo'shimcha chora talab qilinmaydi.":"Weather conditions are normal; no extra measures needed."
+,"(oflayn — simulyatsiya qiymatlari)":"(offline — simulation values)"
+,"AI mikroiqlim prognozi va aqlli boshqaruv":"AI microclimate forecast & smart control"
+,"Tsex harorati / K-1 nishon":"Workshop temp / K-1 setpoint"
+,"Tashqi harorat":"Outdoor temperature"
+,"Bulutlilik":"Cloud cover"
+,"KVK termik yuk":"HVAC thermal load"
+,"KVK qurilmalari":"HVAC units"
+,"Ob-havo manbai":"Weather source"
+,"Simulyatsiya (oflayn)":"Simulation (offline)"
+,"Open-Meteo (Toshkent)":"Open-Meteo (Tashkent)"
+,"Tashqi havo issiq — KVK qo'shimcha yukda, derazalarni yopiq saqlang.":"Outdoor air is hot — HVAC under extra load; keep windows closed."
+,"Tashqi sovuq — isitish yo'nalishiga e'tibor bering.":"Outdoor air is cold — mind the heating."
+,"Tashqi harorat optimal — KVK odatiy rejimda.":"Outdoor temperature is optimal — HVAC in normal mode."
+,"Tsex nishondan yuqori — K-1 quvvatini oshiring yoki smena oralig'ida shamollating.":"Workshop above setpoint — raise K-1 power or ventilate during the break."
+,"Tsex nishondan past — KVK rejimini yumshatish mumkin.":"Workshop below setpoint — HVAC mode can be relaxed."
+,"Tsex harorati nishonga mos — aqlli boshqaruv saqlanmoqda.":"Workshop temperature matches setpoint — smart control maintained."
+,"Bulutli kun — QES kamayadi, akkumulyator zaxirasini hisobga oling.":"Cloudy day — PV drops; account for battery reserve."
+,"Moslashtirilmoqda":"Adjusting"
+,"Aqlli boshqaruv: faol":"Smart control: active"
+,"Savolingizni yozing... (Enter — yuborish)":"Type your question... (Enter — send)"
+,"km/h":"km/h"
 };
 
 /* ============ I18N CORE ============ */
@@ -840,8 +1091,8 @@ arAuto:load("esg_arAuto",true),
 demWin:[],demNow:0,demMax:0,demPen:false,
 cosf:0.95,thd:3.5,irr:0,tcell:25,pvAc:0,
 lines:[
-{n:"Sex-1 (stanoklar)",sn:"Sex-1",bus:"A",f:"F-01",tr:1,base:48,load:70,on:true,v:221,a:0,kw:0,kvar:0,cpf:0.88,st:"OK",e:0,over:0,iset:300,brk:"QF1",len:120,sq:95,oh:false,du:0,uv:0,ar:{n:0,t:0}},
-{n:"Sex-2 (pech)",sn:"Sex-2",bus:"A",f:"F-02",tr:1,base:62,load:80,on:true,v:220,a:0,kw:0,kvar:0,cpf:0.82,st:"OK",e:0,over:0,iset:420,brk:"QF2",len:150,sq:120,oh:false,du:0,uv:0,ar:{n:0,t:0}},
+{n:"Tsex-1 (stanoklar)",sn:"Tsex-1",bus:"A",f:"F-01",tr:1,base:48,load:70,on:true,v:221,a:0,kw:0,kvar:0,cpf:0.88,st:"OK",e:0,over:0,iset:300,brk:"QF1",len:120,sq:95,oh:false,du:0,uv:0,ar:{n:0,t:0}},
+{n:"Tsex-2 (pech)",sn:"Tsex-2",bus:"A",f:"F-02",tr:1,base:62,load:80,on:true,v:220,a:0,kw:0,kvar:0,cpf:0.82,st:"OK",e:0,over:0,iset:420,brk:"QF2",len:150,sq:120,oh:false,du:0,uv:0,ar:{n:0,t:0}},
 {n:"Ombor, sovutkichlar",sn:"Ombor",bus:"A",f:"F-03",tr:1,base:28,load:60,on:true,v:222,a:0,kw:0,kvar:0,cpf:0.9,st:"OK",e:0,over:0,iset:180,brk:"QF3",len:180,sq:50,oh:false,du:0,uv:0,ar:{n:0,t:0}},
 {n:"Ofis, server xonasi",sn:"Ofis",bus:"A",f:"F-04",tr:1,base:22,load:55,on:true,v:223,a:0,kw:0,kvar:0,cpf:0.92,st:"OK",e:0,over:0,iset:150,brk:"QF4",len:90,sq:35,oh:false,du:0,uv:0,ar:{n:0,t:0}},
 {n:"Qozonxona",sn:"Qozonxona",bus:"B",f:"F-05",tr:2,base:35,load:65,on:true,v:219,a:0,kw:0,kvar:0,cpf:0.85,st:"OK",e:0,over:0,iset:240,brk:"QF5",len:200,sq:70,oh:false,du:0,uv:0,ar:{n:0,t:0}},
@@ -849,14 +1100,14 @@ lines:[
 {n:"Yoritish, videokuzatuv",sn:"Yoritish",bus:"B",f:"F-07",tr:2,base:14,load:50,on:true,v:224,a:0,kw:0,kvar:0,cpf:0.95,st:"OK",e:0,over:0,iset:110,brk:"QF7",len:250,sq:25,oh:true,du:0,uv:0,crit:true,ar:{n:0,t:0}},
 {n:"Quyosh invertori GET",sn:"Quyosh INV",bus:"A",f:"F-08",tr:1,base:-30,load:60,on:true,v:225,a:0,kw:0,kvar:0,cpf:0.99,st:"OK",e:0,over:0,iset:150,brk:"QF8",len:60,sq:70,oh:false,du:0,uv:0,ar:{n:0,t:0}}],
 gas:[
-{n:"Sex-1",ppm:600,vent:false,valve:true,leak:false,warned:false,evaced:false,v:900,leakQ:0},
-{n:"Sex-2 (pech)",ppm:750,vent:false,valve:true,leak:false,warned:false,evaced:false,v:700,leakQ:0},
+{n:"Tsex-1",ppm:600,vent:false,valve:true,leak:false,warned:false,evaced:false,v:900,leakQ:0},
+{n:"Tsex-2 (pech)",ppm:750,vent:false,valve:true,leak:false,warned:false,evaced:false,v:700,leakQ:0},
 {n:"Qozonxona",ppm:850,vent:false,valve:true,leak:false,warned:false,evaced:false,v:500,leakQ:0},
 {n:"Ombor",ppm:400,vent:false,valve:true,leak:false,warned:false,evaced:false,v:1200,leakQ:0},
 {n:"Ofis",ppm:250,vent:false,valve:true,leak:false,warned:false,evaced:false,v:300,leakQ:0},
 {n:"Kompressor xonasi",ppm:550,vent:false,valve:true,leak:false,warned:false,evaced:false,v:400,leakQ:0}],
 devs:[
-{n:"Konditsioner K-1 (Sex-1)",t:"cond",on:true,temp:24,v:221,extra:8},
+{n:"Konditsioner K-1 (Tsex-1)",t:"cond",on:true,temp:24,v:221,extra:8},
 {n:"Konditsioner K-2 (ofis)",t:"cond",on:true,temp:23,v:222,extra:6},
 {n:"Havo filtri F-1",t:"filter",on:true,v:220,extra:3,filter:42},
 {n:"Havo filtri F-2",t:"filter",on:true,v:219,extra:3,filter:61},
@@ -1087,7 +1338,7 @@ card.appendChild(el("h3",null,z.n));
 var box=el("div","gaugeBox");
 var NS="http://www.w3.org/2000/svg";var svg=document.createElementNS(NS,"svg");svg.setAttribute("width","110");svg.setAttribute("height","70");svg.setAttribute("viewBox","0 0 110 70");
 var bg=document.createElementNS(NS,"path");bg.setAttribute("d","M10 60 A45 45 0 0 1 100 60");bg.setAttribute("fill","none");bg.setAttribute("stroke","#1a2330");bg.setAttribute("stroke-width","10");bg.setAttribute("stroke-linecap","round");svg.appendChild(bg);
-var fg=document.createElementNS(NS,"path");fg.setAttribute("d","M10 60 A45 45 0 0 1 100 60");fg.setAttribute("fill","none");fg.setAttribute("stroke","#3fb950");fg.setAttribute("stroke-width","10");fg.setAttribute("stroke-linecap","round");fg.setAttribute("stroke-dasharray","141.4");fg.setAttribute("stroke-dashoffset","141.4");svg.appendChild(fg);
+var fg=document.createElementNS(NS,"path");fg.setAttribute("d","M10 60 A45 45 0 0 1 100 60");fg.setAttribute("fill","none");fg.setAttribute("stroke","#3fd687");fg.setAttribute("stroke-width","10");fg.setAttribute("stroke-linecap","round");fg.setAttribute("stroke-dasharray","141.4");fg.setAttribute("stroke-dashoffset","141.4");svg.appendChild(fg);
 box.appendChild(svg);
 var rv=el("div");var big=el("div","big num","0");var un=el("div","sub","%LEL CH4");var tg=el("div");tg.appendChild(el("span","tag t-ok","Normal"));rv.appendChild(big);rv.appendChild(un);rv.appendChild(tg);box.appendChild(rv);card.appendChild(box);
 var bar=el("div","bar");var bi=el("i");bi.style.width="0%";bar.appendChild(bi);card.appendChild(bar);
@@ -1120,7 +1371,7 @@ function line(x1,y1,x2,y2,id,col){var p=document.createElementNS(NS,"path");p.se
 function box(x,y,w,h,label,id){var g=document.createElementNS(NS,"g");var r=document.createElementNS(NS,"rect");r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("rx","3");r.setAttribute("fill","#161f2a");r.setAttribute("stroke","#314255");r.setAttribute("stroke-width","1.5");g.appendChild(r);
 var t=document.createElementNS(NS,"text");t.setAttribute("x",x+w/2);t.setAttribute("y",y+20);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#dce6f2");t.setAttribute("font-size","11.5");t.setAttribute("font-weight","bold");t.textContent=label;g.appendChild(t);
 var v=document.createElementNS(NS,"text");v.setAttribute("x",x+w/2);v.setAttribute("y",y+40);v.setAttribute("text-anchor","middle");v.setAttribute("fill","#8fa3bb");v.setAttribute("font-size","12");v.setAttribute("font-family","Consolas,monospace");if(id)v.setAttribute("id",id);v.textContent="—";g.appendChild(v);svg.appendChild(g);return g;}
-line(130,60,230,60,"flGrid");line(130,155,230,155,"flSol","#3fb950");
+line(130,60,230,60,"flGrid");line(130,155,230,155,"flSol","#3fd687");
 line(350,60,350,155);line(350,105,450,105,"flBus");
 line(570,60,670,60,"flA");line(570,105,670,105,"flB");line(570,155,670,155,"flC");
 var mg=box(20,32,110,56,"Tarmoq 10 kV","mmGrid");mg.style.cursor="pointer";mg.addEventListener("click",function(){fpGrid();});
@@ -1128,7 +1379,7 @@ var ms=box(20,127,110,56,"Quyosh ES","mmSol");ms.style.cursor="pointer";ms.addEv
 var m1=box(230,32,120,56,"TR-1 · 630 kVA","mmTR1");m1.style.cursor="pointer";m1.addEventListener("click",function(){fpTR(0);});
 var m2=box(230,127,120,56,"TR-2 · 630 kVA","mmTR2");m2.style.cursor="pointer";m2.addEventListener("click",function(){fpTR(1);});
 var mb=box(450,77,120,56,"Shina 0,4 kV","mmBus");mb.style.cursor="pointer";mb.addEventListener("click",function(){go("s-scheme");});
-[["Sexlar A","mmA",32],["Ofis + ombor","mmB",77],["Qozonxona + kompr.","mmC",127]].forEach(function(o){
+[["Tsexlar A","mmA",32],["Ofis + ombor","mmB",77],["Qozonxona + kompr.","mmC",127]].forEach(function(o){
 var g=document.createElementNS(NS,"g");var r=document.createElementNS(NS,"rect");r.setAttribute("x",670);r.setAttribute("y",o[2]);r.setAttribute("width",150);r.setAttribute("height",56);r.setAttribute("rx","3");r.setAttribute("fill","#161f2a");r.setAttribute("stroke","#314255");r.setAttribute("stroke-width","1.5");g.appendChild(r);
 var t=document.createElementNS(NS,"text");t.setAttribute("x",745);t.setAttribute("y",o[2]+20);t.setAttribute("text-anchor","middle");t.setAttribute("fill","#dce6f2");t.setAttribute("font-weight","bold");t.setAttribute("font-size","11");t.textContent=o[0];g.appendChild(t);
 var v=document.createElementNS(NS,"text");v.setAttribute("x",745);v.setAttribute("y",o[2]+40);v.setAttribute("text-anchor","middle");v.setAttribute("fill","#8fa3bb");v.setAttribute("font-size","12");v.setAttribute("font-family","Consolas,monospace");v.setAttribute("id",o[1]);g.appendChild(v);g.style.cursor="pointer";g.addEventListener("click",function(){go("s-elec");});svg.appendChild(g);});}
@@ -1177,18 +1428,18 @@ var ld=document.createElementNS(NS,"path");ld.setAttribute("d","M"+(x-8)+" 290 L
 /* 4 parallelogram solar panels (series) */
 (function(){var g=document.createElementNS(NS,"g");g.setAttribute("id","schPanels");g.style.cursor="pointer";g.addEventListener("click",function(){go("s-sol");});
 var px=x-52,py=258,pw=26,ph=18,sh=5;
-for(var i=0;i<4;i++){var xx=px+i*32;var p=document.createElementNS(NS,"path");p.setAttribute("d","M"+xx+" "+py+" L"+(xx+pw)+" "+py+" L"+(xx+pw-sh)+" "+(py+ph)+" L"+(xx-sh)+" "+(py+ph)+" Z");p.setAttribute("fill","none");p.setAttribute("stroke","#3fb950");p.setAttribute("stroke-width","1.5");g.appendChild(p);}
+for(var i=0;i<4;i++){var xx=px+i*32;var p=document.createElementNS(NS,"path");p.setAttribute("d","M"+xx+" "+py+" L"+(xx+pw)+" "+py+" L"+(xx+pw-sh)+" "+(py+ph)+" L"+(xx-sh)+" "+(py+ph)+" Z");p.setAttribute("fill","none");p.setAttribute("stroke","#3fd687");p.setAttribute("stroke-width","1.5");g.appendChild(p);}
 var pl=document.createElementNS(NS,"text");pl.setAttribute("x",x);pl.setAttribute("y",py+ph+12);pl.setAttribute("font-size","9");pl.setAttribute("fill","#8fa3bb");pl.setAttribute("text-anchor","middle");pl.textContent="4 panel (ketma-ket)";g.appendChild(pl);svg.appendChild(g);})();
 /* red dashed DC to inverter */
-(function(){var w=document.createElementNS(NS,"path");w.setAttribute("d","M"+x+" 296 L"+x+" 312");w.setAttribute("stroke","#ff4d4d");w.setAttribute("stroke-width","2");w.setAttribute("stroke-dasharray","5 3");w.setAttribute("fill","none");svg.appendChild(w);
-var t=document.createElementNS(NS,"text");t.setAttribute("x",x+30);t.setAttribute("y",310);t.setAttribute("font-size","8");t.setAttribute("fill","#ff4d4d");t.textContent="DC";svg.appendChild(t);})();
+(function(){var w=document.createElementNS(NS,"path");w.setAttribute("d","M"+x+" 296 L"+x+" 312");w.setAttribute("stroke","#ff6262");w.setAttribute("stroke-width","2");w.setAttribute("stroke-dasharray","5 3");w.setAttribute("fill","none");svg.appendChild(w);
+var t=document.createElementNS(NS,"text");t.setAttribute("x",x+30);t.setAttribute("y",310);t.setAttribute("font-size","8");t.setAttribute("fill","#ff6262");t.textContent="DC";svg.appendChild(t);})();
 /* inverter: square + diagonal, = left, ~ right */
 (function(){var ix=x-16,iy=312,iw=32,ih=24;
-var r=document.createElementNS(NS,"rect");r.setAttribute("x",ix);r.setAttribute("y",iy);r.setAttribute("width",iw);r.setAttribute("height",ih);r.setAttribute("rx","2");r.setAttribute("fill","#161f2a");r.setAttribute("stroke","#3fb950");r.setAttribute("stroke-width","1.5");svg.appendChild(r);
-var d=document.createElementNS(NS,"line");d.setAttribute("x1",ix+3);d.setAttribute("y1",iy+ih-3);d.setAttribute("x2",ix+iw-3);d.setAttribute("y2",iy+3);d.setAttribute("stroke","#3fb950");d.setAttribute("stroke-width","1.5");svg.appendChild(d);
+var r=document.createElementNS(NS,"rect");r.setAttribute("x",ix);r.setAttribute("y",iy);r.setAttribute("width",iw);r.setAttribute("height",ih);r.setAttribute("rx","2");r.setAttribute("fill","#161f2a");r.setAttribute("stroke","#3fd687");r.setAttribute("stroke-width","1.5");svg.appendChild(r);
+var d=document.createElementNS(NS,"line");d.setAttribute("x1",ix+3);d.setAttribute("y1",iy+ih-3);d.setAttribute("x2",ix+iw-3);d.setAttribute("y2",iy+3);d.setAttribute("stroke","#3fd687");d.setAttribute("stroke-width","1.5");svg.appendChild(d);
 var eq=document.createElementNS(NS,"text");eq.setAttribute("x",ix-8);eq.setAttribute("y",iy+ih/2+4);eq.setAttribute("font-size","11");eq.setAttribute("fill","#8fa3bb");eq.setAttribute("text-anchor","middle");eq.setAttribute("font-weight","bold");eq.textContent="=";svg.appendChild(eq);
 var sq=document.createElementNS(NS,"text");sq.setAttribute("x",ix+iw+8);sq.setAttribute("y",iy+ih/2+4);sq.setAttribute("font-size","12");sq.setAttribute("fill","#8fa3bb");sq.setAttribute("text-anchor","middle");sq.setAttribute("font-weight","bold");sq.textContent="~";svg.appendChild(sq);
-var lb=document.createElementNS(NS,"text");lb.setAttribute("x",x);lb.setAttribute("y",iy+ih+12);lb.setAttribute("font-size","8");lb.setAttribute("fill","#3fb950");lb.setAttribute("text-anchor","middle");lb.textContent="INV";svg.appendChild(lb);})();
+var lb=document.createElementNS(NS,"text");lb.setAttribute("x",x);lb.setAttribute("y",iy+ih+12);lb.setAttribute("font-size","8");lb.setAttribute("fill","#3fd687");lb.setAttribute("text-anchor","middle");lb.textContent="INV";svg.appendChild(lb);})();
 feedLbl(x,362,S.lines[k],k);/* green AC up to bus */
 (function(){var w=document.createElementNS(NS,"path");w.setAttribute("d","M"+x+" 336 L"+x+" 350 L"+(x+95)+" 350 L"+(x+95)+" 190");w.setAttribute("stroke","#2fd6a0");w.setAttribute("stroke-width","2");w.setAttribute("fill","none");w.setAttribute("class","flow");svg.appendChild(w);
 var t=document.createElementNS(NS,"text");t.setAttribute("x",x+100);t.setAttribute("y",265);t.setAttribute("font-size","9");t.setAttribute("fill","#2fd6a0");t.textContent="AC";svg.appendChild(t);})();})();
@@ -1204,76 +1455,96 @@ var ST={els:{},zones:null};
 function buildStruct(){var svg=$("structSvg");if(!svg)return;var NS="http://www.w3.org/2000/svg";svg.innerHTML="";ST.els={};
 function S_(tag,attrs,par){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);(par||svg).appendChild(e);return e;}
 function Stxt(x,y,s,size,fill,anchor,id,extra){var e=S_("text",{x:x,y:y,"font-size":size||11,fill:fill||"#dce6f2"});if(anchor)e.setAttribute("text-anchor",anchor);if(id)e.setAttribute("id",id);if(extra)for(var k in extra)e.setAttribute(k,extra[k]);e.textContent=s;return e;}
-function Swire(x1,y1,x2,y2,col,w,id,dash){var e=S_("path",{d:"M"+x1+" "+y1+" L"+x2+" "+y2,stroke:col||"#2f8bff","stroke-width":w||3,class:"flow"});if(dash)e.setAttribute("stroke-dasharray",dash);if(id)e.setAttribute("id",id);return e;}
+function Swire(x1,y1,x2,y2,col,w,id,dash){var e=S_("path",{d:"M"+x1+" "+y1+" L"+x2+" "+y2,stroke:col||"#3d8df5","stroke-width":w||3,class:"flow"});if(dash)e.setAttribute("stroke-dasharray",dash);if(id)e.setAttribute("id",id);return e;}
 function Sbox(x,y,w,h,fill,stroke,rx,id,par){var e=S_("rect",{x:x,y:y,width:w,height:h,rx:rx||3,fill:fill||"#161f2a",stroke:stroke||"#2a3d4f","stroke-width":1.5});if(id)e.setAttribute("id",id);(par||svg).appendChild(e);return e;}
-/* --- incoming cable --- */
+/* --- incoming cable + clear junction box --- */
 Stxt(500,22,"Kirish magistral kabeli (380 V)",12,"#8fa3bb","middle");
-Sbox(410,35,180,28,"#101820","#3a5a7a",3,"stJct");Stxt(500,54,"Kabel tarmoqlanishi (mufta/yig'ma)",10,"#8fa3bb","middle");
-Swire(500,63,290,95,"#2f8bff",3,"stW1");Swire(500,63,710,95,"#2f8bff",3,"stW2");
+Sbox(400,33,200,32,"#101c2c","#3a5a7a",3,"stJct");
+Stxt(500,47,"KIRISH PUNKTI (AJRATISH)",10.5,"#cfe0f2","middle",null,{"font-weight":"bold"});
+Stxt(500,59,"kabel muftasi · P1/P2 ga bo'linish",8.5,"#8fa3bb","middle");
+Swire(500,65,290,95,"#3d8df5",3,"stW1");Swire(500,65,710,95,"#3d8df5",3,"stW2");
 /* energy pulse dots on grid wires */
-S_("circle",{cx:500,cy:63,r:3,fill:"#7fc4ff",class:"epulse",id:"epW1"});
-S_("circle",{cx:500,cy:63,r:3,fill:"#7fc4ff",class:"epulse",id:"epW3"});
-S_("circle",{cx:500,cy:200,r:3,fill:"#7fc4ff",class:"epulse",id:"epGrid"});
+S_("circle",{cx:500,cy:65,r:3,fill:"#7fc4ff",class:"epulse",id:"epW1"});
+S_("circle",{cx:500,cy:65,r:3,fill:"#7fc4ff",class:"epulse",id:"epW3"});
+S_("circle",{cx:500,cy:240,r:3,fill:"#7fc4ff",class:"epulse",id:"epGrid"});
 /* --- P1 / P2 --- */
-Sbox(190,95,200,34,"#132030","#2f8bff",3,"stP1");Stxt(290,116,"Kirish P1 (Korxona kabeli 1)",10.5,"#dce6f2","middle");
-Sbox(610,95,200,34,"#132030","#2f8bff",3,"stP2");Stxt(710,116,"Kirish P2 (Korxona kabeli 2)",10.5,"#dce6f2","middle");
-Swire(290,129,500,160,"#2f8bff",3,"stW3");Swire(710,129,500,160,"#2f8bff",3,"stW4");
-/* --- AVR (Common ATS) --- */
-Sbox(390,160,220,40,"#1a2433","#ffb020",3,"stAVR");Stxt(500,178,"UMUMIY AVR",12,"#ffb020","middle");Stxt(500,192,"Avtomatik rezerv kiritish",9,"#8fa3bb","middle");
+Sbox(190,95,200,34,"#132030","#3d8df5",3,"stP1");Stxt(290,116,"Kirish P1 (Korxona kabeli 1)",10.5,"#dce6f2","middle");
+Sbox(610,95,200,34,"#132030","#3d8df5",3,"stP2");Stxt(710,116,"Kirish P2 (Korxona kabeli 2)",10.5,"#dce6f2","middle");
+Swire(290,129,440,156,"#3d8df5",3,"stW3");Swire(710,129,560,156,"#3d8df5",3,"stW4");
+/* --- AVR (Common ATS, IEC 60947-6-1): grid inputs + inverter backup --- */
+Sbox(380,156,240,46,"#1a2433","#f2a63c",3,"stAVR");
+Stxt(500,174,"UMUMIY AVR",12.5,"#f2a63c","middle",null,{"font-weight":"bold"});
+Stxt(500,189,"Avtomatik rezerv o'tkazgich (ATS) · QF-AVR",8.5,"#8fa3bb","middle");
 ST.els.avr=svg.querySelector("#stAVR");
 svg.querySelector("#stAVR").addEventListener("click",function(){fpBlk("avr");});
-/* --- AVR to GRSH --- */
-Swire(500,200,500,285,"#2f8bff",3,"stWGrid");Stxt(518,248,"Tarmoq AC",10,"#2f8bff","start");
-/* --- GRSH bus (amber) --- */
-var bus=S_("path",{d:"M100 290 L900 290",stroke:"#c9a233","stroke-width":7,"stroke-linecap":"round",id:"stBus"});bus.style.cursor="pointer";bus.addEventListener("click",function(){fpBlk("grsh");});
-Stxt(500,278,"UMUMIY GRSH",12,"#c9a233","middle");Stxt(500,306,"Umumiy shinalarda sinxronizatsiya",9,"#8fa3bb","middle");
-/* --- SOLAR BLOCK (left) --- */
+/* --- AVR to GRSH (unified output) --- */
+Swire(500,202,500,276,"#3d8df5",3,"stWGrid");Stxt(514,242,"AVR chiqish quvvati",9.5,"#3d8df5","start");
+/* --- GRSH block (MDB) with live U/I/P/f/status --- */
+var bus=Sbox(100,276,800,32,"#0e2233","#46b8e8",4,"stBus");
+bus.setAttribute("stroke-width",2.5);bus.style.cursor="pointer";
+bus.addEventListener("click",function(){fpBlk("grsh");});
+Stxt(114,296,"UMUMIY GRSH",11.5,"#46b8e8","start",null,{"font-weight":"bold"});
+Stxt(500,296,"0,4 kV · MDB",10,"#8fa3bb","middle");
+ST.els.busLive=Stxt(886,296,"",10,"#8ef0b8","end",null,{"font-family":"Consolas,monospace"});
+/* --- SOLAR BLOCK (left): 4 framed parallelogram panels with cell grid --- */
 (function(){
  var px=[20,72,124,176],py=85,pw=44,ph=36,sh=9;
  var pg=S_("g",{id:"stPanels"});pg.style.cursor="pointer";pg.addEventListener("click",function(){go("s-sol");});
- for(var i=0;i<4;i++){var x=px[i];S_("path",{d:"M"+x+" "+py+" L"+(x+pw)+" "+py+" L"+(x+pw-sh)+" "+(py+ph)+" L"+(x-sh)+" "+(py+ph)+" Z",fill:"#132a1a",stroke:"#3fb950","stroke-width":1.5},pg);}
+ for(var i=0;i<4;i++){var x=px[i];S_("path",{d:"M"+x+" "+py+" L"+(x+pw)+" "+py+" L"+(x+pw-sh)+" "+(py+ph)+" L"+(x-sh)+" "+(py+ph)+" Z",fill:"#132a1a",stroke:"#3fd687","stroke-width":1.8},pg);
+  /* inner cell grid */
+  [0.34,0.67].forEach(function(t){S_("line",{x1:x-sh*t+3,y1:py+ph*t,x2:x+pw-sh*t-3,y2:py+ph*t,stroke:"#3fd687","stroke-width":.7,opacity:.5},pg);});
+  [0.25,0.5,0.75].forEach(function(u){S_("line",{x1:x+pw*u,y1:py+3,x2:x+pw*u-sh,y2:py+ph-3,stroke:"#3fd687","stroke-width":.7,opacity:.5},pg);});
+ }
  /* series wires */
- for(var i=0;i<3;i++){S_("line",{x1:px[i]+pw-2,y1:py+ph/2,x2:px[i+1]+2,y2:py+ph/2,stroke:"#3fb950","stroke-width":2},pg);}
+ for(var i=0;i<3;i++){S_("line",{x1:px[i]+pw-2,y1:py+ph/2,x2:px[i+1]+2,y2:py+ph/2,stroke:"#3fd687","stroke-width":2},pg);}
  /* + / − */
- Stxt(px[0]-12,py+ph/2+4,"+",14,"#3fb950","middle",null,{"font-weight":"bold"});Stxt(px[3]+pw+4,py+ph/2+4,"−",14,"#3fb950","middle",null,{"font-weight":"bold"});
+ Stxt(px[0]-12,py+ph/2+4,"+",14,"#3fd687","middle",null,{"font-weight":"bold"});Stxt(px[3]+pw+4,py+ph/2+4,"−",14,"#3fd687","middle",null,{"font-weight":"bold"});
  Stxt(118,py+ph+18,"4 quyosh paneli (ketma-ket)",9.5,"#8fa3bb","middle");
 })();
 /* DC red dashed wire down */
-Swire(118,145,118,198,"#ff4d4d",2.5,"stWDC","6 4");
-Stxt(52,175,"Quyosh DC",9.5,"#ff4d4d","middle");
+Swire(118,145,118,198,"#ff6262",2.5,"stWDC","6 4");
+Stxt(52,175,"Quyosh DC",9.5,"#ff6262","middle");
 /* --- Inverter: square + diagonal, = left, ~ right --- */
 (function(){
  var g=S_("g",{id:"stInv"});g.style.cursor="pointer";g.addEventListener("click",function(){fpBlk("inv");});
  var ix=86,iy=198,iw=64,ih=64;
- Sbox(ix,iy,iw,ih,"#161f2a","#3fb950",3,"stInvBox",g);
- S_("line",{x1:ix+6,y1:iy+ih-6,x2:ix+iw-6,y2:iy+6,stroke:"#3fb950","stroke-width":2},g);
+ Sbox(ix,iy,iw,ih,"#161f2a","#3fd687",3,"stInvBox",g);
+ S_("line",{x1:ix+6,y1:iy+ih-6,x2:ix+iw-6,y2:iy+6,stroke:"#3fd687","stroke-width":2},g);
+ Stxt(ix+iw/2,iy+14,"INV",8.5,"#3fd687","middle",null,{"font-weight":"bold"});
  Stxt(ix-14,iy+ih/2+4,"=",13,"#8fa3bb","middle",null,{"font-weight":"bold"});
  Stxt(ix+iw+12,iy+ih/2+4,"~",13,"#8fa3bb","middle",null,{"font-weight":"bold"});
- Stxt(ix+iw/2,iy+ih+16,"GIBRID INVERTOR",9.5,"#3fb950","middle");
+ Stxt(58,iy+ih+16,"GIBRID INVERTOR",9.5,"#3fd687","start");
  /* battery + SOC */
- Sbox(ix+iw+2,iy+ih+4,34,18,"#132a1a","#3fb950",2,null,g);
- S_("rect",{x:ix+iw+36,y:iy+ih+9,width:3,height:8,fill:"#3fb950"},g);
+ Sbox(ix+iw+2,iy+ih+4,34,18,"#132a1a","#3fd687",2,null,g);
+ S_("rect",{x:ix+iw+36,y:iy+ih+9,width:3,height:8,fill:"#3fd687"},g);
  var socT=Stxt(ix+iw+19,iy+ih+17,"SOC —",8,"#8ef0b8","middle",null,{"font-family":"Consolas,monospace"});
  ST.els.soc=socT;
 })();
-/* inverter AC to bus */
-Swire(118,262,118,290,"#2fd6a0",3,"stWAC");Stxt(60,285,"Quyosh AC",9.5,"#2fd6a0","middle");
-/* solar energy pulse dot */
-S_("circle",{cx:118,cy:270,r:3,fill:"#7affd4",class:"epulse",id:"epAC"});
+/* inverter AC → AVR backup input */
+Swire(150,246,380,188,"#2fd6a0",3,"stWAC");
+Stxt(265,207,"Inverter zaxira (AVR)",9,"#2fd6a0","middle");
 /* --- consumers from bus --- */
-/* Group 1 */
-Swire(300,290,300,355,"#37d67a",3,"stWg1");
-S_("circle",{cx:300,cy:310,r:3,fill:"#7aff9e",class:"epulse",id:"epG1"});
-Sbox(170,355,260,34,"#132030","#37d67a",3,"stG1");Stxt(300,376,"1-korxona iste'molchilari",11,"#dce6f2","middle");
-/* Group 2 */
-Swire(700,290,700,355,"#37d67a",3,"stWg2");
-Sbox(570,355,260,34,"#132030","#37d67a",3,"stG2");Stxt(700,376,"2-korxona iste'molchilari",11,"#dce6f2","middle");
-/* Critical */
-Swire(500,290,500,355,"#ffb020",3,"stWcr");
-Sbox(405,355,190,34,"#241a08","#ffb020",3,"stCR");Stxt(500,370,"KRITIK",11,"#ffb020","middle",null,{"font-weight":"bold"});Stxt(500,382,"kritik fiderlar",8.5,"#8fa3bb","middle");
-svg.querySelector("#stCR").addEventListener("click",function(){fpBlk("crit");});
-/* --- zone lists --- */
-var g1=[0,1,2,3],g2=[4,5],crit=[6];
+/* Branch 1 */
+Swire(300,308,300,355,"#3fd687",3,"stWg1");
+S_("circle",{cx:300,cy:318,r:3,fill:"#7aff9e",class:"epulse",id:"epG1"});
+Sbox(170,355,260,34,"#132030","#3fd687",3,"stG1");Stxt(300,376,"1-TSEX filiali",11.5,"#dce6f2","middle",null,{"font-weight":"bold"});
+/* Branch 2 */
+Swire(700,308,700,355,"#3fd687",3,"stWg2");
+Sbox(570,355,260,34,"#132030","#3fd687",3,"stG2");Stxt(700,376,"2-TSEX filiali",11.5,"#dce6f2","middle",null,{"font-weight":"bold"});
+/* Two dedicated uninterruptible feeders: lighting + HVAC/microclimate */
+Swire(470,308,470,405,"#f2a63c",3,"stWcr");
+Swire(530,308,530,441,"#3d8df5",3,"stWv");
+Sbox(400,405,200,30,"#241a08","#f2a63c",3,"stCR");
+Stxt(408,424,"UZLUKSIZ · Yoritish + VK",9.5,"#f2a63c","start",null,{"font-weight":"bold"});
+ST.els.crKw=Stxt(592,424,"",9.5,"#dce6f2","end",null,{"font-family":"Consolas,monospace"});
+svg.querySelector("#stCR").addEventListener("click",function(){fpOpen(6);});
+Sbox(400,441,200,30,"#0e2233","#3d8df5",3,"stHVAC");
+Stxt(408,454,"UZLUKSIZ · KVK va mikroiqlim",9.5,"#9fc8f5","start",null,{"font-weight":"bold"});
+ST.els.hvKw=Stxt(592,466,"",9.5,"#dce6f2","end",null,{"font-family":"Consolas,monospace"});
+Stxt(408,466,"K-1/K-2 · uzluksiz quvvat",7.5,"#5d7089","start");
+svg.querySelector("#stHVAC").addEventListener("click",function(){go("s-clim");});
+/* --- zone lists (per branch) --- */
+var g1=[0,1,2,3],g2=[4,5];
 function zoneBox(x,y,i,par){var L=S.lines[i];var g=S_("g",{},par);g.style.cursor="pointer";g.setAttribute("data-zl",i);
  var r=Sbox(x-95,y,190,28,"#101820","#2a3d4f",2,null,g);g.setAttribute("data-zr",i);
  var nm=L.sn||L.n.split(" (")[0];var t1=Stxt(x-86,y+18,nm,10,"#dce6f2","start",null,{"font-family":"Consolas,monospace"});
@@ -1284,11 +1555,10 @@ function zoneBox(x,y,i,par){var L=S.lines[i];var g=S_("g",{},par);g.style.cursor
 ST.zones=[];
 g1.forEach(function(i,k){ST.zones.push(zoneBox(300,405+k*36,i));});
 g2.forEach(function(i,k){ST.zones.push(zoneBox(700,405+k*36,i));});
-crit.forEach(function(i,k){ST.zones.push(zoneBox(500,405+k*36,i));});
 /* zone group labels */
-Stxt(300,398,"Zonalar",9,"#5d7089","middle");Stxt(700,398,"Zonalar",9,"#5d7089","middle");Stxt(500,398,"KRITIK",9,"#ffb020","middle");
+Stxt(300,398,"Zonalar",9,"#5d7089","middle");Stxt(700,398,"Zonalar",9,"#5d7089","middle");
 /* footer */
-Stxt(40,700,"EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.1",9.5,"#5d7089");
+Stxt(40,700,"EG-TP2-EL-002 · Strukturaviy sxema · 10/0,4 kV · rev.2",9.5,"#5d7089");
 Stxt(960,700,"EcoSmart Grid SCADA",9.5,"#5d7089","end");
 updateStruct();
 }
@@ -1299,30 +1569,49 @@ function updateStruct(){
  var avrOn=gridLive;
  function col(id,c,dash){var e=svg.querySelector(id);if(!e)return;e.setAttribute("stroke",c);if(dash!=null)e.setAttribute("stroke-dasharray",dash);else e.removeAttribute("stroke-dasharray");}
  function cls(id,c,on){var e=svg.querySelector(id);if(!e)return;e.classList.toggle(c,!!on);}
- var gc=gridLive?"#2f8bff":"#5d7089";
- ["#stW1","#stW2","#stW3","#stW4","#stWGrid"].forEach(function(id){col(id,gc);cls(id,"stLive",gridLive);});
+  var gc=gridLive?"#3d8df5":"#5d7089";
+  ["#stW1","#stW2","#stW3","#stW4"].forEach(function(id){col(id,gc);cls(id,"stLive",gridLive);});
  var p1=svg.querySelector("#stP1"),p2=svg.querySelector("#stP2");
- if(p1){p1.setAttribute("stroke",p1Live?"#2f8bff":"#5d7089");p1.setAttribute("fill",p1Live?"#132030":"#0e141a");cls("#stP1","avrActive",p1Live);}
- if(p2){p2.setAttribute("stroke",p2Live?"#2f8bff":"#5d7089");p2.setAttribute("fill",p2Live?"#132030":"#0e141a");cls("#stP2","avrActive",p2Live);}
+ if(p1){p1.setAttribute("stroke",p1Live?"#3d8df5":"#5d7089");p1.setAttribute("fill",p1Live?"#132030":"#0e141a");cls("#stP1","avrActive",p1Live);}
+ if(p2){p2.setAttribute("stroke",p2Live?"#3d8df5":"#5d7089");p2.setAttribute("fill",p2Live?"#132030":"#0e141a");cls("#stP2","avrActive",p2Live);}
  /* highlight active incomer */
  var stp1=svg.querySelector("#stP1"),stp2=svg.querySelector("#stP2");
  if(stp1)stp1.setAttribute("stroke-width",p1Live?2.5:1.5);
  if(stp2)stp2.setAttribute("stroke-width",p2Live?2.5:1.5);
  /* AVR color + animation */
- var avr=svg.querySelector("#stAVR");if(avr){avr.setAttribute("stroke",avrOn?"#ffb020":"#5d7089");cls("#stAVR","avrActive",avrOn);}
- /* bus color: amber if live + glow */
- var bus=svg.querySelector("#stBus");if(bus){bus.setAttribute("stroke",gridLive?"#c9a233":"#5d7089");cls("#stBus","liveGlow",gridLive);}
- /* solar */
- var solOn=S.solar>1;
- var dc=svg.querySelector("#stWDC");if(dc){col("#stWDC",solOn?"#ff4d4d":"#5d7089","6 4");cls("#stWDC","stLive",solOn);}
+ var avr=svg.querySelector("#stAVR");if(avr){avr.setAttribute("stroke",avrOn?"#f2a63c":"#5d7089");cls("#stAVR","avrActive",avrOn);}
+  /* GRSH block: live color + glow + U/I/P/f/status text */
+  var solOn=S.solar>1;
+  var bus=svg.querySelector("#stBus");
+  if(bus){bus.setAttribute("stroke",gridLive?"#46b8e8":"#5d7089");bus.setAttribute("fill",gridLive?"#0e2233":"#10161d");cls("#stBus","liveGlow",gridLive);}
+  var wg=svg.querySelector("#stWGrid");if(wg){var wl=gridLive||solOn;col("#stWGrid",wl?"#3d8df5":"#5d7089");cls("#stWGrid","stLive",wl);}
+  if(ST.els.busLive){
+   if(gridLive){
+    var tot=S.hist.length?S.hist[S.hist.length-1].P:0;
+    var uu=busV(0)||busV(1)||230;if(uu>300)uu=uu/Math.sqrt(3);
+    var pf=Math.max(.6,S.cosf||.92);
+    var ii=Math.round(tot*1000/(Math.sqrt(3)*400*pf));
+    var ff=(50.01+(Math.sin(Date.now()/9000)*.03)).toFixed(2).replace(".",",");
+    ST.els.busLive.textContent="U "+Math.round(uu)+" V · I "+ii+" A · P "+fmt(tot)+" kVt · f "+ff+" Hz · Normal";
+   } else ST.els.busLive.textContent="U 0 V · I 0 A · P 0 kVt · f — Hz · O'chiq";
+  }
+ var dc=svg.querySelector("#stWDC");if(dc){col("#stWDC",solOn?"#ff6262":"#5d7089","6 4");cls("#stWDC","stLive",solOn);}
  var ac=svg.querySelector("#stWAC");if(ac){col("#stWAC",solOn?"#2fd6a0":"#5d7089");cls("#stWAC","stLive",solOn);}
- var ib=svg.querySelector("#stInvBox");if(ib){ib.setAttribute("stroke",solOn?"#3fb950":"#5d7089");ib.setAttribute("stroke-width",solOn?2:1.5);cls("#stInvBox","stLive",solOn);}
+ var ib=svg.querySelector("#stInvBox");if(ib){ib.setAttribute("stroke",solOn?"#3fd687":"#5d7089");ib.setAttribute("stroke-width",solOn?2:1.5);cls("#stInvBox","stLive",solOn);}
  if(ST.els.soc)ST.els.soc.textContent="SOC "+Math.round(S.bat)+"%";
  /* consumer wires */
  var c1Live=p1Live||p2Live,c2Live=c1Live;
- col("#stWg1",c1Live?"#37d67a":"#5d7089");cls("#stWg1","stLive",c1Live);
- col("#stWg2",c2Live?"#37d67a":"#5d7089");cls("#stWg2","stLive",c2Live);
- col("#stWcr",c1Live?"#ffb020":"#5d7089");cls("#stWcr","stLive",c1Live);
+ col("#stWg1",c1Live?"#3fd687":"#5d7089");cls("#stWg1","stLive",c1Live);
+ col("#stWg2",c2Live?"#3fd687":"#5d7089");cls("#stWg2","stLive",c2Live);
+  col("#stWcr",c1Live?"#f2a63c":"#5d7089");cls("#stWcr","stLive",c1Live);
+  var wv=svg.querySelector("#stWv");if(wv){col("#stWv",c1Live?"#3d8df5":"#5d7089");cls("#stWv","stLive",c1Live);}
+  /* uninterruptible feeder values */
+  var L6=S.lines[6],l6f=L6.st==="FAULT",l6l=L6.on&&busV(L6.tr-1)>1;
+  var crb=svg.querySelector("#stCR");if(crb)crb.setAttribute("stroke",l6f?"#ff6262":l6l?"#f2a63c":"#5d7089");
+  if(ST.els.crKw){ST.els.crKw.textContent=l6f?"FAULT":l6l?fmt(L6.kw)+" kVt":"—";ST.els.crKw.setAttribute("fill",l6f?"#ff6262":l6l?"#3fd687":"#5d7089");}
+  var hk=0;S.devs.forEach(function(d){if(d.t==="cond"&&d.on)hk+=d.extra*(d.temp<=22?1.25:d.temp>=26?.8:1);});
+  var hvb=svg.querySelector("#stHVAC");if(hvb){hvb.setAttribute("stroke",c1Live?"#3d8df5":"#5d7089");hvb.setAttribute("stroke-width",c1Live?2:1.5);cls("#stHVAC","stLive",c1Live);}
+  if(ST.els.hvKw){ST.els.hvKw.textContent=fmt(hk)+" kVt";ST.els.hvKw.setAttribute("fill",c1Live?"#3fd687":"#5d7089");}
  /* energy pulse dots - activate when live */
  cls("#epW1","on",gridLive);cls("#epW3","on",gridLive);cls("#epGrid","on",gridLive);
  cls("#epAC","on",solOn);cls("#epG1","on",c1Live);
@@ -1333,15 +1622,15 @@ function updateStruct(){
   var live=L.on&&busV(L.tr-1)>1;
   var isF=L.st==="FAULT";
   if(isF)anyFault=true;
-  var c=isF?"#ff4d4d":!live?"#5d7089":L.st==="HIGH"?"#ffb020":"#37d67a";
+  var c=isF?"#ff6262":!live?"#5d7089":L.st==="HIGH"?"#f2a63c":"#3fd687";
   z.r.setAttribute("stroke",c);z.r.setAttribute("stroke-width",live||isF?1.8:1.2);
   z.t2.textContent=live?fmt(L.kw)+" kVt":isF?"FAULT":"—";
   z.t2.setAttribute("fill",c);
   z.g.classList.toggle("stFault",isF);
   z.g.classList.toggle("stLive",live&&!isF);
  });
- /* critical branch pulse on any fault */
- cls("#stCR","stFault",anyFault);
+  /* lighting feeder pulse on its own fault */
+  cls("#stCR","stFault",l6f);
 }
 /* block faceplates for AVR / GRSH / inverter / critical */
 function fpBlk(kind){FP.mode="blk";FP.idx=kind;$("fp").classList.add("on");fpRender();log("Faceplate ochildi: <b>"+(kind==="avr"?"UMUMIY AVR":kind==="grsh"?"UMUMIY GRSH":kind==="inv"?"GIBRID INVERTOR":"KRITIK")+"</b>.");}
@@ -1471,11 +1760,11 @@ log("<b>QF-S</b> buzer "+(S.coupler.on?"ulandi.":"o'chirildi — shinlar ajratil
 updateScheme();}
 function updateScheme(){S.lines.forEach(function(L,i){var b=R.brk[i];if(!b)return;
 var dead=!S.grid.brk||!S.tr[L.tr-1].on;
-var col=!L.on||dead?"#3a4654":L.st==="FAULT"?"#f85149":L.st==="HIGH"?"#d29922":"#3fb950";
+var col=!L.on||dead?"#3a4654":L.st==="FAULT"?"#f85149":L.st==="HIGH"?"#d29922":"#3fd687";
 b.box.setAttribute("fill",col);b.ch.setAttribute("fill",!L.on||dead?"#8fa3bb":"#0b0f14");
 var v=$("scV"+i);if(v){var stxt=L.base<0?fmt(Math.abs(L.kw))+" kVt (INV)":fmt(L.kw)+" kVt";v.textContent=(L.on&&!dead)?stxt:dead?"quvvatsiz":"o'chiq";v.setAttribute("fill",dead?"#5d7089":!L.on?"#5d7089":L.st==="FAULT"?"#f85149":"#8fa3bb");}});
-var gb=R.gridBrk;if(gb){gb.box.setAttribute("fill",S.grid.brk?"#3fb950":"#3a4654");gb.ch.setAttribute("fill",S.grid.brk?"#0b0f14":"#8fa3bb");}
-var cb=R.cplBrk;if(cb){cb.box.setAttribute("fill",S.coupler.on?"#3fb950":"#3a4654");cb.ch.setAttribute("fill",S.coupler.on?"#0b0f14":"#8fa3bb");}
+var gb=R.gridBrk;if(gb){gb.box.setAttribute("fill",S.grid.brk?"#3fd687":"#3a4654");gb.ch.setAttribute("fill",S.grid.brk?"#0b0f14":"#8fa3bb");}
+var cb=R.cplBrk;if(cb){cb.box.setAttribute("fill",S.coupler.on?"#3fd687":"#3a4654");cb.ch.setAttribute("fill",S.coupler.on?"#0b0f14":"#8fa3bb");}
 var e1=$("scTR1"),e2=$("scTR2");if(e1)e1.textContent=S.tr[0].on?Math.round(S.tr[0].load)+"%":"NO";if(e2)e2.textContent=S.tr[1].on?Math.round(S.tr[1].load)+"%":"NO";
 var f=S.lines.findIndex(function(L){return L.st==="FAULT";});var fm=R.fltm;
 if(fm){if(f>=0){var xs=[150,235,320,405,630,715,800,470];fm.style.display="";fm.setAttribute("transform","translate("+xs[f]+" 270)");}else fm.style.display="none";}
@@ -1487,7 +1776,7 @@ $("tr2Body").innerHTML=kvHtml([["Holat",S.tr[1].on?"Ishlayapti":"O'chiq"],["Yukl
 $("gridBody").innerHTML=kvHtml([["Kirish kuchlanish",fmt(S.grid.u10,2)+" kV"],["Chastota",fmt(S.grid.f,2)+" Hz"],["QF0 holati",S.grid.brk?"YK (ulangan)":"NO (ochiq)"],["Shartnoma quvvati",S.contractKVA+" k VA"],["Joriy S (taxminiy)",fmt((S.tr[0].load*S.tr[0].kva+S.tr[1].load*S.tr[1].kva)/100,0)+" kVA"],["Utilizatsiya",S.grid.brk?"mavjud":"yo'q"]]);}
 function updateGas(){S.gas.forEach(function(z,i){var c=R.gas[i];if(!c)return;var thr=S.gasThr,wr=S.gasWarn;
 var frac=Math.min(1,z.ppm/50000);c.fg.setAttribute("stroke-dashoffset",(141.4*(1-frac)).toFixed(1));
-c.fg.setAttribute("stroke",z.ppm>thr?"#f85149":z.ppm>wr?"#d29922":"#3fb950");
+c.fg.setAttribute("stroke",z.ppm>thr?"#f85149":z.ppm>wr?"#d29922":"#3fd687");
 c.big.textContent=fmt(z.ppm/LEL,1);
 var t=z.ppm>thr?["t-bad","Evakuatsiya"]:z.ppm>wr?["t-warn","Ogohlantirish"]:["t-ok","Normal"];
 c.tag.className="tag "+t[0];c.tag.textContent=t[1];
@@ -1496,7 +1785,10 @@ c.bar.parentNode.className="bar"+(z.ppm>wr?(z.ppm>thr?" r":" y"):"");
 c.sub.textContent="ppm CH4: "+fmt0(z.ppm)+" · "+z.v+" m³ · "+(z.valve?"klapan ochiq":"klapan berk")+" · "+(z.vent?"shamollatish ON":"shamollatish OFF");
 c.bV.textContent=z.vent?"Shamollatishni o'chirish":"Shamollatishni yoqish";
 c.bK.textContent=z.valve?"Klapan berkitish":"Klapan ochish";
-c.card.style.borderTop="2px solid "+(z.ppm>thr?"var(--bad)":z.ppm>wr?"var(--warn)":"var(--ok)");});}
+c.card.style.borderTop="2px solid "+(z.ppm>thr?"var(--bad)":z.ppm>wr?"var(--warn)":"var(--ok)");});
+ var mxp=0;S.gas.forEach(function(z){if(z.ppm>mxp)mxp=z.ppm;});
+ if(!S.gasHist)S.gasHist=[];S.gasHist.push(mxp);if(S.gasHist.length>180)S.gasHist.shift();
+ drawGasCh();}
 function updateDevs(){S.devs.forEach(function(d,i){var c=R.dev[i];if(!c)return;
 c.tag.className="tag "+(d.on?"t-ok":"t-off");c.tag.textContent=d.on?"Ishlayapti":"O'chiq";c.sw.className="sw"+(d.on?" on":"");
 c.body.innerHTML="";
@@ -1564,14 +1856,23 @@ x.fillText(unit||"kVt",2,H-6);}
 function plot(x,arr,col,max,w){if(arr.length<2)return;x.strokeStyle=col;x.lineWidth=w||1.8;x.beginPath();arr.forEach(function(v,i){var px=34+i/Math.max(arr.length-1,1)*(x._W-40),py=12+(1-Math.min(1,Math.max(0,v/max)))*(x._H-44);if(i===0)x.moveTo(px,py);else x.lineTo(px,py);});x.stroke();}
 function drawLive(){var c=$("chLive");if(!c||!c.offsetParent)return;var s=setupCv("chLive");var x=s.x;x._W=s.W;x._H=s.H;grid(x,s.W,s.H,400,"kVt");
 var p=S.hist.slice(-60).map(function(h){return h.P;});var so=S.hist.slice(-60).map(function(h){return h.S;});
-plot(x,p,"#2f81f7",400);plot(x,so,"#3fb950",400);
+plot(x,p,"#2f81f7",400);plot(x,so,"#3fd687",400);
 x.strokeStyle="#f85149";x.setLineDash([6,4]);x.beginPath();var y=12+(1-320/400)*(s.H-44);x.moveTo(34,y);x.lineTo(s.W-6,y);x.stroke();x.setLineDash([]);}
-function drawSolMini(){var c=$("chSol");if(!c||!c.offsetParent)return;var s=setupCv("chSol");grid(s.x,s.W,s.H,150,"kVt");s.x._W=s.W;s.x._H=s.H;plot(s.x,S.solHist,"#3fb950",150);
-$("solKw").textContent=fmt(S.solar)+" kVt";$("solBat").textContent=Math.round(S.bat)+"%";$("solBar").style.width=S.bat+"%";$("solDay").textContent=fmt(S.solarDay)+" kVt·soat";}
-function buildHistPills(){var box=$("histPills");if(!box||box.childNodes.length)return;var pens=[["P","Jami yuk","#2f81f7"],["S","Quyosh","#3fb950"],["U","Kuchlanish","#d29922"],["I","Tok","#f85149"]];
+function drawSolMini(){var c=$("chSol");if(!c||!c.offsetParent)return;var s=setupCv("chSol");grid(s.x,s.W,s.H,150,"kVt");s.x._W=s.W;s.x._H=s.H;plot(s.x,S.solHist,"#3fd687",150);
+ $("solKw").textContent=fmt(S.solar)+" kVt";$("solBat").textContent=Math.round(S.bat)+"%";$("solBar").style.width=S.bat+"%";$("solDay").textContent=fmt(S.solarDay)+" kVt·soat";}
+function drawGasCh(){var c=$("gasCh");if(!c||!c.offsetParent)return;var hist=S.gasHist||[];var s=setupCv("gasCh");var x=s.x;x._W=s.W;x._H=s.H;
+ var mxh=hist.length?Math.max.apply(null,hist):0;var max=Math.max(1100,mxh*1.15);
+ grid(x,s.W,s.H,max,"ppm");
+ var y880=12+(1-880/max)*(s.H-44);
+ x.strokeStyle="#ff6262";x.lineWidth=2.5;x.beginPath();x.moveTo(34,y880);x.lineTo(s.W-6,y880);x.stroke();
+ x.fillStyle="#ff6262";x.font="bold 10px Consolas,monospace";x.fillText(I18N.t("Chegara: 880 ppm"),Math.max(36,s.W-138),y880-5);
+ plot(x,hist,"#3fd687",max,1.8);
+ var now=hist.length?hist[hist.length-1]:0;
+ var el2=$("gasChNow");if(el2)el2.textContent=I18N.t("Hozirgi qiymat")+": "+fmt0(now)+" ppm"+(now>880?" (!)":"");}
+function buildHistPills(){var box=$("histPills");if(!box||box.childNodes.length)return;var pens=[["P","Jami yuk","#2f81f7"],["S","Quyosh","#3fd687"],["U","Kuchlanish","#d29922"],["I","Tok","#f85149"]];
 pens.forEach(function(p){var b=el("button","pill on",p[1]);b.style.borderColor=p[2];b.addEventListener("click",function(){S.histPens[p[0]]=!S.histPens[p[0]];b.classList.toggle("on",S.histPens[p[0]]);drawHist();});box.appendChild(b);});}
 function drawHist(){buildHistPills();var c=$("chHist");if(!c||!c.offsetParent)return;var s=setupCv("chHist");var x=s.x;x._W=s.W;x._H=s.H;grid(x,s.W,s.H,400,"qiymat");
-var pens=[["P","#2f81f7",400],["S","#3fb950",400],["U","#d29922",400],["I","#f85149",2000]];
+var pens=[["P","#2f81f7",400],["S","#3fd687",400],["U","#d29922",400],["I","#f85149",2000]];
 var mins=[],maxs=[];
 pens.forEach(function(p){if(!S.histPens[p[0]])return;var arr=S.hist.map(function(h){return h[p[0]];});if(arr.length){mins.push(Math.min.apply(null,arr));maxs.push(Math.max.apply(null,arr));}plot(x,arr,p[1],p[2],1.6);});
 $("histN").textContent=S.hist.length;
@@ -1622,7 +1923,7 @@ $("diagOut").textContent=out.length?("Aniqlangan holatlar: "+out.join("; ")):"Ba
 if(out.length){raise("warn","Diagnostika: "+out.length+" ta holat qayd etildi.","diag",60,"DIAG");}else toast("Diagnostika yakunlandi: chetlanish yo'q.");}
 function cleanFilters(){S.devs.forEach(function(d){if(d.t==="filter")d.filter=5;});toast("Filtrlar tozalandi.");updateDevs();}
 function setMood(m){S.mood=m;var c1=S.devs[0],c2=S.devs[1];var msg="";
-if(m==="Issiq"){c1.temp=22;c2.temp=22;msg="Sex harorati 22°C ga tushirildi, pardalar yopiqroq.";}
+if(m==="Issiq"){c1.temp=22;c2.temp=22;msg="Tsex harorati 22°C ga tushirildi, pardalar yopiqroq.";}
 else if(m==="Sovuq"){c1.temp=26;c2.temp=26;msg="Harorat 26°C ga ko'tarildi.";}
 else if(m==="Charchagan"){c1.temp=23;msg="Harorat 23°C ga tushirildi, yoritish yumshatildi.";}
 else if(m==="Diqqat talab"){c1.temp=23;msg="23°C saqlanadi, ortiqcha bildirishnomalar o'chirildi.";}
@@ -1673,22 +1974,288 @@ var tp=el("div","m");tp.innerHTML='<span class="typ"><i></i><i></i><i></i></span
 setTimeout(function(){var a=aiAnswer(q);tp.innerHTML="";var sp=el("span",null,a);tp.appendChild(sp);
 var cp=el("button","cp","nusxa");cp.title="Javobni nusxalash";cp.addEventListener("click",function(){copyTxt(tp.textContent);});tp.appendChild(cp);box.scrollTop=box.scrollHeight;},450);}
 function copyTxt(t){if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){toast("Javob nusxalandi.");},function(){toast("Nusxalashda xatolik.");});else toast("Nusxalash qo'llanilmaydi.");}
-function aiAnswer(q){var l=q.toLowerCase();
+function aiAnswerUZ(q){var l=q.toLowerCase().replace(/[?!.]+$/,"");
 function top(){return S.lines.filter(function(x){return x.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];}
 var t=top();
 if(/salom|assalom|xayr/.test(l))return "Xayrli kun. Joriy yuk "+fmt(S.hist.length?S.hist[S.hist.length-1].P:0)+" kVt, gaz bo'yicha maksimal "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+"). Qaysi bo'lim bo'yicha ma'lumot kerak?";
 if(/transformator|tr-|tr1|tr2|moy/.test(l))return "TR-1: yuk "+S.tr[0].load+"%, moy "+fmt(S.tr[0].tOil)+"°C. TR-2: yuk "+S.tr[1].load+"%, moy "+fmt(S.tr[1].tOil)+"°C. Maksimal ruxsat 85°C moy harorati, 100% yuklama.";
-if(/yuk|fider|iste|sex|qayer|yuqori|ko.p/.test(l))return "Eng yuqori yuk — "+t.n+": "+fmt(t.kw)+" kVt ("+t.f+", yuklanish "+t.load+"%). Tavsiya: yukni 60% atrofiga tushirish yoki ishni 11:00–15:00 oralig'iga ko'chirish.";
+if(/yuk|fider|iste|tsex|qayer|yuqori|ko.p/.test(l))return "Eng yuqori yuk — "+t.n+": "+fmt(t.kw)+" kVt ("+t.f+", yuklanish "+t.load+"%). Tavsiya: yukni 60% atrofiga tushirish yoki ishni 11:00–15:00 oralig'iga ko'chirish.";
  if(/gaz|ch4|xavf|evakuatsiya|lel|portlash/.test(l))return S.maxGas.v>S.gasWarn?(S.maxGas.r+" zonada CH4 "+fmt(S.maxGas.v/LEL,1)+" %LEL ("+fmt0(S.maxGas.v)+" ppm). "+(S.gas.some(function(g){return g.vent;})?"Shamollatish ishga tushirilgan.":"")+(S.maxGas.v>S.gasThr?" Evakuatsiya tartibiga amal qiling — zona klapani berkitilgan.":" Hozircha kuzatuv rejimi kifoya.")):"Gaz ko'rsatkichlari me'yorda. Maksimal: "+fmt(S.maxGas.v/LEL,1)+" %LEL ("+fmt0(S.maxGas.v)+" ppm, "+S.maxGas.r+"). LEL = 50 000 ppm.";
  if(/talab|demand|shartnoma|jarima|kva/.test(l))return "15 daqiqalik joriy talab "+fmt(S.demNow,0)+" kVA, maksimal bugungi "+fmt(S.demMax,0)+" kVA (shartnoma "+S.contractKVA+" kVA). "+(S.demPen?"Hozir jarima xavfi bor — ASU/CHARK fider uzish bosqichlari ishga tushishi mumkin.":"Jarima xavfi yo'q.")+" cos φ: "+S.cosf.toFixed(2)+" (KB: "+(S.kb.cur*10)+" kvar).";
  if(/ar |qayta ulash|havo liniyasi|avtomatik qayta/.test(l))return "AR tizimi faqat havo liniyalarida (F-07) ishlaydi: nosozlikdan so'ng 1,2 s o'lik vaqtdan keyin 3 tagacha qayta ulash urinishi. Hozir F-07: "+(S.lines[6].st==="FAULT"?"nosozlik faol, urinishlar "+S.lines[6].ar.n+"/3":"norma")+". AR avtomatik uzatish (ATS) esa transformator o'chganda QF-S buzer orqali shinalarni quvvatlaydi.";
 if(/prognoz|hafta|kelasi/.test(l)){buildForecast(false);var tot=S.fc.reduce(function(a,b){return a+b.kwh;},0);return "Haftalik jami yuk "+fmt0(tot)+" kVt·soat (~"+fmt0(tot*S.tarifBuy)+" so'm) kutilmoqda. Batafsil — Prognoz bo'limida.";}
 if(/quyosh|foyda|sotish|panel|iqtisod|tarif/.test(l)){var pk=+($("pk").value||150);return "Joriy generatsiya "+fmt(S.solar)+" kVt, akkumulyator "+Math.round(S.bat)+"%. "+pk+" kVt stansiya kuniga taxminan "+fmt0(pk*4.2)+" kVt·soat beradi.";}
 if(/nosoz|avariya|kabel|uzilish|himoya/.test(l)){var f=S.lines.filter(function(x){return x.st==="FAULT";});return f.length?(f.length+" ta qayd: "+f.map(function(x){return x.n+" ("+(x.faultAt||"tekshirish")+ ")";}).join("; ")+". Fiderni o'chirib, topshiriq ochish tavsiya etiladi."):"Nosozlik qayd etilmagan. Kuchlanishlar ishchi oraliqda.";}
-if(/konditsioner|harorat|filtr|sovu|issi/.test(l))return "K-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"ishlayapti":"o'chiq")+"), sex harorati "+fmt(S.roomTemp)+"°C. F-1 ifloslanishi "+Math.round(S.devs[2].filter)+"%.";
+if(/konditsioner|harorat|filtr|sovu|issi/.test(l))return "K-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"ishlayapti":"o'chiq")+"), tsex harorati "+fmt(S.roomTemp)+"°C. F-1 ifloslanishi "+Math.round(S.devs[2].filter)+"%.";
 if(/xodim|smena|kayfiyat|mikroiqlim/.test(l))return "Arxivda "+S.learned+" kunlik rejim qaydi bor. Hozirgi holat: "+S.mood+". Mikroiqlim bo'limidan rejimni o'zgartirish mumkin.";
 if(/sxema|qf|buzer|shina|10 kv/.test(l))return "QF0: "+(S.grid.brk?"ulangan":"ochiq")+", kirish "+fmt(S.grid.u10,2)+" kV. QF-S buzer: "+(S.coupler.on?"ulangan":"ajratilgan")+". Barcha fiderlar yagona sxemada boshqariladi.";
 return "Savol qabul qilindi. Yuk, gaz, transformator, quyosh iqtisodi, prognoz yoki mikroiqlim bo'yicha aniqroq so'rang. Masalan: "+CHIPS[0];}
+
+function hvacKw(){var hk=0;S.devs.forEach(function(d){if(d.t==="cond")hk+=d.extra*(d.temp<=22?1.25:d.temp>=26?0.8:1);});return hk;}
+function detectLang(q){if(/[а-яё]/i.test(q))return "ru";if(/\b(what|how|is|are|the|load|weather|tomorrow|gas|status|fault|solar|temperature|analysis|report|check|forecast|consumption|workshop|total|today|grid|power|current|show|please|compare|cost|energy)\b/i.test(q))return "en";return "uz";}
+function solarEstKwh(cl){var cap=0;S.strings.forEach(function(s){if(s.cap)cap+=s.cap;});return Math.round(cap*5*(1-cl/100)*0.85);}
+function loadEstKw(tmax,total){return Math.max(1,Math.round(total*(1+(tmax-24)*0.03)));}
+function vioArr(lg){function T(uz,ru,en){return lg==="ru"?ru:lg==="en"?en:uz;}
+ var a=[];
+ S.lines.forEach(function(L){if(L.base<0)return;
+  if(L.st==="FAULT")a.push({lvl:2,t:L.n+" — "+T("nosozlik","неисправность","fault")+": "+(L.faultAt||T("tekshirish","проверка","inspection"))});
+  else if(L.on&&L.kw>S.hiThr)a.push({lvl:1,t:L.n+" — "+T("yuk yuqori","перегрузка","high load")+": "+fmt(L.kw)+" kVt ("+T("cheklov","предел","limit")+" "+fmt(S.hiThr)+")"});
+  else if(L.on&&L.v>0&&(L.v<207||L.v>235))a.push({lvl:1,t:L.n+" — "+T("kuchlanish","напряжение","voltage")+" "+Math.round(L.v)+" V (207–235 V)"});
+  else if(L.on&&L.du>7)a.push({lvl:1,t:L.n+" — "+T("kuchlanish tushishi","просадка напряжения","voltage drop")+" "+fmt(L.du,1)+" V"});
+ });
+ if(S.maxGas.v>880)a.push({lvl:2,t:"CH4 "+fmt0(S.maxGas.v)+" ppm — "+T("880 ppm chegarasi oshdi","превышен порог 880 ppm","880 ppm limit exceeded")+" ("+S.maxGas.r+")"});
+ else if(S.maxGas.v>S.gasWarn)a.push({lvl:1,t:"CH4 "+fmt0(S.maxGas.v)+" ppm — "+T("ogohlantirish chegarasi","порог предупреждения","warning threshold")+" ("+S.maxGas.r+")"});
+ if(S.demPen)a.push({lvl:2,t:T("Talab","Запрос","Demand")+" "+fmt(S.demNow,0)+" kVA — "+T("shartnoma","договор","contract")+" "+S.contractKVA+" kVA, "+T("jarima xavfi","риск штрафа","penalty risk")});
+ else if(S.demNow>S.contractKVA*0.85)a.push({lvl:1,t:T("Talab","Запрос","Demand")+" "+fmt(S.demNow,0)+" kVA — "+T("shartnomaning 85% dan oshdi","более 85% договора","above 85% of contract")});
+ S.tr.forEach(function(t,i){if(t.load>95)a.push({lvl:1,t:"TR-"+(i+1)+" "+T("yuk","загрузка","load")+" "+t.load+"% — 95%+"});if(t.tOil>85)a.push({lvl:2,t:"TR-"+(i+1)+" "+T("moy harorati","температура масла","oil temperature")+" "+fmt(t.tOil)+"°C — 85°C+"});});
+ if(S.cosf<0.9)a.push({lvl:1,t:"cos φ "+S.cosf.toFixed(2)+" — 0,90 "+T("dan past","ниже","below")+" — "+T("reaktiv kompensatsiya","компенсация реактивной мощности","reactive compensation")});
+ var un=S.alarms.filter(function(x){return !x.ack;}).length;
+ if(un)a.push({lvl:1,t:T("Tasdiqlanmagan signallar: ","Неподтверждённые сигналы: ","Unacknowledged alarms: ")+un+" "+T("ta","шт.","")});
+ return a;}
+function aiAnswer(q){
+ var l=q.toLowerCase().replace(/[?!.]+$/,"").trim();
+ var lg=detectLang(q);
+ function T(uz,ru,en){return lg==="ru"?ru:lg==="en"?en:uz;}
+ var total=S.hist.length?S.hist[S.hist.length-1].P:0;
+ var top=S.lines.filter(function(x){return x.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];
+ var fw=/nosoz|fault|авари|avaria|uzilish|проблем|problem|violation|нарушен|breakdown/;
+ var w1=/\b(?:1[\s\-]?tsex|tsex[\s\-]?1|birinchi\s+tsex)|цех[а-яё]*\s*(?:№\s*)?1|перв(?:ый|ом)\s+цех|workshop\s*1|first\s+workshop/.test(l);
+ var w2=/\b(?:2[\s\-]?tsex|tsex[\s\-]?2|ikkinchi\s+tsex)|цех[а-яё]*\s*(?:№\s*)?2|втор(?:ой|ом)\s+цех|workshop\s*2|second\s+workshop/.test(l);
+ if(w1||w2){
+  var idx=w1?0:1,Li=S.lines[idx];
+  var nm=T(idx?"2-TSEX":"1-TSEX",idx?"Цех №2":"Цех №1",idx?"Workshop 2":"Workshop 1");
+  var live=Li.on&&Li.v>0&&busV(Li.tr-1)>1;
+  var loadTxt=live?fmt(Li.kw)+" "+T("kVt","кВт","kW")+" ("+Math.round(Li.v)+" V, "+fmt(Li.a,0)+" A, "+T("yuklama","загрузка","load")+" "+Li.load+"%)":T("o'chiq / quvvatsiz","отключено / без питания","off / de-energized");
+  var st=T(Li.st==="FAULT"?"nosozlik":Li.st==="HIGH"?"yuk yuqori":"normal",Li.st==="FAULT"?"неисправность":Li.st==="HIGH"?"перегрузка":"норма",Li.st==="FAULT"?"fault":Li.st==="HIGH"?"high load":"normal");
+  return nm+(lg==="uz"?" hozirgi iste'mol — ":": ")+(lg==="ru"?"текущее потребление — ":lg==="en"?"current consumption — ":"")+loadTxt+". "+T("Fider ","Фидер ","Feeder ")+Li.f+", "+st+". "+T("Jami yuk: ","Общая нагрузка: ","Total load: ")+fmt(total)+" "+T("kVt","кВт","kW")+(fw.test(l)?". "+T("Fider nosozlikda — avval normalashtiring.","Фидер неисправен — сначала устраните неисправность.","Feeder is faulty — restore it first."):"")+".";
+ }
+ if(/ertaga|tomorrow|завтра/.test(l)){
+  loadWeather();
+  var d=WXC||wxOffline(),i=1,dm=d.daily||{};
+  var tmax=(dm.temperature_2m_max&&dm.temperature_2m_max[i]!=null)?dm.temperature_2m_max[i]:S.tOut;
+  var tmin=(dm.temperature_2m_min&&dm.temperature_2m_min[i]!=null)?dm.temperature_2m_min[i]:S.tOut-8;
+  var cl=(dm.cloud_cover_mean&&dm.cloud_cover_mean[i]!=null)?dm.cloud_cover_mean[i]:S.cloud;
+  var so=solarEstKwh(cl),lk=loadEstKw(tmax,total),dtt=(dm.time&&dm.time[i])||"—";
+  return T("Ertaga ("+dtt+"): "+tmin+"…"+tmax+"°C, bulut "+fmt0(cl)+"%. QES ~"+fmt0(so)+" kVt·soat, kutilayotgan maksimal yuk ~"+fmt(lk)+" kVt"+(d.offline?" (oflayn taxminiy)":"")+".",
+   "Завтра ("+dtt+"): "+tmin+"…"+tmax+"°C, облачность "+fmt0(cl)+"%. СЭС ~"+fmt0(so)+" кВт·ч, ожидаемый максимум ~"+fmt(lk)+" кВт"+(d.offline?" (офлайн, оценка)":"")+".",
+   "Tomorrow ("+dtt+"): "+tmin+"…"+tmax+"°C, cloud "+fmt0(cl)+"%. PV ~"+fmt0(so)+" kWh, expected peak load ~"+fmt(lk)+" kW"+(d.offline?" (offline estimate)":"")+".");
+ }
+ if(/ob-havo|weather|погод|tashqi/.test(l)){
+  loadWeather();
+  var d=WXC||wxOffline(),c=d.current||{};
+  var tt=(c.temperature_2m!=null)?fmt(c.temperature_2m,1):fmt(S.tOut);
+  var ccl=(c.cloud_cover!=null)?c.cloud_cover:S.cloud;
+  return T("Tashqi ob-havo: "+tt+"°C, bulut "+fmt0(ccl)+"%, shamol "+fmt0(c.wind_speed_10m||0)+" km/h"+(d.offline?" (simulyatsiya)":"")+". KVK termik yuk: "+fmt(hvacKw())+" kVt.",
+   "Погода снаружи: "+tt+"°C, облачность "+fmt0(ccl)+"%, ветер "+fmt0(c.wind_speed_10m||0)+" км/ч"+(d.offline?" (симуляция)":"")+". Тепловая нагрузка ХВК: "+fmt(hvacKw())+" кВт.",
+   "Outdoor weather: "+tt+"°C, cloud "+fmt0(ccl)+"%, wind "+fmt0(c.wind_speed_10m||0)+" km/h"+(d.offline?" (simulation)":"")+". HVAC thermal load: "+fmt(hvacKw())+" kW.");
+ }
+ if(/gaz|gas|ch4|methane|метан|lel|portlash|взрыв|explosion/.test(l)){
+  var ov=S.maxGas.v>880;
+  var ventS=S.gas.some(function(g){return g.vent;})?T("Shamollatish faol. ","Вентиляция активна. ","Ventilation active. "):"";
+  var modeS=S.maxGas.v>S.gasThr?T("Evakuatsiya rejimi!","Режим эвакуации!","Evacuation mode!"):S.maxGas.v>S.gasWarn?T("Kuzatuv rejimi.","Режим наблюдения.","Observation mode."):"";
+  return T("Gaz holati: maksimal CH4 "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+", "+fmt(S.maxGas.v/LEL,1)+" %LEL). Chegara 880 ppm: "+(ov?"OSHDI — "+fmt0(S.maxGas.v-880)+" ppm ortiqcha!":"me'yorda")+". "+ventS+modeS,
+   "Газ: максимум CH4 "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+", "+fmt(S.maxGas.v/LEL,1)+" %LEL). Порог 880 ppm: "+(ov?"ПРЕВЫШЕН — на "+fmt0(S.maxGas.v-880)+" ppm!":"в норме")+". "+ventS+modeS,
+   "Gas: max CH4 "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+", "+fmt(S.maxGas.v/LEL,1)+" %LEL). 880 ppm limit: "+(ov?"EXCEEDED by "+fmt0(S.maxGas.v-880)+" ppm!":"within limit")+". "+ventS+modeS);
+ }
+ if(/talab|demand|shartnoma|jarima|contract|penalty|штраф|договор/.test(l)){
+  return T("15 daqiqalik joriy talab "+fmt(S.demNow,0)+" kVA, bugungi maksimal "+fmt(S.demMax,0)+" kVA (shartnoma "+S.contractKVA+" kVA). "+(S.demPen?"Jarima xavfi bor!":"Jarima xavfi yo'q.")+" cos φ: "+S.cosf.toFixed(2)+" ("+fmt(S.kb.cur*10)+" kvar).",
+   "Текущий 15-минутный запрос "+fmt(S.demNow,0)+" кВА, максимум за день "+fmt(S.demMax,0)+" кВА (договор "+S.contractKVA+" кВА). "+(S.demPen?"Риск штрафа!":"Штрафа нет.")+" cos φ: "+S.cosf.toFixed(2)+" ("+fmt(S.kb.cur*10)+" квар).",
+   "Current 15-min demand "+fmt(S.demNow,0)+" kVA, today's max "+fmt(S.demMax,0)+" kVA (contract "+S.contractKVA+" kVA). "+(S.demPen?"Penalty risk!":"No penalty risk.")+" cos φ: "+S.cosf.toFixed(2)+" ("+fmt(S.kb.cur*10)+" kvar).");
+ }
+ if(/transformator|tr-|tr1|tr2|moy|transformer|трансформатор|масло/.test(l)){
+  return T("TR-1: yuk "+S.tr[0].load+"%, moy "+fmt(S.tr[0].tOil)+"°C. TR-2: yuk "+S.tr[1].load+"%, moy "+fmt(S.tr[1].tOil)+"°C. Ruxsat: 85°C moy, 100% yuklama.",
+   "ТР-1: загрузка "+S.tr[0].load+"%, масло "+fmt(S.tr[0].tOil)+"°C. ТР-2: загрузка "+S.tr[1].load+"%, масло "+fmt(S.tr[1].tOil)+"°C. Допустимо: 85°C масло, 100% загрузка.",
+   "TR-1: load "+S.tr[0].load+"%, oil "+fmt(S.tr[0].tOil)+"°C. TR-2: load "+S.tr[1].load+"%, oil "+fmt(S.tr[1].tOil)+"°C. Allowed: 85°C oil, 100% load.");
+ }
+ if(/jami yuk|umumiy yuk|total load|общая нагруз|umumiy iste|overall load|current load/.test(l)){
+  return T("Jami yuk hozir "+fmt(total)+" kVt ("+fmt(S.demNow,0)+" kVA). Eng yuqori fider — "+(top?top.n+": "+fmt(top.kw)+" kVt ("+top.load+"%)":"yo'q")+".",
+   "Общая нагрузка сейчас "+fmt(total)+" кВт ("+fmt(S.demNow,0)+" кВА). Максимальный фидер — "+(top?top.n+": "+fmt(top.kw)+" кВт ("+top.load+"%)":"нет")+".",
+   "Total load now "+fmt(total)+" kW ("+fmt(S.demNow,0)+" kVA). Top feeder — "+(top?top.n+": "+fmt(top.kw)+" kW ("+top.load+"%)":"none")+".");
+ }
+ if(/yuk yuqori|fider|iste|qayer|yuqori|highest|highest load/.test(l)){
+  return T("Eng yuqori yuk — "+(top?top.n+": "+fmt(top.kw)+" kVt ("+top.f+", yuklanish "+top.load+"%)":"ma'lumot yo'q")+". Tavsiya: yukni 60% atrofiga tushirish yoki ishni 11:00–15:00 oralig'iga ko'chirish.",
+   "Максимальная нагрузка — "+(top?top.n+": "+fmt(top.kw)+" кВт ("+top.f+", загрузка "+top.load+"%)":"нет данных")+". Рекомендация: снизить нагрузку до 60% или перенести работы на 11:00–15:00.",
+   "Highest load — "+(top?top.n+": "+fmt(top.kw)+" kW ("+top.f+", loading "+top.load+"%)":"no data")+". Advice: bring load to ~60% or shift work to 11:00–15:00.");
+ }
+ if(fw.test(l)){
+  var f=S.lines.filter(function(x){return x.st==="FAULT";});
+  if(f.length)return T(f.length+" ta nosozlik: "+f.map(function(x){return x.n+" ("+(x.faultAt||"tekshirish")+")";}).join("; ")+". Fiderni o'chirib, topshiriq ochish tavsiya etiladi.",
+   f.length+" неисправности: "+f.map(function(x){return x.n+" ("+(x.faultAt||"проверка")+")";}).join("; ")+". Рекомендуется отключить фидер и открыть заявку.",
+   f.length+" fault(s): "+f.map(function(x){return x.n+" ("+(x.faultAt||"inspection")+")";}).join("; ")+". Turn off the feeder and open a work order.");
+  return T("Nosozlik qayd etilmagan. Kuchlanishlar ishchi oraliqda.","Неисправностей не зарегистрировано. Напряжения в рабочем диапазоне.","No faults registered. Voltages are within operating range.");
+ }
+ if(/konditsioner|harorat|temperature|температур|кондиционер|mikroiqlim|микроклимат|filtr|climate|cooling/.test(l)){
+  return T("K-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"ishlayapti":"o'chiq")+"), tsex "+fmt(S.roomTemp)+"°C. F-1 ifloslanishi "+Math.round(S.devs[2].filter)+"%. KVK termik yuk "+fmt(hvacKw())+" kVt.",
+   "К-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"включён":"выключен")+"), цех "+fmt(S.roomTemp)+"°C. Загрязнение F-1 "+Math.round(S.devs[2].filter)+"%. Тепловая нагрузка ХВК "+fmt(hvacKw())+" кВт.",
+   "K-1: "+S.devs[0].temp+"°C ("+(S.devs[0].on?"running":"off")+"), workshop "+fmt(S.roomTemp)+"°C. F-1 filter "+Math.round(S.devs[2].filter)+"%. HVAC thermal load "+fmt(hvacKw())+" kW.");
+ }
+ if(/prognoz|forecast|прогноз|hafta|week|недел/.test(l)){
+  buildForecast(false);var tot=S.fc.reduce(function(a,b){return a+b.kwh;},0);
+  return T("Haftalik jami yuk "+fmt0(tot)+" kVt·soat (~"+fmt0(tot*S.tarifBuy)+" so'm) kutilmoqda. Batafsil — Prognoz bo'limida.",
+   "Ожидается недельная нагрузка "+fmt0(tot)+" кВт·ч (~"+fmt0(tot*S.tarifBuy)+" сум). Подробнее — в разделе Прогноз.",
+   "Weekly load "+fmt0(tot)+" kWh (~"+fmt0(tot*S.tarifBuy)+" UZS) expected. Details in the Forecast section.");
+ }
+ if(/quyosh|solar|солнц|panel|sotish|tarif|iqtisod|энерг|generatsiya/.test(l)){
+  var pk=+($("pk")?$("pk").value:150)||150;
+  return T("Joriy generatsiya "+fmt(S.solar)+" kVt, akkumulyator "+Math.round(S.bat)+"%. "+pk+" kVt stansiya kuniga ~"+fmt0(pk*4.2)+" kVt·soat beradi (sotish "+S.tarifSell+" so'm/kVt·soat).",
+   "Текущая генерация "+fmt(S.solar)+" кВт, аккумулятор "+Math.round(S.bat)+"%. Станция "+pk+" кВт даёт ~"+fmt0(pk*4.2)+" кВт·ч в день (продажа "+S.tarifSell+" сум/кВт·ч).",
+   "Current generation "+fmt(S.solar)+" kW, battery "+Math.round(S.bat)+"%. A "+pk+" kW station gives ~"+fmt0(pk*4.2)+" kWh/day (sell "+S.tarifSell+" UZS/kWh).");
+ }
+ if(/tahlil|analysis|анализ|holat|status|статус|system|tizim/.test(l)){
+  var fcnt=S.lines.filter(function(x){return x.st==="FAULT";}).length;
+  var uncnt=S.alarms.filter(function(x){return !x.ack;}).length;
+  return T("Tizim holati: jami yuk "+fmt(total)+" kVt, talab "+fmt(S.demNow,0)+" kVA, gaz maks "+fmt0(S.maxGas.v)+" ppm (cheklov 880), nosozlik "+fcnt+" ta, tasdiqlanmagan signal "+uncnt+" ta, quyosh "+fmt(S.solar)+" kVt. Batafsil jadval — AI yordamchidagi 'Tahlil' amali.",
+   "Состояние системы: нагрузка "+fmt(total)+" кВт, запрос "+fmt(S.demNow,0)+" кВА, газ макс "+fmt0(S.maxGas.v)+" ppm (порог 880), неисправностей "+fcnt+", неподтверждённых сигналов "+uncnt+", солнце "+fmt(S.solar)+" кВт. Подробная таблица — в блоке «Анализ» AI-помощника.",
+   "System status: load "+fmt(total)+" kW, demand "+fmt(S.demNow,0)+" kVA, gas max "+fmt0(S.maxGas.v)+" ppm (limit 880), faults "+fcnt+", unacknowledged alarms "+uncnt+", solar "+fmt(S.solar)+" kW. Detailed table — AI assistant 'Analysis' action.");
+ }
+ if(/salom|assalom|xayr|hello|привет|здравств/.test(l))
+  return T("Xayrli kun. Joriy yuk "+fmt(total)+" kVt, gaz maks "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+"). Qaysi bo'lim bo'yicha ma'lumot kerak?",
+   "Добрый день. Текущая нагрузка "+fmt(total)+" кВт, газ макс "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+"). Какой раздел вас интересует?",
+   "Good day. Current load "+fmt(total)+" kW, gas max "+fmt0(S.maxGas.v)+" ppm ("+S.maxGas.r+"). Which section do you need?");
+ if(lg==="uz")return aiAnswerUZ(q);
+ var eg=lg==="ru"?"Где высокая нагрузка?":lg==="en"?"Where is high load?":CHIPS[0];
+ return T("Savol qabul qilindi. Yuk, gaz, transformator, quyosh, prognoz yoki mikroiqlim bo'yicha so'rang. Masalan: "+eg,
+  "Вопрос принят. Уточните по нагрузке, газу, трансформаторам, солнцу, прогнозу или микроклимату. Например: "+eg,
+  "Question received. Specify load, gas, transformers, solar, forecast or microclimate. E.g.: "+eg);
+}
+
+/* ============ AI ASSISTANT ============ */
+var WXC=null,WXP=false;
+function wxOffline(){var d=new Date(),days=[];for(var i=0;i<3;i++)days.push(new Date(d.getTime()+i*864e5).toISOString().slice(0,10));
+ return{offline:true,current:{temperature_2m:S.tOut,cloud_cover:S.cloud,wind_speed_10m:10,precipitation:0},
+ daily:{time:days,temperature_2m_max:[S.tOut+2,S.tOut+1,S.tOut],temperature_2m_min:[S.tOut-8,S.tOut-7,S.tOut-6],cloud_cover_mean:[S.cloud,S.cloud,Math.max(0,S.cloud-10)],precipitation_probability_max:[S.cloud>60?40:10,15,20]}};}
+function loadWeather(cb){
+ if(WXC){if(cb)cb(WXC);return;}
+ try{var o=JSON.parse(localStorage.getItem("esg_wx")||"null");if(o&&o.d&&Date.now()-o.ts<18e5){WXC=o.d;if(cb)cb(WXC);return;}}catch(e){}
+ if(WXP||typeof fetch!=="function"){if(cb)cb(wxOffline());return;}
+ fetch("https://api.open-meteo.com/v1/forecast?latitude=41.2995&longitude=69.2401&current=temperature_2m,cloud_cover,wind_speed_10m,precipitation&daily=temperature_2m_max,temperature_2m_min,cloud_cover_mean,precipitation_probability_max&timezone=auto&forecast_days=3",{cache:"no-store"})
+ .then(function(r){if(!r.ok)throw new Error("wx");return r.json();})
+ .then(function(d){WXC=d;try{localStorage.setItem("esg_wx",JSON.stringify({ts:Date.now(),d:d}));}catch(e){}
+  if(typeof updateClimAI==="function")updateClimAI();
+  if(cb)cb(WXC);})
+ .catch(function(){WXP=true;if(cb)cb(wxOffline());});
+}
+function wxRows(){
+ var d=WXC||wxOffline(),cur=d.current||{},dm=d.daily||{};
+ var total=S.hist.length?S.hist[S.hist.length-1].P:0;
+ var h="";
+ if(cur.temperature_2m!=null)h+="<div class='sub'>"+I18N.t("Hozirgi ob-havo")+": "+fmt(cur.temperature_2m,1)+"°C, "+I18N.t("bulut")+" "+fmt0(cur.cloud_cover||0)+"%, "+I18N.t("shamol")+" "+fmt0(cur.wind_speed_10m||0)+" "+I18N.t("km/h")+(cur.precipitation>0?", "+I18N.t("yomg'ir"):"")+".</div>";
+ h+="<table><thead><tr><th>"+I18N.t("Kun")+"</th><th>"+I18N.t("Harorat")+"</th><th>"+I18N.t("Bulut")+"</th><th>"+I18N.t("Yomg'ir ehtimoli")+"</th><th>"+I18N.t("QES taxminiy")+"</th><th>"+I18N.t("Yuk taxminiy")+"</th></tr></thead><tbody>";
+ var adv=[];
+ for(var i=0;i<3;i++){
+  var tmin=(dm.temperature_2m_min&&dm.temperature_2m_min[i]!=null)?dm.temperature_2m_min[i]:S.tOut-8;
+  var tmax=(dm.temperature_2m_max&&dm.temperature_2m_max[i]!=null)?dm.temperature_2m_max[i]:S.tOut;
+  var cl=(dm.cloud_cover_mean&&dm.cloud_cover_mean[i]!=null)?dm.cloud_cover_mean[i]:S.cloud;
+  var pr=(dm.precipitation_probability_max&&dm.precipitation_probability_max[i]!=null)?dm.precipitation_probability_max[i]:0;
+  h+="<tr><td>"+((dm.time&&dm.time[i])||"—")+"</td><td>"+tmin+"…"+tmax+"°C</td><td>"+fmt0(cl)+"%</td><td>"+fmt0(pr)+"%</td><td>"+fmt0(solarEstKwh(cl))+" kVt·soat</td><td>"+fmt(loadEstKw(tmax,total))+" kVt</td></tr>";
+  if(i===1){if(pr>50)adv.push(I18N.t("Yomg'ir ehtimoli yuqori — QES generatsiyasi pasayadi."));if(tmax>27)adv.push(I18N.t("Issiq kun — KVK termik yuk ortadi, shamollatishni kuchaytiring."));if(cl<35)adv.push(I18N.t("Quyoshli kun — QES maksimal rejimda ishlaydi."));}
+ }
+ h+="</tbody></table>";
+ h+="<div class='sub'>"+(adv.length?adv.join(" "):I18N.t("Ob-havo sharoiti normal, qo'shimcha chora talab qilinmaydi."))+(d.offline?" "+I18N.t("(oflayn — simulyatsiya qiymatlari)"):"")+"</div>";
+ return h;
+}
+function aiOut(html){var o=$("aiOut");if(!o)return;o.innerHTML=html;o.classList.add("on");o.scrollTop=0;}
+function kvr(l,v,cls){return "<div class='kv'><span>"+l+"</span><b class='"+(cls||"")+"'>"+v+"</b></div>";}
+function aiAnalysisHTML(){
+ var total=S.hist.length?S.hist[S.hist.length-1].P:0;
+ var top=S.lines.filter(function(x){return x.base>0;}).sort(function(a,b){return b.kw-a.kw;})[0];
+ var un=S.alarms.filter(function(a){return !a.ack;}).length;
+ var f=S.lines.filter(function(x){return x.st==="FAULT";}).length;
+ var h="";
+ h+=kvr(I18N.t("Jami yuk"),fmt(total)+" kVt · "+fmt(S.demNow,0)+" kVA",total>S.contractKVA*0.9?"vbad":total>S.contractKVA*0.75?"vwarn":"vok");
+ h+=kvr(I18N.t("Eng yuqori fider"),top?top.n+" · "+fmt(top.kw)+" kVt ("+top.load+"%)":"—",top&&top.load>80?"vwarn":"vok");
+ h+=kvr(I18N.t("Transformatorlar"),"TR-1 "+S.tr[0].load+"% / TR-2 "+S.tr[1].load+"% · "+I18N.t("moy")+" "+fmt(Math.max(S.tr[0].tOil,S.tr[1].tOil),1)+"°C",(S.tr[0].load>95||S.tr[1].load>95||S.tr[0].tOil>85||S.tr[1].tOil>85)?"vwarn":"vok");
+ h+=kvr(I18N.t("Quyosh"),fmt(S.solar)+" kVt · akk "+Math.round(S.bat)+"% · "+fmt0(solarEstKwh(S.cloud))+" kVt·soat "+I18N.t("kunlik"),"vok");
+ h+=kvr(I18N.t("Gaz (CH4)"),fmt0(S.maxGas.v)+" ppm · "+S.maxGas.r+" · "+I18N.t("cheklov")+" 880",S.maxGas.v>880?"vbad":S.maxGas.v>S.gasWarn?"vwarn":"vok");
+ h+=kvr(I18N.t("Nosozliklar"),f?f+" "+I18N.t("ta"):I18N.t("yo'q"),f?"vbad":"vok");
+ h+=kvr(I18N.t("Tasdiqlanmagan signallar"),un+" "+I18N.t("ta"),un?"vwarn":"vok");
+ h+=kvr(I18N.t("KVK / mikroiqlim"),fmt(hvacKw())+" kVt · "+I18N.t("tsex")+" "+fmt(S.roomTemp)+"°C / "+I18N.t("nishon")+" "+S.devs[0].temp+"°C",Math.abs(S.roomTemp-S.devs[0].temp)>1.5?"vwarn":"vok");
+ var v=vioArr(I18N.lang);
+ h+="<div class='sub'><b>"+I18N.t("Tavsiyalar")+":</b> "+(v.length?v.slice(0,4).map(function(x){return x.t;}).join(" • "):I18N.t("Muammolar topilmadi — tizim normal rejimda."))+"</div>";
+ return h;
+}
+function aiAnalysis(){aiOut("<h4>"+I18N.t("Tizim tahlili")+"</h4>"+aiAnalysisHTML());}
+function aiViolationsOut(){
+ var v=vioArr(I18N.lang),h="<h4>"+I18N.t("Tarmoq ogohlantirishlari")+"</h4>";
+ if(!v.length)h+="<div class='sub vok'>✓ "+I18N.t("Faol ogohlantirish topilmadi. Tizim me'yoriy chegaralarda.")+"</div>";
+ else{h+=v.map(function(x){return "<div class='"+(x.lvl===2?"vbad":"vwarn")+"'>• "+x.t+"</div>";}).join("");
+  h+="<div class='sub'>"+I18N.t("Chegaralar: CH4 880 ppm · kuchlanish 207–235 V · cos φ ≥ 0,90 · TR moy ≤ 85°C.")+"</div>";}
+ aiOut(h);
+}
+function aiWeatherOut(){
+ aiOut("<h4>"+I18N.t("Ob-havo va yuk prognozi")+"</h4><div class='sub'>"+I18N.t("Ma'lumot olinmoqda...")+"</div>");
+ loadWeather(function(){aiOut("<h4>"+I18N.t("Ob-havo va yuk prognozi")+"</h4>"+wxRows());});
+}
+function aiAuditOut(){
+ var rows=(R.aud&&R.aud.length)?R.aud:[],tot=0,topR=null;
+ rows.forEach(function(o){tot+=o.L.e;if(!topR||o.L.e>topR.L.e)topR=o;});
+ var h="<h4>"+I18N.t("Energiya auditi")+"</h4>";
+ if(!rows.length)h+="<div class='sub'>"+I18N.t("Hozircha audit ma'lumoti yo'q.")+"</div>";
+ else{
+  h+=kvr(I18N.t("Kunlik sarf"),fmt(tot,1)+" kVt·soat","vok");
+  if(topR)h+=kvr(I18N.t("Eng ko'p sarflovchi zona"),topR.L.n+" · "+fmt(topR.L.e,1)+" kVt·soat","vwarn");
+  h+=kvr(I18N.t("Kunlik xarajat"),fmt0(tot*S.tarifBuy)+" so'm ("+S.tarifBuy+" so'm/kVt·soat)","vok");
+  h+="<div class='sub'><button class='btn sm pri' id='aiExpBtn'>"+I18N.t("CSV yuklab olish (Excel, UTF-8 BOM)")+"</button></div>";
+ }
+ aiOut(h);
+ var b=$("aiExpBtn");if(b)b.addEventListener("click",function(){exportAudit();});
+}
+function aiSys(t){var box=$("aiChat");if(!box)return;var m=el("div","m",t);box.appendChild(m);box.scrollTop=box.scrollHeight;}
+function aiUserMsg(){var inp=$("aiIn"),q=(inp&&inp.value||"").trim();if(!q)return;var box=$("aiChat");if(!box)return;
+ var me=el("div","m me",q.replace(/</g,"&lt;"));box.appendChild(me);inp.value="";
+ var tp=el("div","m");tp.innerHTML='<span class="typ"><i></i><i></i><i></i></span>';box.appendChild(tp);box.scrollTop=box.scrollHeight;
+ setTimeout(function(){var a=aiAnswer(q);tp.innerHTML="";tp.appendChild(el("span",null,a));
+  var cp=el("button","cp","nusxa");cp.title="Javobni nusxalash";cp.addEventListener("click",function(){copyTxt(tp.textContent);});tp.appendChild(cp);
+  box.scrollTop=box.scrollHeight;},450);}
+function aiMark(b){var all=document.querySelectorAll(".aiQk button");for(var i=0;i<all.length;i++)all[i].classList.remove("on");b.classList.add("on");}
+function aiToggle(force){var d=$("aiDrawer");if(!d)return;var on=force===undefined?!d.classList.contains("on"):force;
+ d.classList.toggle("on",on);d.setAttribute("aria-hidden",on?"false":"true");document.body.classList.toggle("aiOn",on);
+ if(on&&!$("aiChat").childNodes.length){aiSys(I18N.t("AI yordamchi tayyor."));aiSys(I18N.t("Savol bering yoki quyidagi tez amallardan foydalaning:"));}}
+var aiLastAct=null;
+function aiRun(fn){aiLastAct=fn;fn();}
+function aiInit(){
+ var cc=$("aiChips");if(cc){CHIPS.forEach(function(q){var b=el("button","btn sm",q);b.addEventListener("click",function(){$("aiIn").value=q;aiUserMsg();});cc.appendChild(b);});}
+ on("aiBtn","click",function(){aiToggle();});
+ on("aiFab","click",function(){aiToggle();});
+ on("aiClose","click",function(){aiToggle(false);});
+ on("aiSend","click",aiUserMsg);
+ on("aiIn","keydown",function(e){if(e.key==="Enter")aiUserMsg();});
+ on("aiq1","click",function(){aiMark(this);aiRun(aiAnalysis);});
+ on("aiq2","click",function(){aiMark(this);aiRun(aiWeatherOut);});
+ on("aiq3","click",function(){aiMark(this);aiRun(aiViolationsOut);});
+ on("aiq4","click",function(){aiMark(this);aiRun(aiAuditOut);});
+ loadWeather();
+}
+var _i18nApplyAi=I18N.apply;
+I18N.apply=function(){_i18nApplyAi.apply(this,arguments);
+ var i=$("aiIn");if(i)i.placeholder=I18N.t("Savolingizni yozing... (Enter — yuborish)");
+ var o=$("aiOut");if(o&&o.classList.contains("on")&&aiLastAct)aiLastAct();
+};
+function updateClimAI(){
+ var sec=$("s-clim");if(!sec||!sec.classList.contains("on"))return;
+ var t=$("climT");if(!t)return;
+ var d=WXC&&WXC.current?WXC.current:null;
+ var out=(d&&d.temperature_2m!=null)?d.temperature_2m:S.tOut;
+ var cl=(d&&d.cloud_cover!=null)?d.cloud_cover:S.cloud;
+ t.textContent=fmt(S.roomTemp)+"°C / "+S.devs[0].temp+"°C";
+ $("climOut").textContent=fmt(out,1)+"°C";
+ $("climCloud").textContent=fmt0(cl)+"%";
+ $("climKw").textContent=fmt(hvacKw())+" kVt";
+ var cs=S.devs.filter(function(x){return x.t==="cond";});
+ $("climStat").textContent=cs.map(function(x){var m=x.n.match(/K-\d/);return (m?m[0]:x.n)+" "+(x.on?"ON":"OFF");}).join(" · ");
+ $("climSrc").textContent=WXC?(WXC.offline?I18N.t("Simulyatsiya (oflayn)"):I18N.t("Open-Meteo (Toshkent)")):I18N.t("Simulyatsiya (oflayn)");
+ var set=S.devs[0].temp,room=S.roomTemp,adv=[];
+ if(out>set+4)adv.push(I18N.t("Tashqi havo issiq — KVK qo'shimcha yukda, derazalarni yopiq saqlang."));
+ else if(out<set-8)adv.push(I18N.t("Tashqi sovuq — isitish yo'nalishiga e'tibor bering."));
+ else adv.push(I18N.t("Tashqi harorat optimal — KVK odatiy rejimda."));
+ if(room>set+1.5)adv.push(I18N.t("Tsex nishondan yuqori — K-1 quvvatini oshiring yoki smena oralig'ida shamollating."));
+ else if(room<set-1.5)adv.push(I18N.t("Tsex nishondan past — KVK rejimini yumshatish mumkin."));
+ else adv.push(I18N.t("Tsex harorati nishonga mos — aqlli boshqaruv saqlanmoqda."));
+ if(cl>70)adv.push(I18N.t("Bulutli kun — QES kamayadi, akkumulyator zaxirasini hisobga oling."));
+ $("climAdvice").innerHTML=adv.map(function(a){return "• "+a;}).join("<br>");
+ var off=Math.abs(room-set)>1.5;
+ var tag=$("climTag");tag.className="tag "+(off?"t-warn":"t-ok");tag.textContent=off?I18N.t("Moslashtirilmoqda"):I18N.t("Aqlli boshqaruv: faol");
+}
 
 /* ============ CSV ============ */
 function dl(name,content){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+content],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){a.remove();},500);}
@@ -1748,9 +2315,9 @@ var TOUR=[
  {sec:"s-dash",t:"KPI va avtomatik tizimlar",b:"KPI: jami yuk, quyosh generatsiyasi, gaz, cos φ, THD. O'ng tomonda <b>AR/ATS/ASU/KB</b> avtomatik tizimlari — nosozlikda o'z-o'zidan qayta ulash, rezervga o'tish, yuk uzish, reaktiv kompensatsiya. Quyidagi demo tugmalar bilan stsenariylar kiritiladi.",
  ru:{t:"KPI и автоматические системы",b:"KPI: суммарная нагрузка, солнечная генерация, газ, cos φ, THD. Справа — автоматические системы <b>АВР/АТС/АСУ/КОР</b>: автоматическое повторное включение, переход на резерв, отключение нагрузок, реактивная компенсация. Ниже — кнопки внесения демо-сценариев."},
  en:{t:"KPI and automatic systems",b:"KPI: total load, solar generation, gas, cos φ, THD. Right: <b>AR/ATS/ASU/KB</b> automatic systems — auto reconnection, transfer to backup, load shedding, reactive compensation. Below: buttons to inject demo scenarios."}},
- {sec:"s-struct",t:"Strukturaviy sxema — energiya oqimi",b:"Yuqoridan pastga: <b>kirish magistral → P1/P2 → UMUMIY AVR → UMUMIY GRSH</b>. Chapda quyosh: 4 panel → DC → gibridd invertor → AC → GRSH. Pastda 1/2-korxona zonalari. <b>KRITIK</b> fiderlar (yoritish) alohida chiqishda. Blokni bosing — faceplate ochiladi. Ranglar: yashil = ishlayotgan, ko'k = tarmoq, qizil = nosozlik.",
- ru:{t:"Структурная схема — поток энергии",b:"Сверху вниз: <b>входная магистраль → P1/P2 → ОБЩИЙ АВР → ОБЩИЙ ГРЩ</b>. Слева солнце: 4 панели → DC → гибридный инвертор → AC → ГРЩ. Внизу зоны предприятий 1/2. <b>КРИТИЧЕСКИЕ</b> фидеры (освещение) — отдельный отход. Нажмите блок — откроется faceplate. Цвета: зелёный = работает, синий = сеть, красный = неисправность."},
- en:{t:"Structural diagram — energy flow",b:"Top to bottom: <b>incomer main → P1/P2 → COMMON ATS → COMMON MSB</b>. Left solar: 4 panels → DC → hybrid inverter → AC → MSB. Bottom: plant 1/2 zones. <b>CRITICAL</b> feeders (lighting) on a separate outgoing. Click a block — faceplate opens. Colors: green = running, blue = grid, red = fault."}},
+ {sec:"s-struct",t:"Strukturaviy sxema — energiya oqimi",b:"Yuqoridan pastga: <b>kirish punkti → P1/P2 → UMUMIY AVR (ATS) → UMUMIY GRSH (MDB)</b> — shinada jonli U/I/P/f ko'rsatiladi. Chapda quyosh: 4 kadrli panel → DC → <b>INV</b> (kvadrat + diagonal) → <b>zaxira liniyasi AVRga</b>. Pastda <b>1-TSEX / 2-TSEX</b> filiallari va ikkita <b>uzluksiz feeders</b>: yoritish+VK va KVK mikroiqlim. Blokni bosing — faceplate ochiladi. Ranglar: yashil = ishlayotgan, ko'k = tarmoq, qizil = nosozlik.",
+ ru:{t:"Структурная схема — поток энергии",b:"Сверху вниз: <b>вводный пункт → P1/P2 → ОБЩИЙ АВР (ATS) → ОБЩИЙ ГРЩ (MDB)</b> — на шине живые U/I/P/f. Слева солнце: 4 панели в рамке → DC → <b>INV</b> (квадрат + диагональ) → <b>линия резерва в АВР</b>. Внизу филиалы <b>Цех №1 / Цех №2</b> и два <b>бесперебойных фидера</b>: освещение+CCTV и ОВиК микроклимата. Нажмите блок — faceplate. Цвета: зелёный = работает, синий = сеть, красный = неисправность."},
+ en:{t:"Structural diagram — energy flow",b:"Top to bottom: <b>incomer junction → P1/P2 → COMMON ATS → COMMON MDB</b> — live U/I/P/f shown on the bus. Left solar: 4 framed panels → DC → <b>INV</b> (square + diagonal) → <b>backup line into ATS</b>. Bottom: <b>Workshop 1 / Workshop 2</b> branches and two <b>uninterruptible feeders</b>: lighting+CCTV and HVAC microclimate. Click a block — faceplate opens. Colors: green = running, blue = grid, red = fault."}},
  {sec:"s-struct",t:"Jonli animatsiyalar va nazorat",b:"Energiya nuqtalari jonli uzatishni ko'rsatadi. AVR faol kirishni ajratib ko'rsatadi — bir kirish o'chganda ikkinchisiga o'tadi. Nosoz fider qizil pulsatsiya bilan belgilanadi. Zonani bosing → kuchlanish, tok, quvvat, SBO boshqaruvi.",
  ru:{t:"Живые анимации и контроль",b:"Энергетические точки показывают живую передачу. АВР выделяет активный вход — при отключении одного переходит на другой. Неисправный фидер пульсирует красным. Нажмите зону → напряжение, ток, мощность, управление АВР."},
  en:{t:"Live animations and control",b:"Energy dots show live transfer. ATS highlights the active incomer — switches to the other if one drops. Faulted feeder pulses red. Click a zone → voltage, current, power, ATS control."}},
@@ -1766,7 +2333,7 @@ var TOUR=[
  {sec:"s-sol",t:"Quyosh stansiyasi va akkumulyator",b:"4 ta string, gibridd inverter, akkumulyator SOC. Quvvat oqimi: quyosh DC → inverter → AC → shina. Tarmoqqa uzatish (GET) rejimi, kunlik ishlab chiqarish, daromad hisob-kitobi.",
  ru:{t:"Солнечная станция и аккумулятор",b:"4 строки, гибридный инвертор, SOC аккумулятора. Поток мощности: солнце DC → инвертор → AC → шина. Режим выдачи в сеть (GET), дневная выработка, расчёт дохода."},
  en:{t:"Solar plant and battery",b:"4 strings, hybrid inverter, battery SOC. Power flow: solar DC → inverter → AC → bus. Export-to-grid (GET) mode, daily production, revenue calculation."}},
- {sec:"s-clim",t:"Mikroiqlim va energiya tejaligi",b:"Sex harorati, deraza/shift sensorlari, konditsioner. Energiya tejash choralari: deraza yopiq → yoritish avtomatik pasayishi. CO2 kamayishi hisoblanadi.",
+ {sec:"s-clim",t:"Mikroiqlim va energiya tejaligi",b:"Tsex harorati, deraza/shift sensorlari, konditsioner. Energiya tejash choralari: deraza yopiq → yoritish avtomatik pasayishi. CO2 kamayishi hisoblanadi.",
  ru:{t:"Микроклимат и энергосбережение",b:"Температура цеха, датчики окон/потолка, кондиционер. Меры экономии: окно закрыто → освещение автоматически снижается. Учитывается снижение CO2."},
  en:{t:"Climate and energy saving",b:"Workshop temperature, window/ceiling sensors, AC. Saving measures: window closed → lighting dims automatically. CO2 reduction is tracked."}},
  {sec:"s-rpt",t:"Hisobotlar va taqdimot uchun",b:"Kunlik energiya hisoboti, CSV export, audit. Ko'rgazma yakunida hisobotni shakllantirish mumkin. Barcha tizim <b>oflayn</b> ishlaydi — internet talab etilmaydi.",
@@ -1811,14 +2378,15 @@ $("tarifBuy").value=S.tarifBuy;$("tarifSell").value=S.tarifSell;
 $("cloudR").value=S.cloud;$("toutR").value=S.tOut;
 $("sndBtn").textContent=S.sound?"Ovoz: yoqilgan":"Ovoz: o'chirilgan";
 buildNav();buildMimic();buildScheme();buildStruct();buildElec();buildGas();buildDevs();buildStrings();buildAudit();buildChat();
-wireEvents();selectFd(0);updateStrings();calcProfit();buildForecast(false);renderAudit();renderAlarms();
+wireEvents();aiInit();selectFd(0);updateStrings();calcProfit();buildForecast(false);renderAudit();renderAlarms();
 log("Tizim ishga tushirildi. 8 ta fider, 2 ta transformator va 6 ta gaz zonasi nazoratga olindi.");
 setInterval(function(){
 for(var k=0;k<S.speed;k++)step(1);
 var total=S.hist.length?S.hist[S.hist.length-1].P:0;
 updateElec();updateScheme();updateStruct();updateGas();updateStrings();renderDash(total);renderAlarms();calcProfit();
 if($("s-audit").classList.contains("on"))renderAudit();
-if($("s-hist").classList.contains("on"))drawHist();
+ if($("s-clim").classList.contains("on"))updateClimAI();
+ if($("s-hist").classList.contains("on"))drawHist();
 },1000);
 setInterval(function(){if(Math.random()<0.04&&S.mode!=="real")injectFault();},45000);
 }
