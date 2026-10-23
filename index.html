@@ -127,6 +127,34 @@ canvas.ch{width:100%;height:210px;background:#080e14;border:1px solid var(--line
 .legend i{display:inline-block;width:16px;height:3px;vertical-align:middle;margin-right:4px}
 .flow{stroke-dasharray:7 5;animation:flow 1s linear infinite}
 @keyframes flow{to{stroke-dashoffset:-12}}
+.flow.slow{animation-duration:1.8s}
+.flow.fast{animation-duration:.6s}
+.flow.fault{animation:flowFault .4s linear infinite}
+@keyframes flowFault{0%{stroke:#ff4d4d}50%{stroke:#ffb020}100%{stroke:#ff4d4d}}
+/* structural diagram enhanced animations */
+#structSvg .stLive{filter:drop-shadow(0 0 3px rgba(55,214,122,.5))}
+#structSvg .stFault{animation:stFaultPulse .5s ease-in-out infinite}
+@keyframes stFaultPulse{0%,100%{filter:drop-shadow(0 0 2px rgba(255,77,77,.9))}50%{filter:drop-shadow(0 0 8px rgba(255,77,77,1))}}
+#structSvg g[data-zl]{transition:transform .15s ease,filter .15s ease}
+#structSvg g[data-zl]:hover{transform:scale(1.03);filter:brightness(1.3) drop-shadow(0 0 4px rgba(255,255,255,.3))}
+#structSvg g[data-zl]:hover rect{stroke-width:2.5 !important}
+#structSvg #stAVR,#structSvg #stBus,#structSvg #stInvBox,#structSvg #stCR,#structSvg #stG1,#structSvg #stG2,#structSvg #stP1,#structSvg #stP2,#structSvg #stJct{cursor:pointer;transition:filter .2s ease,stroke-width .2s ease}
+#structSvg #stAVR:hover,#structSvg #stBus:hover,#structSvg #stInvBox:hover,#structSvg #stCR:hover,#structSvg #stG1:hover,#structSvg #stG2:hover,#structSvg #stP1:hover,#structSvg #stP2:hover,#structSvg #stJct:hover{filter:brightness(1.4) drop-shadow(0 0 6px rgba(255,255,255,.4))}
+#structSvg #stP1:active,#structSvg #stP2:active,#structSvg #stAVR:active,#structSvg #stInvBox:active,#structSvg #stCR:active{transform:scale(.97)}
+/* energy pulse dots along live wires */
+@keyframes energyPulse{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(60px)}}
+#structSvg .epulse{opacity:0}
+#structSvg .epulse.on{animation:energyPulse 2s ease-in-out infinite}
+/* AVR active incomer highlight */
+@keyframes avrActive{0%,100%{stroke:#ffb020}50%{stroke:#ffd97a}}
+#structSvg .avrActive{animation:avrActive 1.5s ease-in-out infinite}
+/* inverter switching animation */
+@keyframes invDiag{0%{stroke-dashoffset:0}100%{stroke-dashoffset:40}}
+#structSvg #stInvBox+line{stroke-dasharray:60;animation:invDiag 2s linear infinite}
+/* bus live glow */
+#structSvg #stBus.liveGlow{filter:drop-shadow(0 0 4px rgba(201,162,51,.6));animation:busPulse 3s ease-in-out infinite}
+@keyframes busPulse{0%,100%{filter:drop-shadow(0 0 3px rgba(201,162,51,.5))}50%{filter:drop-shadow(0 0 8px rgba(201,162,51,.8))}}
+/* old */
 .brk{cursor:pointer}
 .brk:hover .bx{stroke:#fff;stroke-width:2.5}
 .fltmark{animation:blink .8s steps(2) infinite}
@@ -1114,6 +1142,10 @@ function Sbox(x,y,w,h,fill,stroke,rx,id,par){var e=S_("rect",{x:x,y:y,width:w,he
 Stxt(500,22,"Kirish magistral kabeli (380 V)",12,"#8fa3bb","middle");
 Sbox(410,35,180,28,"#101820","#3a5a7a",3,"stJct");Stxt(500,54,"Kabel tarmoqlanishi (mufta/yig'ma)",10,"#8fa3bb","middle");
 Swire(500,63,290,95,"#2f8bff",3,"stW1");Swire(500,63,710,95,"#2f8bff",3,"stW2");
+/* energy pulse dots on grid wires */
+S_("circle",{cx:500,cy:63,r:3,fill:"#7fc4ff",class:"epulse",id:"epW1"});
+S_("circle",{cx:500,cy:63,r:3,fill:"#7fc4ff",class:"epulse",id:"epW3"});
+S_("circle",{cx:500,cy:200,r:3,fill:"#7fc4ff",class:"epulse",id:"epGrid"});
 /* --- P1 / P2 --- */
 Sbox(190,95,200,34,"#132030","#2f8bff",3,"stP1");Stxt(290,116,"Kirish P1 (Korxona kabeli 1)",10.5,"#dce6f2","middle");
 Sbox(610,95,200,34,"#132030","#2f8bff",3,"stP2");Stxt(710,116,"Kirish P2 (Korxona kabeli 2)",10.5,"#dce6f2","middle");
@@ -1158,9 +1190,12 @@ Stxt(52,175,"Quyosh DC",9.5,"#ff4d4d","middle");
 })();
 /* inverter AC to bus */
 Swire(118,262,118,290,"#2fd6a0",3,"stWAC");Stxt(60,285,"Quyosh AC",9.5,"#2fd6a0","middle");
+/* solar energy pulse dot */
+S_("circle",{cx:118,cy:270,r:3,fill:"#7affd4",class:"epulse",id:"epAC"});
 /* --- consumers from bus --- */
 /* Group 1 */
 Swire(300,290,300,355,"#37d67a",3,"stWg1");
+S_("circle",{cx:300,cy:310,r:3,fill:"#7aff9e",class:"epulse",id:"epG1"});
 Sbox(170,355,260,34,"#132030","#37d67a",3,"stG1");Stxt(300,376,"1-korxona iste'molchilari",11,"#dce6f2","middle");
 /* Group 2 */
 Swire(700,290,700,355,"#37d67a",3,"stWg2");
@@ -1195,37 +1230,50 @@ function updateStruct(){
  var p1Live=gridLive&&S.tr[0].on,p2Live=gridLive&&S.tr[1].on;
  var avrOn=gridLive;
  function col(id,c,dash){var e=svg.querySelector(id);if(!e)return;e.setAttribute("stroke",c);if(dash!=null)e.setAttribute("stroke-dasharray",dash);else e.removeAttribute("stroke-dasharray");}
+ function cls(id,c,on){var e=svg.querySelector(id);if(!e)return;e.classList.toggle(c,!!on);}
  var gc=gridLive?"#2f8bff":"#5d7089";
- ["#stW1","#stW2","#stW3","#stW4","#stWGrid"].forEach(function(id){col(id,gc);});
+ ["#stW1","#stW2","#stW3","#stW4","#stWGrid"].forEach(function(id){col(id,gc);cls(id,"stLive",gridLive);});
  var p1=svg.querySelector("#stP1"),p2=svg.querySelector("#stP2");
- if(p1){p1.setAttribute("stroke",p1Live?"#2f8bff":"#5d7089");p1.setAttribute("fill",p1Live?"#132030":"#0e141a");}
- if(p2){p2.setAttribute("stroke",p2Live?"#2f8bff":"#5d7089");p2.setAttribute("fill",p2Live?"#132030":"#0e141a");}
+ if(p1){p1.setAttribute("stroke",p1Live?"#2f8bff":"#5d7089");p1.setAttribute("fill",p1Live?"#132030":"#0e141a");cls("#stP1","avrActive",p1Live);}
+ if(p2){p2.setAttribute("stroke",p2Live?"#2f8bff":"#5d7089");p2.setAttribute("fill",p2Live?"#132030":"#0e141a");cls("#stP2","avrActive",p2Live);}
  /* highlight active incomer */
  var stp1=svg.querySelector("#stP1"),stp2=svg.querySelector("#stP2");
  if(stp1)stp1.setAttribute("stroke-width",p1Live?2.5:1.5);
  if(stp2)stp2.setAttribute("stroke-width",p2Live?2.5:1.5);
- /* AVR color */
- var avr=svg.querySelector("#stAVR");if(avr)avr.setAttribute("stroke",avrOn?"#ffb020":"#5d7089");
- /* bus color: amber if live */
- var bus=svg.querySelector("#stBus");if(bus)bus.setAttribute("stroke",gridLive?"#c9a233":"#5d7089");
+ /* AVR color + animation */
+ var avr=svg.querySelector("#stAVR");if(avr){avr.setAttribute("stroke",avrOn?"#ffb020":"#5d7089");cls("#stAVR","avrActive",avrOn);}
+ /* bus color: amber if live + glow */
+ var bus=svg.querySelector("#stBus");if(bus){bus.setAttribute("stroke",gridLive?"#c9a233":"#5d7089");cls("#stBus","liveGlow",gridLive);}
  /* solar */
  var solOn=S.solar>1;
- var dc=svg.querySelector("#stWDC");if(dc)col("#stWDC",solOn?"#ff4d4d":"#5d7089","6 4");
- var ac=svg.querySelector("#stWAC");if(ac)col("#stWAC",solOn?"#2fd6a0":"#5d7089");
- var ib=svg.querySelector("#stInvBox");if(ib){ib.setAttribute("stroke",solOn?"#3fb950":"#5d7089");ib.setAttribute("stroke-width",solOn?2:1.5);}
+ var dc=svg.querySelector("#stWDC");if(dc){col("#stWDC",solOn?"#ff4d4d":"#5d7089","6 4");cls("#stWDC","stLive",solOn);}
+ var ac=svg.querySelector("#stWAC");if(ac){col("#stWAC",solOn?"#2fd6a0":"#5d7089");cls("#stWAC","stLive",solOn);}
+ var ib=svg.querySelector("#stInvBox");if(ib){ib.setAttribute("stroke",solOn?"#3fb950":"#5d7089");ib.setAttribute("stroke-width",solOn?2:1.5);cls("#stInvBox","stLive",solOn);}
  if(ST.els.soc)ST.els.soc.textContent="SOC "+Math.round(S.bat)+"%";
  /* consumer wires */
  var c1Live=p1Live||p2Live,c2Live=c1Live;
- col("#stWg1",c1Live?"#37d67a":"#5d7089");col("#stWg2",c2Live?"#37d67a":"#5d7089");col("#stWcr",c1Live?"#ffb020":"#5d7089");
+ col("#stWg1",c1Live?"#37d67a":"#5d7089");cls("#stWg1","stLive",c1Live);
+ col("#stWg2",c2Live?"#37d67a":"#5d7089");cls("#stWg2","stLive",c2Live);
+ col("#stWcr",c1Live?"#ffb020":"#5d7089");cls("#stWcr","stLive",c1Live);
+ /* energy pulse dots - activate when live */
+ cls("#epW1","on",gridLive);cls("#epW3","on",gridLive);cls("#epGrid","on",gridLive);
+ cls("#epAC","on",solOn);cls("#epG1","on",c1Live);
  /* zone boxes live color */
+ var anyFault=false;
  if(ST.zones)ST.zones.forEach(function(z){
   var L=S.lines[z.g.getAttribute("data-zl")|0];if(!L)return;
   var live=L.on&&busV(L.tr-1)>1;
-  var c=L.st==="FAULT"?"#ff4d4d":!live?"#5d7089":L.st==="HIGH"?"#ffb020":"#37d67a";
-  z.r.setAttribute("stroke",c);z.r.setAttribute("stroke-width",live||L.st==="FAULT"?1.8:1.2);
-  z.t2.textContent=live?fmt(L.kw)+" kVt":L.st==="FAULT"?"FAULT":"—";
+  var isF=L.st==="FAULT";
+  if(isF)anyFault=true;
+  var c=isF?"#ff4d4d":!live?"#5d7089":L.st==="HIGH"?"#ffb020":"#37d67a";
+  z.r.setAttribute("stroke",c);z.r.setAttribute("stroke-width",live||isF?1.8:1.2);
+  z.t2.textContent=live?fmt(L.kw)+" kVt":isF?"FAULT":"—";
   z.t2.setAttribute("fill",c);
+  z.g.classList.toggle("stFault",isF);
+  z.g.classList.toggle("stLive",live&&!isF);
  });
+ /* critical branch pulse on any fault */
+ cls("#stCR","stFault",anyFault);
 }
 /* block faceplates for AVR / GRSH / inverter / critical */
 function fpBlk(kind){FP.mode="blk";FP.idx=kind;$("fp").classList.add("on");fpRender();log("Faceplate ochildi: <b>"+(kind==="avr"?"UMUMIY AVR":kind==="grsh"?"UMUMIY GRSH":kind==="inv"?"GIBRID INVERTOR":"KRITIK")+"</b>.");}
