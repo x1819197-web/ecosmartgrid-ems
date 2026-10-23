@@ -1739,7 +1739,7 @@ on("shDay","click",function(){setShift("Kunduzgi");});on("shNight","click",funct
 on("scPeak","click",function(){S.lines.forEach(function(l){if(l.on&&l.base>0)l.load=118;});log("Ssenariy 'pik yuk': yuklamalar 118% ga oshirildi — talab shartnoma chegarasini oshadi.","warn2");toast("Ssenariy: pik yuklamalar berildi — ASU kuzatmoqda.");});
  on("scFault","click",injectFault);on("scGas","click",injectGas);on("scAR","click",injectAR);
 on("scBlackout","click",function(){S.grid.brk=false;raise("crit","<b>QF0</b> — tarmoq uzilishi simulyatsiyasi. 10 kV kirish o'chiq.","bl",5,"QF0");updateElec();updateScheme();});
-on("scNorm","click",function(){fixAll();fixGas();S.lines.forEach(function(l){l.load=Math.min(l.load,80);});log("Ssenariy yakunlandi: normal rejim.");});
+on("scNorm","click",function(){fixAll();fixGas();S.lines.forEach(function(l){l.load=Math.min(l.load,80);});S.alarms.forEach(function(a){a.ack=true;});renderAlarms();renderAlarmTable();log("Ssenariy yakunlandi: normal rejim, signallar tasdiqlandi.");});
 /* ============ GUIDED DEMO TOUR ============ */
 var TOUR=[
  {sec:"s-dash",t:"Umumiy nazorat — bosh ekran",b:"Bu <b>SCADA dispetcherlik paneli</b>. Yuqorida: real vaqt/simulyatsiya rejimi, 3 til (O'Z/RU/EN). Markazda <b>mimik sxema</b> — energiya oqimi: 10 kV kirish → transformatorlar → shina → fiderlar. Chapda KPI ko'rsatkichlari, pastda hodisalar lentasi.",
