@@ -318,6 +318,43 @@ background-image:linear-gradient(rgba(31,53,71,.18) 1px,transparent 1px),linear-
 }
 @media print{.side,.top .cmd,.astrip,.toasts,.noprint,.sbar,.fp{display:none!important}.wrap{display:block}body{background:#fff;color:#000;padding:0}.card{background:#fff;border-color:#999;color:#000}.card h3{background:#eee;color:#000}.big,.digi .dv{color:#000;text-shadow:none}.digi{background:#fff;border-color:#999}}
 
+/* ============ UI POLISH ============ */
+::selection{background:rgba(61,141,245,.32);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#081018}
+::-webkit-scrollbar-thumb{background:#1c2f47;border:2px solid #081018;border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:#2b4a72}
+body{-webkit-font-smoothing:antialiased}
+.num,.kv b,.digi .dv,.fpCell .v,.sbar .si b,td.soe{font-variant-numeric:tabular-nums}
+.brand .mark{filter:drop-shadow(0 0 6px rgba(70,184,232,.4))}
+.card h3{letter-spacing:1.35px}
+.nbtn{transition:background .12s,color .12s}
+th{background:linear-gradient(180deg,#15263c,#10202f)!important;border-bottom:1px solid var(--line2)!important}
+tbody tr{transition:background .12s}
+tbody tr:last-child td{border-bottom:0}
+tr.clickable:hover td{background:linear-gradient(90deg,rgba(61,141,245,.09),rgba(61,141,245,.02))!important}
+select,input[type=number],input[type=text]{transition:border-color .15s,box-shadow .15s}
+select:hover,input[type=number]:hover,input[type=text]:hover{border-color:#3a5a80}
+input[type=checkbox]{accent-color:var(--acc);width:14px;height:14px;cursor:pointer;vertical-align:-2px}
+.seg button{transition:background .15s,color .15s}
+.seg button:not(.on):hover{background:rgba(61,141,245,.12);color:#fff}
+.tag{border-radius:3px}
+.toast{backdrop-filter:blur(6px);background:rgba(14,24,34,.94)}
+.m{border-radius:4px}
+.m.me{border-radius:4px 4px 0 4px}
+.sec.on{animation:secIn .22s cubic-bezier(.2,.8,.25,1)}
+@keyframes secIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.sec.on{animation:none}}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid rgba(61,141,245,.7);outline-offset:1px}
+.fp{border-radius:4px}
+.bdg{box-shadow:0 0 8px rgba(255,98,98,.35)}
+.bdg.w{box-shadow:0 0 8px rgba(242,166,60,.35)}
+.mimicPanel{background:radial-gradient(900px 240px at 55% -10%,rgba(47,129,247,.07),transparent 70%),#070d12}
+#mimic path.flow[stroke="#2f81f7"],#scheme path.flow[stroke="#2f81f7"],#mimic path.flow[stroke="#3d8df5"],#scheme path.flow[stroke="#3d8df5"]{filter:drop-shadow(0 0 2.5px rgba(47,129,247,.45))}
+#mimic path.flow[stroke="#3fd687"],#scheme path.flow[stroke="#3fd687"]{filter:drop-shadow(0 0 2.5px rgba(63,214,135,.5))}
+#mimic path.flow[stroke="#f85149"],#scheme path.flow[stroke="#f85149"],#mimic path.flow[stroke="#ff6262"],#scheme path.flow[stroke="#ff6262"]{filter:drop-shadow(0 0 2.5px rgba(255,98,98,.55))}
+#mimic path.flow[stroke="#f2a63c"],#scheme path.flow[stroke="#f2a63c"]{filter:drop-shadow(0 0 2.5px rgba(242,166,60,.5))}
+#mimic path.flow[stroke="#2fd6a0"],#scheme path.flow[stroke="#2fd6a0"]{filter:drop-shadow(0 0 2.5px rgba(47,214,160,.5))}
 </style>
 </head>
 <body>
@@ -1904,7 +1941,7 @@ areaFill(x,p,400,"rgba(47,129,247,.22)","rgba(47,129,247,0)");areaFill(x,so,400,
 glowPlot(x,p,"#2f81f7",400);glowPlot(x,so,"#3fd687",400);
 x.strokeStyle="#f85149";x.setLineDash([6,4]);x.beginPath();var y=12+(1-320/400)*(s.H-44);x.moveTo(34,y);x.lineTo(s.W-6,y);x.stroke();x.setLineDash([]);
 endDot(x,p,400,"#2f81f7");endDot(x,so,400,"#3fd687");}
-function drawSolMini(){var c=$("chSol");if(!c||!c.offsetParent)return;var s=setupCv("chSol");grid(s.x,s.W,s.H,150,"kVt");s.x._W=s.W;s.x._H=s.H;plot(s.x,S.solHist,"#3fd687",150);
+function drawSolMini(){var c=$("chSol");if(!c||!c.offsetParent)return;var s=setupCv("chSol");grid(s.x,s.W,s.H,150,"kVt");s.x._W=s.W;s.x._H=s.H;areaFill(s.x,S.solHist,150,"rgba(63,214,135,.16)","rgba(63,214,135,0)");glowPlot(s.x,S.solHist,"#3fd687",150);endDot(s.x,S.solHist,150,"#3fd687");
  $("solKw").textContent=fmt(S.solar)+" kVt";$("solBat").textContent=Math.round(S.bat)+"%";$("solBar").style.width=S.bat+"%";$("solDay").textContent=fmt(S.solarDay)+" kVt·soat";}
 function drawGasCh(){var c=$("gasCh");if(!c||!c.offsetParent)return;var hist=S.gasHist||[];var s=setupCv("gasCh");var x=s.x;x._W=s.W;x._H=s.H;
  var mxh=hist.length?Math.max.apply(null,hist):0;var max=Math.max(1100,mxh*1.15);
@@ -1912,7 +1949,7 @@ function drawGasCh(){var c=$("gasCh");if(!c||!c.offsetParent)return;var hist=S.g
  var y880=12+(1-880/max)*(s.H-44);
  x.strokeStyle="#ff6262";x.lineWidth=2.5;x.beginPath();x.moveTo(34,y880);x.lineTo(s.W-6,y880);x.stroke();
  x.fillStyle="#ff6262";x.font="bold 10px Consolas,monospace";x.fillText(I18N.t("Chegara: 880 ppm"),Math.max(36,s.W-138),y880-5);
- plot(x,hist,"#3fd687",max,1.8);
+ areaFill(x,hist,max,"rgba(63,214,135,.15)","rgba(63,214,135,0)");glowPlot(x,hist,"#3fd687",max);endDot(x,hist,max,"#3fd687");
  var now=hist.length?hist[hist.length-1]:0;
  var el2=$("gasChNow");if(el2)el2.textContent=I18N.t("Hozirgi qiymat")+": "+fmt0(now)+" ppm"+(now>880?" (!)":"");}
 function buildHistPills(){var box=$("histPills");if(!box||box.childNodes.length)return;var pens=[["P","Jami yuk","#2f81f7"],["S","Quyosh","#3fd687"],["U","Kuchlanish","#d29922"],["I","Tok","#f85149"]];
@@ -1920,7 +1957,7 @@ pens.forEach(function(p){var b=el("button","pill on",p[1]);b.style.borderColor=p
 function drawHist(){buildHistPills();var c=$("chHist");if(!c||!c.offsetParent)return;var s=setupCv("chHist");var x=s.x;x._W=s.W;x._H=s.H;grid(x,s.W,s.H,400,"qiymat");
 var pens=[["P","#2f81f7",400],["S","#3fd687",400],["U","#d29922",400],["I","#f85149",2000]];
 var mins=[],maxs=[];
-pens.forEach(function(p){if(!S.histPens[p[0]])return;var arr=S.hist.map(function(h){return h[p[0]];});if(arr.length){mins.push(Math.min.apply(null,arr));maxs.push(Math.max.apply(null,arr));}plot(x,arr,p[1],p[2],1.6);});
+pens.forEach(function(p){if(!S.histPens[p[0]])return;var arr=S.hist.map(function(h){return h[p[0]];});if(arr.length){mins.push(Math.min.apply(null,arr));maxs.push(Math.max.apply(null,arr));}glowPlot(x,arr,p[1],p[2]);});
 $("histN").textContent=S.hist.length;
 $("histMM").textContent=mins.length?(fmt(Math.min.apply(null,mins),0)+" / "+fmt(Math.max.apply(null,maxs),0)):"—";}
 function calcProfit(){var pk=+($("pk").value||150),sell=+($("sell").value||40);$("pkV").textContent=pk;$("sellV").textContent=sell;
